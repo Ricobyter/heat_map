@@ -1,10 +1,11 @@
-function App() {
-  
+import Home from "./pages/Home"
+import "./App.css"
 
+function App() {
   return (
-    <>
-      <p className='text-red-600'>Hello</p>
-    </>
+    <div className="App">
+      <Home />
+    </div>
   )
 }
 
