@@ -4,7 +4,7 @@ import Dashboard from "../components/Dashboard"
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-blue-900">
+    <div className="min-h-screen bg-white">
       <Header />
 
       {/* Red Alert Banner */}
