@@ -1,72 +1,72 @@
+import { MapContainer, TileLayer, useMap } from "react-leaflet"
+import "leaflet/dist/leaflet.css"
+import "leaflet.heat"
+import { useEffect } from "react"
+
+// Example heatmap data: [lat, lng, intensity]
+const heatmapPoints = [
+  [25.5941, 85.1376, 0.9], // Patna
+  [25.6022, 85.1194, 0.8], // Phulwari Sharif
+  [25.6394, 85.0470, 0.7], // Danapur
+  [25.4697, 85.0122, 0.6], // Arrah
+  [26.1226, 85.3906, 0.5], // Muzaffarpur
+  [25.4186, 86.1336, 0.5], // Begusarai
+  [25.2132, 84.9869, 0.4], // Jehanabad
+]
+
+function HeatmapLayer({ points }) {
+  const map = useMap()
+  useEffect(() => {
+    // Dynamically import leaflet.heat
+    import("leaflet.heat").then(() => {
+      const heatLayer = window.L.heatLayer(points, {
+        radius: 30,
+        blur: 25,
+        maxZoom: 12,
+        gradient: {
+          0.4: "#fde047",   // Low Heat (yellow-500)
+          0.7: "#f59e42",   // Moderate Heat (orange-600)
+          1.0: "#dc2626"    // High Heat (red-600)
+        }
+      }).addTo(map)
+      return () => {
+        map.removeLayer(heatLayer)
+      }
+    })
+  }, [map, points])
+  return null
+}
+
 const HeatMap = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow border h-full">
-      {/* Map Container */}
-      <div className="relative h-96 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
-        {/* Geographic boundaries and regions */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 300">
-          {/* High vulnerability regions (Red) */}
-          <path d="M120 60 L280 50 L320 100 L300 140 L200 150 L150 120 Z" fill="#DC2626" opacity="0.9" />
-          <path d="M80 180 L180 170 L200 200 L160 220 L100 210 Z" fill="#DC2626" opacity="0.9" />
-
-          {/* Moderate vulnerability regions (Orange) */}
-          <path d="M50 80 L120 70 L140 110 L100 130 L60 120 Z" fill="#EA580C" opacity="0.8" />
-          <path d="M250 160 L340 150 L360 190 L320 210 L270 200 Z" fill="#EA580C" opacity="0.8" />
-          <path d="M180 220 L260 210 L280 240 L240 260 L200 250 Z" fill="#EA580C" opacity="0.8" />
-
-          {/* Low vulnerability regions (Yellow) */}
-          <path d="M300 200 L360 195 L370 230 L340 245 L310 240 Z" fill="#EAB308" opacity="0.7" />
-          <path d="M50 220 L100 215 L120 245 L80 260 L55 250 Z" fill="#EAB308" opacity="0.7" />
-
-          {/* State boundaries */}
-          <path
-            d="M40 40 L360 40 L360 260 L40 260 Z"
-            fill="none"
-            stroke="#6B7280"
-            strokeWidth="2"
-            strokeDasharray="5,5"
+    <div className="bg-#F9F6EE p-6 rounded-lg shadow border h-full">
+      <div className="relative h-96 rounded-lg overflow-hidden border border-gray-200">
+        <MapContainer
+          center={[25.5941, 85.1376]} // Centered on Patna, Bihar
+          zoom={8}
+          style={{ height: "100%", width: "100%" }}
+          scrollWheelZoom={true}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
-          {/* Rivers */}
-          <path d="M0 180 Q100 170 200 180 T400 175" fill="none" stroke="#3B82F6" strokeWidth="4" opacity="0.6" />
-        </svg>
-
-        {/* Location markers and labels */}
-        <div className="absolute top-20 left-32">
-          <div className="w-2 h-2 bg-black rounded-full"></div>
-          <div className="text-xs font-semibold mt-1 whitespace-nowrap">Phulwari Sharif</div>
-        </div>
-
-        <div className="absolute top-16 right-24">
-          <div className="w-2 h-2 bg-black rounded-full"></div>
-          <div className="text-xs font-semibold mt-1">Patna</div>
-        </div>
-
-        <div className="absolute bottom-20 left-20">
-          <div className="w-2 h-2 bg-black rounded-full"></div>
-          <div className="text-xs font-semibold mt-1">Danapur</div>
-        </div>
-
-        {/* Additional place names scattered across the map */}
-        <div className="absolute top-12 left-16 text-xs text-gray-600">Muzaffarpur</div>
-        <div className="absolute top-24 right-16 text-xs text-gray-600">Begusarai</div>
-        <div className="absolute bottom-16 right-20 text-xs text-gray-600">Jehanabad</div>
-        <div className="absolute bottom-12 left-32 text-xs text-gray-600">Arrah</div>
+          <HeatmapLayer points={heatmapPoints} />
+        </MapContainer>
       </div>
-
       {/* Legend */}
       <div className="flex justify-center items-center space-x-8 mt-4 text-sm">
         <div className="flex items-center space-x-2">
           <div className="w-4 h-4 bg-red-600 rounded"></div>
-          <span className="font-medium">High Vulnerability</span>
+          <span className="font-medium">High Heat</span>
         </div>
         <div className="flex items-center space-x-2">
           <div className="w-4 h-4 bg-orange-600 rounded"></div>
-          <span className="font-medium">Moderate Vulnerability</span>
+          <span className="font-medium">Moderate Heat</span>
         </div>
         <div className="flex items-center space-x-2">
           <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-          <span className="font-medium">Low Vulnerability</span>
+          <span className="font-medium">Low Heat</span>
         </div>
       </div>
     </div>
