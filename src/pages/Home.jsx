@@ -1,6 +1,6 @@
-import Header from "../components/Header"
-import Sidebar from "../components/Sidebar"
-import Dashboard from "../components/Dashboard"
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import Dashboard from "../components/Dashboard";
 
 const Home = () => {
   return (
@@ -32,13 +32,16 @@ const Home = () => {
             </a>
           </div>
           <div className="text-right">
-            <div>© 2025 Bihar Government | Developed by BOSMA in collaboration with UNDP</div>
-            <div className="mt-1">Email | Helpline: 1070</div>
+            <div>
+              © 2025 IPE Global | Developed for BSDM by IPE Global in
+              collaboration with UNDP
+            </div>
+            <a href="mailto:ipe@ipeglobal.com">Email</a>| Helpline : 0000
           </div>
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
