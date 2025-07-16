@@ -151,7 +151,7 @@ const Dashboard = () => {
 
       const options = [
     "Financial",
-    "Technological",
+    "Technology",
     "Capacity Building",
     "System"
   ];
@@ -197,14 +197,14 @@ const Dashboard = () => {
               </div>
             </div>
 
- <div className="p-5 mt-5 border border-gray-700 rounded shadow-md  bg-white w-124">
+ <div className="p-5 mt-5 border border-gray-700 rounded shadow-md  bg-white w-102">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">Recommendations</h2>
       <div className="grid grid-cols-4 gap-3">
         {options.map((option) => (
           <button
             key={option}
             onClick={() => setActiveOption(option)}
-            className={`px-4 py-2 border rounded text-sm font-medium text-center
+            className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
               ${activeOption === option 
                 ? 'bg-blue-600 text-white border-blue-600' 
                 : 'bg-white text-gray-800 border-gray-400 hover:bg-gray-100'}`}
