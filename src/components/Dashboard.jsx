@@ -197,7 +197,7 @@ const Dashboard = () => {
               </div>
             </div>
 
- <div className="p-5 mt-5 border border-gray-700 rounded shadow-md  bg-white w-138">
+ <div className="p-5 mt-5 border border-gray-700 rounded shadow-md  bg-white w-124">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">Recommendations</h2>
       <div className="grid grid-cols-4 gap-3">
         {options.map((option) => (
