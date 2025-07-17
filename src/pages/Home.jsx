@@ -33,7 +33,7 @@ const Home = () => {
           </div>
           <div className="text-right">
             <div>
-              © 2025 IPE Global | Developed for BSDM by IPE Global in
+              © 2025 IPE Global | Developed for BSDMA by IPE Global in
               collaboration with UNDP
             </div>
             <a href="mailto:ipe@ipeglobal.com">Email</a>| Helpline : 0000
