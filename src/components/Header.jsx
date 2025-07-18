@@ -19,18 +19,15 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-[#25434e] text-white px-6 py-4">
-      <div className="flex items-center justify-between">
+    <header className="bg-[#25434e] text-white px-6 h-20 flex items-center">
+      <div className="flex items-center justify-between w-full">
         {/* Logo */}
         <div className="flex items-center">
-          <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mr-4 shadow-lg">
-            <div className="w-12 h-12 rounded-full overflow-hidden">
-              <div className="w-full h-full bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center relative">
-                <div className="absolute inset-1 border-2 border-white rounded-full"></div>
-                <div className="text-white text-xs font-bold z-10">BIHAR</div>
-              </div>
-            </div>
-          </div>
+          <img
+            src="/logo.png" // Path to the logo in the public folder
+            alt="Logo"
+            className="w-34 h-34 object-contain mr-4" // Increased size of the logo
+          />
         </div>
 
         {/* Title */}
