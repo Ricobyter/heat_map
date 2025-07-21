@@ -1,23 +1,27 @@
-"use client";
-
 import { useState } from "react";
 
-const Sidebar = () => {
-  const [selectedYear, setSelectedYear] = useState("2030");
-  const [vulnerableGroups, setVulnerableGroups] = useState({
+const Sidebar = ({
+  mapType,
+  setMap,
+  selectedYear,
+  setSelectedYear,
+  vulnerableGroups,
+  setVulnerableGroups
+}) => {
+  // Local state if not received from parent — can be omitted if lifted entirely to Home
+  const internalVulnerableGroups = useState({
     elderly: false,
     children: false,
     pregnantWomen: false,
     outdoorWorkers: false,
     slumDwellers: false,
   });
+  const internalSelectedYear = useState("2030");
 
-  const [heatRiskScenario, setHeatRiskScenario] = useState({
-    exposure: false,
-    vulnerability: false,
-    sustainibility: false,
-    adaptive: false,
-  });
+  const groups = vulnerableGroups ?? internalVulnerableGroups[0];
+  const setGroups = setVulnerableGroups ?? internalVulnerableGroups[1];
+  const year = selectedYear ?? internalSelectedYear[0];
+  const setYear = setSelectedYear ?? internalSelectedYear[1];
 
   const years = [
     ["2025", "2030", "2035", "2040"],
@@ -25,49 +29,21 @@ const Sidebar = () => {
   ];
 
   const subdistricts = [
-    "Athamalgola",
-    "Bakhtiarpur",
-    "Barh",
-    "Belchi",
-    "Bihta",
-    "Bikram",
-    "Daniyawan",
-    "Danapur",
-    "Dhanarua",
-    "Dulhin Bazar",
-    "Fatuha",
-    "Ghoswari",
-    "Khusrupur",
-    "Maner",
-    "Masaurhi",
-    "Mokama",
-    "Naubatpur",
-    "Paliganj",
-    "Pandarak",
-    "Patna Sadar",
-    "Phulwarisharif",
-    "Punpun",
-    "Sampatchak",
+    "Athamalgola", "Bakhtiarpur", "Barh", "Belchi", "Bihta", "Bikram",
+    "Daniyawan", "Danapur", "Dhanarua", "Dulhin Bazar", "Fatuha", "Ghoswari",
+    "Khusrupur", "Maner", "Masaurhi", "Mokama", "Naubatpur", "Paliganj",
+    "Pandarak", "Patna Sadar", "Phulwarisharif", "Punpun", "Sampatchak",
   ];
 
   const handleVulnerableGroupChange = (group) => {
-    setVulnerableGroups((prev) => ({
-      ...prev,
-      [group]: !prev[group],
-    }));
-  };
-  const handleHeatRiskScenarioChange = (group) => {
-    setHeatRiskScenario((prev) => ({
+    setGroups((prev) => ({
       ...prev,
       [group]: !prev[group],
     }));
   };
 
   return (
-    <div
-      className="w-72 min-h-screen border-r border-gray-200"
-      style={{ backgroundColor: "#FFFF" }}
-    >
+    <div className="w-72 min-h-screen border-r border-gray-200" style={{ backgroundColor: "#FFFF" }}>
       <div className="p-6">
         {/* Time Period */}
         <div className="mb-6">
@@ -106,13 +82,10 @@ const Sidebar = () => {
               { key: "outdoorWorkers", label: "Outdoor Workers" },
               { key: "slumDwellers", label: "Slum Dwellers" },
             ].map(({ key, label }) => (
-              <label
-                key={key}
-                className="flex items-center text-sm cursor-pointer text-gray-700"
-              >
+              <label key={key} className="flex items-center text-sm cursor-pointer text-gray-700">
                 <input
                   type="checkbox"
-                  checked={vulnerableGroups[key]}
+                  checked={groups[key]}
                   onChange={() => handleVulnerableGroupChange(key)}
                   className="mr-3 w-4 h-4"
                 />
@@ -122,26 +95,24 @@ const Sidebar = () => {
           </div>
         </div>
 
-        {/* Heat Risk Scenario  */}
+        {/* Heat Risk Scenario */}
         <div className="mb-8">
           <label className="block text-sm font-semibold text-gray-800 mb-3">
             Heat Risk Scenario
           </label>
           <div className="space-y-3">
             {[
-              { key: "exposure", label: "Exposure Index" },
-              { key: "vulnerability", label: "Vulnerability Index" },
-              { key: "sustainibility", label: "Sustainability Sensitivity Index" },
-              { key: "adaptive", label: "Adaptive Capacity Index" },
+              { key: "exposure_index", label: "Exposure Index" },
+              { key: "vulnerability_index", label: "Vulnerability Index" },
+              { key: "sensitivity_index", label: "Sensitivity Index" },
+              { key: "adaptive_capacity_index", label: "Adaptive Capacity Index" },
             ].map(({ key, label }) => (
-              <label
-                key={key}
-                className="flex items-center text-sm cursor-pointer text-gray-700"
-              >
+              <label key={key} className="flex items-center text-sm cursor-pointer text-gray-700">
                 <input
-                  type="checkbox"
-                  checked={heatRiskScenario[key]}
-                  onChange={() => handleHeatRiskScenarioChange(key)}
+                  type="radio"
+                  name="heatRiskScenario"
+                  checked={(mapType ?? "exposure_index") === key}
+                  onChange={() => setMap(key)}
                   className="mr-3 w-4 h-4"
                 />
                 {label}
@@ -158,21 +129,20 @@ const Sidebar = () => {
           <select className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE] mb-4">
             <option>Select Year</option>
           </select>
-
           <div className="space-y-2">
             {years.map((row, rowIndex) => (
               <div key={rowIndex} className="grid grid-cols-4 gap-2">
-                {row.map((year) => (
+                {row.map((yearValue) => (
                   <button
-                    key={year}
-                    onClick={() => setSelectedYear(year)}
+                    key={yearValue}
+                    onClick={() => setYear(yearValue)}
                     className={`py-2 px-1 text-xs font-medium rounded ${
-                      selectedYear === year
+                      year === yearValue
                         ? "bg-green-600 text-[#F9F6EE]"
                         : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                     }`}
                   >
-                    {year}
+                    {yearValue}
                   </button>
                 ))}
               </div>

@@ -147,7 +147,7 @@ const BubbleChart = () => (
   </div>
 );
 
-const Dashboard = () => {
+const Dashboard = ({mapType}) => {
 
       const options = [
     "Financial",
@@ -161,7 +161,7 @@ const Dashboard = () => {
     <div className="flex-1 p-6 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-7">
-          <HeatMap />
+          <HeatMap mapType={mapType}/>
         </div>
 
         <div className="col-span-5 space-y-4">

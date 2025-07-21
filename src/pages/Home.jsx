@@ -1,8 +1,10 @@
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Dashboard from "../components/Dashboard";
+import { useState } from "react";
 
 const Home = () => {
+  const [mapType, setMap] = useState("exposure_index"); 
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -13,8 +15,8 @@ const Home = () => {
       </div>
 
       <div className="flex">
-        <Sidebar />
-        <Dashboard />
+        <Sidebar mapType={mapType} setMap={setMap}/>
+        <Dashboard mapType={mapType}/>
       </div>
 
       {/* Footer */}
