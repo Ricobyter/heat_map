@@ -1,12 +1,20 @@
 import { MapContainer, TileLayer } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 
-const HeatMap = () => {
+const HeatMap = ({mapType}) => {
+    const mapSrcs = {
+    exposure_index: "/exposure_index.html",
+    vulnerability_index: "/vulnerability_index.html",
+    sensitivity_index: "/sensitivity_index.html",
+    adaptive_capacity_index: "/adaptive_capacity_index.html",
+  };
+
+  const src = mapSrcs[mapType] || "/exposure_index.html";
   return (
     <div className="bg-#F9F6EE p-6 rounded-lg shadow border h-full">
       <div className="relative h-96 rounded-lg overflow-hidden border border-gray-200">
         <iframe
-          src="/patna_map.html"
+          src={src}
           title="Interactive Heat Map"
           style={{ width: "100%", height: "100%", border: "none" }}
         ></iframe>
