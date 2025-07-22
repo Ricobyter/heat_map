@@ -41,7 +41,7 @@ const HeatMap = ({ mapType }) => {
       {/* Legend */}
       
       <div className="flex justify-around items-center text-sm">
-        <div className="pr-4 border-r-2 border-gray-900">
+        <div className="px-4 border-r-2 border-gray-900">
           <div className="text-sm text-black">
             <div className="font-semibold ">
               Population Density (2025)
@@ -76,15 +76,15 @@ const HeatMap = ({ mapType }) => {
         <div className="flex flex-row text-xs space-x-2 ">
           <div className="flex flex-col items-center space-y-1 ">
             <span className="font-medium">High</span>
-            <div className="w-20 h-6 bg-[#ed0900] rounded-sm"></div>
+            <div className="w-16 h-6 bg-[#ed0900] rounded-sm"></div>
           </div>
           <div className="flex flex-col items-center space-y-1">
             <span className="font-medium">Medium</span>
-            <div className="w-20 h-6 bg-[#f5a319] rounded"></div>
+            <div className="w-16 h-6 bg-[#f5a319] rounded"></div>
           </div>
           <div className="flex flex-col items-center space-y-1">
             <span className="font-medium">Low Heat</span>
-            <div className="w-20 h-6 bg-[#ecc1aa] rounded"></div>
+            <div className="w-16 h-6 bg-[#ecc1aa] rounded"></div>
           </div>
         </div>
 
