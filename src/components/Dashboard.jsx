@@ -18,7 +18,7 @@ import {
   Scatter,
   ZAxis,
 } from "recharts";
-
+import charts from "../assets/chart.png";
 
 const barData = [
   { name: "Patna Sadar", value: 78 },
@@ -46,33 +46,31 @@ const bubbleData = [
   { x: 140, y: 250, z: 150, name: "Reflective Roofing" },
 ];
 
-  const subdistricts = [
-    "Athamalgola",
-    "Bakhtiarpur",
-    "Barh",
-    "Belchi",
-    "Bihta",
-    "Bikram",
-    "Daniyawan",
-    "Danapur",
-    "Dhanarua",
-    "Dulhin Bazar",
-    "Fatuha",
-    "Ghoswari",
-    "Khusrupur",
-    "Maner",
-    "Masaurhi",
-    "Mokama",
-    "Naubatpur",
-    "Paliganj",
-    "Pandarak",
-    "Patna Sadar",
-    "Phulwarisharif",
-    "Punpun",
-    "Sampatchak",
-  ];
-
-
+const subdistricts = [
+  "Athamalgola",
+  "Bakhtiarpur",
+  "Barh",
+  "Belchi",
+  "Bihta",
+  "Bikram",
+  "Daniyawan",
+  "Danapur",
+  "Dhanarua",
+  "Dulhin Bazar",
+  "Fatuha",
+  "Ghoswari",
+  "Khusrupur",
+  "Maner",
+  "Masaurhi",
+  "Mokama",
+  "Naubatpur",
+  "Paliganj",
+  "Pandarak",
+  "Patna Sadar",
+  "Phulwarisharif",
+  "Punpun",
+  "Sampatchak",
+];
 
 const BarChart = () => (
   <ResponsiveContainer width="100%" height="100%">
@@ -147,32 +145,27 @@ const BubbleChart = () => (
   </div>
 );
 
-const Dashboard = ({mapType}) => {
-
-      const options = [
-    "Financial",
-    "Technology",
-    "Capacity Building",
-    "System"
-  ];
+const Dashboard = ({ mapType }) => {
+  const options = ["Financial", "Technology", "Capacity Building", "System"];
+  const [mapName, setMapName] = useState(mapType);
 
   const [activeOption, setActiveOption] = useState(null);
   return (
     <div className="flex-1 p-6 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-7">
-          <HeatMap mapType={mapType}/>
+          <HeatMap mapType={mapType} />
         </div>
 
         <div className="col-span-5 space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-#F9F6EE p-6 rounded-lg shadow border text-center">
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">68</div>
               <div className="text-sm text-gray-600 font-medium">
                 Heatwave Days
               </div>
             </div>
-            <div className="bg-#F9F6EE p-6 rounded-lg shadow border text-center">
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
               <div className="text-4xl font-bold text-red-600 mb-2">7</div>
               <div className="text-sm text-gray-600 font-medium">
                 Heat-Related
@@ -182,7 +175,7 @@ const Dashboard = ({mapType}) => {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-#F9F6EE p-6 rounded-lg shadow border text-center">
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
               <div className="text-4xl font-bold text-orange-600 mb-2">93%</div>
               <div className="text-sm text-gray-600 font-medium">
                 Households Lacking
@@ -190,35 +183,41 @@ const Dashboard = ({mapType}) => {
                 Air Conditioning
               </div>
             </div>
-            <div className="bg-#F9F6EE p-6 rounded-lg shadow border text-center">
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
               <div className="text-4xl font-bold text-green-600 mb-2">1</div>
               <div className="text-sm text-gray-600 font-medium">
                 Cooling Centres
               </div>
             </div>
-
- <div className="p-5 mt-5 border border-gray-700 rounded shadow-md  bg-white w-102">
-      <h2 className="text-lg font-semibold mb-4 text-gray-800">Recommendations</h2>
-      <div className="grid grid-cols-4 gap-3">
-        {options.map((option) => (
-          <button
-            key={option}
-            onClick={() => setActiveOption(option)}
-            className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
-              ${activeOption === option 
-                ? 'bg-blue-600 text-white border-blue-600' 
-                : 'bg-white text-gray-800 border-gray-400 hover:bg-gray-100'}`}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-    </div>
+          </div>
+          
+{mapType === "adaptive_capacity_index" && (
+  <div>
+    <img src={charts} alt="Chart" className="h-31 w-full" />
+  </div>
+)}
+          <div className="px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white w-full">
+            <h2 className="text-lg font-semibold mb-3 text-gray-800">
+              Recommendations
+            </h2>
+            <div className="grid grid-cols-4 gap-3">
+              {options.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setActiveOption(option)}
+                  className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
+              ${
+                activeOption === option
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-white text-gray-800 border-gray-400 hover:bg-gray-100"
+              }`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-
-
-
 
         <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
@@ -253,8 +252,7 @@ const Dashboard = ({mapType}) => {
             ))}
           </select>
           <div>
-
-          <GaugeChart />
+            <GaugeChart />
           </div>
         </div>
 

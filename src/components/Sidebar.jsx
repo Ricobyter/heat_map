@@ -98,20 +98,20 @@ const Sidebar = ({
         {/* Heat Risk Scenario */}
         <div className="mb-8">
           <label className="block text-sm font-semibold text-gray-800 mb-3">
-            Heat Risk Scenario
+            Heat Risk Indices
           </label>
           <div className="space-y-3">
             {[
               { key: "exposure_index", label: "Exposure Index" },
-              { key: "vulnerability_index", label: "Vulnerability Index" },
               { key: "sensitivity_index", label: "Sensitivity Index" },
               { key: "adaptive_capacity_index", label: "Adaptive Capacity Index" },
+              { key: "vulnerability_index", label: "Vulnerability Index" },
             ].map(({ key, label }) => (
               <label key={key} className="flex items-center text-sm cursor-pointer text-gray-700">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="heatRiskScenario"
-                  checked={(mapType ?? "exposure_index") === key}
+                  checked={(mapType ?? "vulnerability_index") === key}
                   onChange={() => setMap(key)}
                   className="mr-3 w-4 h-4"
                 />
@@ -124,7 +124,7 @@ const Sidebar = ({
         {/* SSP Scenario */}
         <div className="mb-8">
           <label className="block text-sm font-semibold text-gray-800 mb-3">
-            SSP Scenario
+            Heat Risk Scenario
           </label>
           <select className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE] mb-4">
             <option>Select Year</option>
