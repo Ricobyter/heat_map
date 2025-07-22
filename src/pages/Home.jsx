@@ -4,7 +4,7 @@ import Dashboard from "../components/Dashboard";
 import { useState } from "react";
 
 const Home = () => {
-  const [mapType, setMap] = useState("exposure_index"); 
+  const [mapType, setMap] = useState("vulnerability_index"); 
   return (
     <div className="min-h-screen bg-white">
       <Header />

@@ -24,9 +24,9 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img
-            src="/logo.png" // Path to the logo in the public folder
+            src="/logo1.png" // Path to the logo in the public folder
             alt="Logo"
-            className="w-34 h-34 object-contain mr-4" // Increased size of the logo
+            className="w-34 h-36 object-contain mr-4" // Increased size of the logo
           />
         </div>
 
