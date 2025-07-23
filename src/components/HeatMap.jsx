@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import compass from '../assets/compass2.png'
+import compass from "../assets/compass2.png";
 
 const HeatMap = ({ mapType }) => {
   const mapSrcs = {
@@ -10,14 +10,12 @@ const HeatMap = ({ mapType }) => {
     adaptive_capacity_index: "/adaptive_capacity_index.html",
   };
 
-    const mapName = {
+  const mapName = {
     exposure_index: "Heat Exposure Map",
     vulnerability_index: "Heat Vulnerability Map",
     sensitivity_index: "Heat Sensitivity Map",
     adaptive_capacity_index: "Adaptive Capacity Map",
   };
-
-
 
   const legendItems = [
     { density: "≤ 929", size: "w-2 h-2" },
@@ -39,18 +37,16 @@ const HeatMap = ({ mapType }) => {
         ></iframe>
       </div>
       {/* Legend */}
-      
+
       <div className="flex justify-around items-center text-sm">
         <div className="px-4 border-r-2 border-gray-900">
           <div className="text-sm text-black">
             <div className="font-semibold ">
-              Population Density (2025)
-              <br />
-              per sq.km:
+              Population Density (2025) / km^2:
             </div>
-            <div className="grid grid-cols-2 gap-y-2 gap-x-6">
+            <div className="grid grid-cols-2 gap-y-0.5 gap-x-6 text-xs">
               {legendItems.map((item, index) => (
-                <div key={index} className="flex items-center space-x-2">
+                <div key={index} className="flex items-center space-x-1">
                   <span
                     className={`inline-block rounded-full bg-[#4B1E1E] ${item.size}`}
                   ></span>
@@ -61,44 +57,51 @@ const HeatMap = ({ mapType }) => {
           </div>
         </div>
 
-
-          
-        
-        <div className="flex flex-col items-center justify-center space-y-4">
-
+        <div className="flex flex-col items-center justify-center space-y-4  ">
           <div>
-            <h1 className="text-xl font-semibold ">
-              {title}
-            </h1>
+            <h1 className="text-lg font-semibold ">{title}</h1>
           </div>
 
-        
-        <div className="flex flex-row text-xs space-x-2 ">
-          <div className="flex flex-col items-center space-y-1 ">
-            <span className="font-medium">High</span>
-            <div className="w-16 h-6 bg-[#ed0900] rounded-sm"></div>
-          </div>
-          <div className="flex flex-col items-center space-y-1">
-            <span className="font-medium">Medium</span>
-            <div className="w-16 h-6 bg-[#f5a319] rounded"></div>
-          </div>
-          <div className="flex flex-col items-center space-y-1">
-            <span className="font-medium">Low Heat</span>
-            <div className="w-16 h-6 bg-[#ecc1aa] rounded"></div>
+          <div className="flex flex-row text-xs space-x-2 px-2 ">
+            <div className="flex flex-col items-center space-y-1 ">
+              <span className="font-medium">High</span>
+              <div
+                className={`w-14 h-6 rounded-sm ${
+                  mapType === "adaptive_capacity_index"
+                    ? "bg-[#a1d885]"
+                    : "bg-[#ed0900]"
+                }`}
+              ></div>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <span className="font-medium">Medium</span>
+              <div
+                className={`w-14 h-6 rounded ${
+                  mapType === "adaptive_capacity_index"
+                    ? "bg-[#d6f5be]"
+                    : "bg-[#f5a319]"
+                }`}
+              ></div>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <span className="font-medium">Low</span>
+              <div
+                className={`w-14 h-6 rounded shadow-sm ${
+                  mapType === "adaptive_capacity_index"
+                    ? "bg-[#b7c6b0]"
+                    : mapType === "vulnerability_index"
+                    ? "bg-[#f2f3d0]"
+                    : "bg-[#ecc1aa]"
+                }`}
+              ></div>
+            </div>
           </div>
         </div>
-
-        </div>
-
-
 
         <div className="flex items-center justify-center ">
           <div className="pl-2  border-l-2 border-gray-900">
-
-          
-          <img src={compass} alt="" className="h-32"/>
+            <img src={compass} alt="" className="h-28" />
           </div>
-
         </div>
       </div>
     </div>
