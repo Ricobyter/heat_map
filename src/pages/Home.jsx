@@ -38,7 +38,7 @@ const Home = () => {
               © 2025 IPE Global | Developed for BSDMA by IPE Global in
               collaboration with UNDP
             </div>
-            <a href="mailto:ipe@ipeglobal.com">Email</a>| Helpline : 0000
+            <a href="mailto:info@bsdma.org">Email</a>| Helpline : 0612-2547232
           </div>
         </div>
       </footer>

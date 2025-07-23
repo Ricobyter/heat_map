@@ -196,6 +196,8 @@ const Dashboard = ({ mapType }) => {
     <img src={charts} alt="Chart" className="h-31 w-full" />
   </div>
 )}
+          
+          {mapType !== "adaptive_capacity_index" && (
           <div className="px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white w-full">
             <h2 className="text-lg font-semibold mb-3 text-gray-800">
               Recommendations
@@ -217,6 +219,9 @@ const Dashboard = ({ mapType }) => {
               ))}
             </div>
           </div>
+          )}
+
+
         </div>
 
         <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
