@@ -35,6 +35,26 @@ const Sidebar = ({
     "Pandarak", "Patna Sadar", "Phulwarisharif", "Punpun", "Sampatchak",
   ];
 
+  const layers = [
+  "None",
+  "Point of Interest",
+  "Settlements and Buildings",
+  "Health Facilities",
+  "Water and Sewer Infrastructure",
+  "Roads",
+  "Facilities",
+  "Residential Densities",
+  "Solid Waste",
+  "BMA Buildup Area",
+  "BMA Soil Type",
+  "BMA Agriculture",
+  "Utilities and Infrastructure",
+  "Transportation",
+  "Planning",
+  "Nature",
+  "Waste Management"
+];
+
   const handleVulnerableGroupChange = (group) => {
     setGroups((prev) => ({
       ...prev,
@@ -42,9 +62,12 @@ const Sidebar = ({
     }));
   };
 
+  const [selectedLayer, setSelectedLayer] = useState("None");
+
+
   return (
-    <div className="w-72 min-h-screen border-r border-gray-200" style={{ backgroundColor: "#FFFF" }}>
-      <div className="p-6">
+    <div className="w-[20vw] min-h-screen border-r border-gray-200" style={{ backgroundColor: "#FFFF" }}>
+      <div className="p-4">
         {/* Time Period */}
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-800 mb-3">
@@ -68,6 +91,24 @@ const Sidebar = ({
             ))}
           </select>
         </div>
+
+        {/* Layers Dropdown */}
+<div className="mb-6">
+  <label className="block text-sm font-semibold text-gray-800 mb-3">
+    Layers
+  </label>
+<select
+  className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]"
+  value={selectedLayer}
+  onChange={e => setSelectedLayer(e.target.value)}
+>
+  {layers.map((layer) => (
+    <option key={layer} value={layer}>
+      {layer}
+    </option>
+  ))}
+</select>
+</div>
 
         {/* Vulnerable Group */}
         <div className="mb-6">

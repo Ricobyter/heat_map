@@ -28,8 +28,8 @@ const HeatMap = ({ mapType }) => {
   const src = mapSrcs[mapType] || "/vulnerability_index.html";
   const title = mapName[mapType] || "Heat Vulnerability Map";
   return (
-    <div className="bg-#F9F6EE pt-6 rounded-lg shadow border h-full">
-      <div className="relative h-96 rounded-lg overflow-hidden border border-gray-200">
+    <div className="bg-#F9F6EE pt-6 rounded-lg shadow border h-full w-[50vw]">
+      <div className="relative h-96  rounded-lg overflow-hidden border border-gray-200">
         <iframe
           src={src}
           title="Interactive Heat Map"
