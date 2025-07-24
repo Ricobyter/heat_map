@@ -11,7 +11,7 @@ const Home = () => {
 
       {/* Red Alert Banner */}
       <div className="bg-red-600 text-white px-6 py-2 text-sm font-medium">
-        Red Alert: 45°C expected on 2 May 2025, Stay Hydrated!
+        Red Alert: 40°C expected on 25 July 2025, Stay Hydrated!
       </div>
 
       <div className="flex">

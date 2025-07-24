@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeatMap from "./HeatMap";
 import {
   BarChart as ReBarChart,
@@ -19,6 +19,7 @@ import {
   ZAxis,
 } from "recharts";
 import charts from "../assets/chart.png";
+import AdaptiveCapacityMatrix from "./AdaptiveCapacityMatrix";
 
 const barData = [
   { name: "Patna Sadar", value: 78 },
@@ -148,25 +149,69 @@ const BubbleChart = () => (
 const Dashboard = ({ mapType }) => {
   const options = ["Financial", "Technology", "Capacity Building", "System"];
   const [mapName, setMapName] = useState(mapType);
+  const [loading, setLoading] = useState(false);
+  const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(null);
+
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
+  const fetchWeather = () => {
+    setLoading(true);
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=Patna,IN&units=metric&appid=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.main) {
+          setWeather({
+            temp: data.main.temp,
+            humidity: data.main.humidity,
+            description: data.weather[0].description,
+          });
+          setError(null);
+        } else {
+          setError("Unable to fetch weather data");
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Error connecting to weather service");
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchWeather();
+  }, []);
 
   const [activeOption, setActiveOption] = useState(null);
   return (
     <div className="flex-1 p-6 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-7">
+        <div className="col-span-8">
           <HeatMap mapType={mapType} />
         </div>
 
-        <div className="col-span-5 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="col-span-4 space-y-4">
+          <div className="grid grid-cols-2 gap-4 w-[23vw]">
             <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">68</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">
+                {loading ? (
+                  <div className="flex justify-center items-center">
+                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+                  </div>
+                ) : weather ? (
+                  weather.temp + "°C"
+                ) : (
+                  "--"
+                )}
+              </div>
               <div className="text-sm text-gray-600 font-medium">
-                Heatwave Days
+                Temperature
               </div>
             </div>
             <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-4xl font-bold text-red-600 mb-2">7</div>
+              <div className="text-3xl font-bold text-red-600 mb-2">7</div>
               <div className="text-sm text-gray-600 font-medium">
                 Heat-Related
                 <br />
@@ -174,54 +219,61 @@ const Dashboard = ({ mapType }) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 w-[23vw]">
             <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-4xl font-bold text-orange-600 mb-2">93%</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">
+                {loading ? (
+                  <div className="flex justify-center items-center">
+                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+                  </div>
+                ) : weather ? (
+                  weather.humidity + "%"
+                ) : (
+                  "--"
+                )}
+              </div>
               <div className="text-sm text-gray-600 font-medium">
-                Households Lacking
-                <br />
-                Air Conditioning
+                Relative Humidity
               </div>
             </div>
             <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">1</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">1</div>
               <div className="text-sm text-gray-600 font-medium">
                 Cooling Centres
               </div>
             </div>
           </div>
-          
-{mapType === "adaptive_capacity_index" && (
-  <div>
-    <img src={charts} alt="Chart" className="h-31 w-full" />
-  </div>
-)}
-          
+
+          {mapType === "adaptive_capacity_index" && (
+            <div>
+              {/* <img src={charts} alt="Chart" className="h-31 w-full" /> */}
+              <AdaptiveCapacityMatrix />
+            </div>
+          )}
+
           {mapType !== "adaptive_capacity_index" && (
-          <div className="px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white w-full">
-            <h2 className="text-lg font-semibold mb-3 text-gray-800">
-              Recommendations
-            </h2>
-            <div className="grid grid-cols-4 gap-3">
-              {options.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => setActiveOption(option)}
-                  className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
+            <div className="w-[23vw] px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white ">
+              <h2 className="text-md font-semibold mb-3 text-gray-800">
+                Recommendations
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                {options.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => setActiveOption(option)}
+                    className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
               ${
                 activeOption === option
                   ? "bg-blue-600 text-white border-blue-600"
                   : "bg-white text-gray-800 border-gray-400 hover:bg-gray-100"
               }`}
-                >
-                  {option}
-                </button>
-              ))}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
           )}
-
-
         </div>
 
         <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
@@ -287,7 +339,7 @@ const Dashboard = ({ mapType }) => {
                   Elderly (Orange Alert)
                 </p>
                 <p>Drink 2-3L water daily, visit cooling shelters.</p>
-                <p>BOSMA Helpline: 1070</p>
+                <p>BSDMA Helpline: 0612-2547232</p>
               </div>
             </div>
 
