@@ -6,7 +6,9 @@ const Sidebar = ({
   selectedYear,
   setSelectedYear,
   vulnerableGroups,
-  setVulnerableGroups
+  setVulnerableGroups,
+    selectedLayer,
+  setSelectedLayer
 }) => {
   // Local state if not received from parent — can be omitted if lifted entirely to Home
   const internalVulnerableGroups = useState({
@@ -29,31 +31,50 @@ const Sidebar = ({
   ];
 
   const subdistricts = [
-    "Athamalgola", "Bakhtiarpur", "Barh", "Belchi", "Bihta", "Bikram",
-    "Daniyawan", "Danapur", "Dhanarua", "Dulhin Bazar", "Fatuha", "Ghoswari",
-    "Khusrupur", "Maner", "Masaurhi", "Mokama", "Naubatpur", "Paliganj",
-    "Pandarak", "Patna Sadar", "Phulwarisharif", "Punpun", "Sampatchak",
+    "Athamalgola",
+    "Bakhtiarpur",
+    "Barh",
+    "Belchi",
+    "Bihta",
+    "Bikram",
+    "Daniyawan",
+    "Danapur",
+    "Dhanarua",
+    "Dulhin Bazar",
+    "Fatuha",
+    "Ghoswari",
+    "Khusrupur",
+    "Maner",
+    "Masaurhi",
+    "Mokama",
+    "Naubatpur",
+    "Paliganj",
+    "Pandarak",
+    "Patna Sadar",
+    "Phulwarisharif",
+    "Punpun",
+    "Sampatchak",
   ];
 
   const layers = [
-  "None",
-  "Point of Interest",
-  "Settlements and Buildings",
-  "Health Facilities",
-  "Water and Sewer Infrastructure",
-  "Roads",
-  "Facilities",
-  "Residential Densities",
-  "Solid Waste",
-  "BMA Buildup Area",
-  "BMA Soil Type",
-  "BMA Agriculture",
-  "Utilities and Infrastructure",
-  "Transportation",
-  "Planning",
-  "Nature",
-  "Waste Management"
-];
+    "None",
+    "Point of Interest",
+    "Settlements and Buildings",
+    "Health Facilities",
+    "Water and Sewer Infrastructure",
+    "Roads",
+    "Facilities",
+    "Residential Densities",
+    "Solid Waste",
+    "BMA Buildup Area",
+    "BMA Soil Type",
+    "BMA Agriculture",
+    "Utilities and Infrastructure",
+    "Transportation",
+    "Planning",
+    "Nature",
+    "Waste Management",
+  ];
 
   const handleVulnerableGroupChange = (group) => {
     setGroups((prev) => ({
@@ -62,11 +83,13 @@ const Sidebar = ({
     }));
   };
 
-  const [selectedLayer, setSelectedLayer] = useState("None");
-
+  // const [selectedLayer, setSelectedLayer] = useState("None");
 
   return (
-    <div className="w-[20vw] min-h-screen border-r border-gray-200" style={{ backgroundColor: "#FFFF" }}>
+    <div
+      className="w-[20vw] min-h-screen border-r border-gray-200"
+      style={{ backgroundColor: "#FFFF" }}
+    >
       <div className="p-4">
         {/* Time Period */}
         <div className="mb-6">
@@ -93,22 +116,20 @@ const Sidebar = ({
         </div>
 
         {/* Layers Dropdown */}
-<div className="mb-6">
-  <label className="block text-sm font-semibold text-gray-800 mb-3">
-    Layers
-  </label>
-<select
-  className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]"
-  value={selectedLayer}
-  onChange={e => setSelectedLayer(e.target.value)}
->
-  {layers.map((layer) => (
-    <option key={layer} value={layer}>
-      {layer}
-    </option>
-  ))}
-</select>
-</div>
+        <div className="mb-6">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
+            Layers
+          </label>
+    <select
+      className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]"
+      value={selectedLayer}
+      onChange={(e) => setSelectedLayer(e.target.value)}
+    >
+      {layers.map((layer) => (
+        <option key={layer} value={layer}>{layer}</option>
+      ))}
+    </select>
+        </div>
 
         {/* Vulnerable Group */}
         <div className="mb-6">
@@ -123,7 +144,10 @@ const Sidebar = ({
               { key: "outdoorWorkers", label: "Outdoor Workers" },
               { key: "slumDwellers", label: "Slum Dwellers" },
             ].map(({ key, label }) => (
-              <label key={key} className="flex items-center text-sm cursor-pointer text-gray-700">
+              <label
+                key={key}
+                className="flex items-center text-sm cursor-pointer text-gray-700"
+              >
                 <input
                   type="checkbox"
                   checked={groups[key]}
@@ -145,10 +169,16 @@ const Sidebar = ({
             {[
               { key: "exposure_index", label: "Exposure Index" },
               { key: "sensitivity_index", label: "Sensitivity Index" },
-              { key: "adaptive_capacity_index", label: "Adaptive Capacity Index" },
+              {
+                key: "adaptive_capacity_index",
+                label: "Adaptive Capacity Index",
+              },
               { key: "vulnerability_index", label: "Vulnerability Index" },
             ].map(({ key, label }) => (
-              <label key={key} className="flex items-center text-sm cursor-pointer text-gray-700">
+              <label
+                key={key}
+                className="flex items-center text-sm cursor-pointer text-gray-700"
+              >
                 <input
                   type="checkbox"
                   name="heatRiskScenario"

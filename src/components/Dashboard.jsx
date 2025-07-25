@@ -17,9 +17,11 @@ import {
   ScatterChart,
   Scatter,
   ZAxis,
+  PieChart, Pie, Cell
 } from "recharts";
 import charts from "../assets/chart.png";
 import AdaptiveCapacityMatrix from "./AdaptiveCapacityMatrix";
+import VulnerabilityDonutChart from "./VulnerabilityDonutChart";
 
 const barData = [
   { name: "Patna Sadar", value: 78 },
@@ -146,7 +148,7 @@ const BubbleChart = () => (
   </div>
 );
 
-const Dashboard = ({ mapType }) => {
+const Dashboard = ({ mapType, selectedLayer }) => {
   const options = ["Financial", "Technology", "Capacity Building", "System"];
   const [mapName, setMapName] = useState(mapType);
   const [loading, setLoading] = useState(false);
@@ -189,7 +191,7 @@ const Dashboard = ({ mapType }) => {
     <div className="flex-1 p-6 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-8">
-          <HeatMap mapType={mapType} />
+          <HeatMap mapType={mapType} selectedLayer={selectedLayer}/>
         </div>
 
         <div className="col-span-4 space-y-4">
@@ -281,8 +283,11 @@ const Dashboard = ({ mapType }) => {
             Heat Vulnerability by Area
           </h3>
           <div className="mt-4">
-            <div className="h-48 w-full mt-7 -ml-7">
-              <BarChart />
+            <div className="h-48 w-full mt-7 -ml-7 flex items-center justify-center">
+              <div>
+
+              <VulnerabilityDonutChart />
+              </div>
             </div>
           </div>
         </div>

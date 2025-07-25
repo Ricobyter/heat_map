@@ -2,7 +2,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import compass from "../assets/compass2.png";
 
-const HeatMap = ({ mapType }) => {
+const HeatMap = ({ mapType, selectedLayer }) => {
   const mapSrcs = {
     exposure_index: "/exposure_index.html",
     vulnerability_index: "/vulnerability_index.html",
@@ -25,8 +25,17 @@ const HeatMap = ({ mapType }) => {
     { density: "≤ 16327", size: "w-4 h-4" },
   ];
 
-  const src = mapSrcs[mapType] || "/vulnerability_index.html";
-  const title = mapName[mapType] || "Heat Vulnerability Map";
+    // Adjust the source for the iframe:
+  let src;
+  if (selectedLayer === "Health Facilities") {
+    src = "/exposure_index_health_facilities.html";
+  } else {
+    src = mapSrcs[mapType] || "/vulnerability_index.html";
+  }
+    const title =
+    selectedLayer === "Health Facilities"
+      ? "Health Facilities Map"
+      : mapName[mapType] || "Heat Vulnerability Map";
   return (
     <div className="bg-#F9F6EE pt-6 rounded-lg shadow border h-full w-[50vw]">
       <div className="relative h-96  rounded-lg overflow-hidden border border-gray-200">
