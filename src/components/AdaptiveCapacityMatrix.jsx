@@ -22,7 +22,7 @@ const AdaptiveCapacityFunctionBlocks = () => (
   <div className="flex w-[23vw] max-w-full" style={{ minWidth: 260 }}>
     {/* Vertical section label */}
     <div className="flex flex-col justify-center items-center">
-      <div className="bg-blue-900 text-white font-bold text-center text-xs p-2 h-56" style={{writingMode: "sideways-lr",textOrientation: "mixed", fontSize: '9px', letterSpacing: '0.1em', borderRadius: '0.25rem 0 0 0.25rem'}}>
+      <div className="bg-blue-900 text-white font-bold text-center text-xs p-2 h-50" style={{writingMode: "sideways-lr",textOrientation: "mixed", fontSize: '9px', letterSpacing: '0.1em', borderRadius: '0.25rem 0 0 0.25rem'}}>
         Functional <br /> Relationship w.r.t<br />Adaptive Capacity
       </div>
     </div>

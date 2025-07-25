@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const Home = () => {
   const [mapType, setMap] = useState("vulnerability_index"); 
+  const [selectedLayer, setSelectedLayer] = useState("None");
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -15,8 +16,9 @@ const Home = () => {
       </div>
 
       <div className="flex">
-        <Sidebar mapType={mapType} setMap={setMap}/>
-        <Dashboard mapType={mapType}/>
+        <Sidebar mapType={mapType} setMap={setMap}       selectedLayer={selectedLayer}
+      setSelectedLayer={setSelectedLayer}/>
+        <Dashboard mapType={mapType} selectedLayer={selectedLayer}/>
       </div>
 
       {/* Footer */}
