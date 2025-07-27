@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { MdPublic, MdFavorite, MdTrendingUp, MdWarning } from 'react-icons/md';
+
 
 const Sidebar = ({
   mapType,
@@ -76,6 +78,13 @@ const Sidebar = ({
     "Waste Management",
   ];
 
+  const heatRiskIcons = {
+  exposure_index: <MdPublic className="w-5 h-5 text-gray-800 mr-2" />,
+  sensitivity_index: <MdFavorite className="w-5 h-5 text-gray-800 mr-2" />,
+  adaptive_capacity_index: <MdTrendingUp className="w-5 h-5 text-gray-800 mr-2" />,
+  vulnerability_index: <MdWarning className="w-5 h-5 text-gray-800 mr-2" />
+};
+
   const handleVulnerableGroupChange = (group) => {
     setGroups((prev) => ({
       ...prev,
@@ -87,7 +96,7 @@ const Sidebar = ({
 
   return (
     <div
-      className="w-[20vw] min-h-screen border-r border-gray-200"
+      className="w-[21vw] min-h-screen border-r border-gray-200"
       style={{ backgroundColor: "#FFFF" }}
     >
       <div className="p-4">
@@ -154,6 +163,7 @@ const Sidebar = ({
                   onChange={() => handleVulnerableGroupChange(key)}
                   className="mr-3 w-4 h-4"
                 />
+                
                 {label}
               </label>
             ))}
@@ -186,6 +196,7 @@ const Sidebar = ({
                   onChange={() => setMap(key)}
                   className="mr-3 w-4 h-4"
                 />
+                {heatRiskIcons[key]}
                 {label}
               </label>
             ))}

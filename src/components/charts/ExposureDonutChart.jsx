@@ -2,11 +2,15 @@ import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 // Data arrangement
 const districtData = {
-  Low: ['Masaurhi', 'Pandarak', 'Sampatchak', 'Bikram', 'Dulhin Bazar'],
-  Medium: ['Dhanarua', 'Fatwah', 'Bihta', 'Punpun'],
+  Low: ['Masaurhi', 'Pandarak', 'Ghoswari', 'Bikram'],
+  Medium: [
+    'Maner','Barh','Athmalgola','Khusrupur','Fatwah',
+    'Sampatchak','Punpun','Dulhin Bazar','Danapur'
+  ],
   High: [
-    'Naubatpur','Maner','Barh','Athmalgola','Belchhi','Khusrupur','Ghoswari','Paliganj',
-    'Bakhtiyarpur','Mokama','Patna Sadar','Daniyawan','Danapur','Phulwari Sharif'
+    'Dhanarua','Naubatpur','Belchhi','Bihta','Paliganj',
+    'Bakhtiyarpur','Mokama','Patna Sadar','Daniyawan',
+    'Phulwari Sharif'
   ]
 };
 
@@ -23,15 +27,12 @@ const percentages = {
   High: ((districtData.High.length / total) * 100).toFixed(1)
 };
 
-// Custom label in the center of each slice: "23%" etc.
 const renderCustomLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent, index}) => {
   const RADIAN = Math.PI / 180;
-  // Position
   const radius = innerRadius + (outerRadius - innerRadius) * 0.65;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
   const cat = CHART_DATA[index].key;
-  // Only show for slices > 3% for readability
   return percent > 0.03 ? (
     <text
       x={x}
@@ -46,13 +47,12 @@ const renderCustomLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent,
   ) : null;
 };
 
-// Custom Tooltip: show category, % and districts
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const idx = payload[0].payload.key;
     return (
       <div className="bg-white border rounded shadow p-2 text-xs max-w-[220px]">
-        <div className="font-bold mb-1">{idx} Vulnerability</div>
+        <div className="font-bold mb-1">{idx} Exposure</div>
         <div className="mb-1 text-[13px] font-semibold text-slate-600">
           {percentages[idx]}% of districts
         </div>
@@ -63,7 +63,7 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function VulnerabilityDonutChart() {
+export default function ExposureDonutChart() {
   return (
     <div className="w-full flex items-center justify-center py-8 pl-16">
       <PieChart width={300} height={280}>

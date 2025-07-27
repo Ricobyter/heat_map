@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import HeatMap from "./HeatMap";
 import {
@@ -17,11 +18,27 @@ import {
   ScatterChart,
   Scatter,
   ZAxis,
-  PieChart, Pie, Cell
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
 import charts from "../assets/chart.png";
 import AdaptiveCapacityMatrix from "./AdaptiveCapacityMatrix";
 import VulnerabilityDonutChart from "./VulnerabilityDonutChart";
+import ExposureDonutChart from "./charts/ExposureDonutChart";
+import SensitivityDonutChart from "./charts/SensitivityDonutChart";
+import AdaptiveCapacityDonutChart from "./charts/AdaptiveCapacityDonutChart";
+import AdaptiveCapacityBlocksChart from "./charts/AdaptiveCapacityBlocksChart";
+
+import ExposureBlocksChart from './charts/ExposureBlocksChart';
+import VulnerableBlocksChart from './charts/VulnerableBlocksChart';
+import SensitivityBlocksChart from './charts/SensitivityBlocksChart';
+
+import AdaptiveCapacityPopulationChart from './charts/AdaptiveCapacityPopulationChart';
+import ExposurePopulationChart from './charts/ExposurePopulationChart';
+import SensitivityPopulationChart from './charts/SensitivityPopulationChart';
+import VulnerablePopulationChart from './charts/VulnerablePopulationChart';
+
 
 const barData = [
   { name: "Patna Sadar", value: 78 },
@@ -148,6 +165,37 @@ const BubbleChart = () => (
   </div>
 );
 
+const donutChartMap = {
+  vulnerability_index: VulnerabilityDonutChart,
+  exposure_index: ExposureDonutChart,
+  sensitivity_index: SensitivityDonutChart,
+  adaptive_capacity_index: AdaptiveCapacityDonutChart,
+};
+
+const blocksChartMap = {
+  adaptive_capacity_index: AdaptiveCapacityBlocksChart,
+  exposure_index: ExposureBlocksChart,
+  sensitivity_index: SensitivityBlocksChart,
+  vulnerability_index: VulnerableBlocksChart,
+  
+};
+
+const populationChartMap = {
+  adaptive_capacity_index: AdaptiveCapacityPopulationChart,
+  exposure_index: ExposurePopulationChart,
+  sensitivity_index: SensitivityPopulationChart,
+  vulnerability_index: VulnerablePopulationChart,
+  
+};
+
+
+const donutTitleMap = {
+  vulnerability_index: "Heat Vulnerability by Area",
+  exposure_index: "Exposure by Area",
+  sensitivity_index: "Sensitivity by Area",
+  adaptive_capacity_index: "Adaptive Capacity by Area"
+};
+
 const Dashboard = ({ mapType, selectedLayer }) => {
   const options = ["Financial", "Technology", "Capacity Building", "System"];
   const [mapName, setMapName] = useState(mapType);
@@ -187,11 +235,13 @@ const Dashboard = ({ mapType, selectedLayer }) => {
   }, []);
 
   const [activeOption, setActiveOption] = useState(null);
+
+  const SelectedPopulationChart = populationChartMap[mapType];
   return (
     <div className="flex-1 p-6 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-8">
-          <HeatMap mapType={mapType} selectedLayer={selectedLayer}/>
+          <HeatMap mapType={mapType} selectedLayer={selectedLayer} />
         </div>
 
         <div className="col-span-4 space-y-4">
@@ -280,62 +330,39 @@ const Dashboard = ({ mapType, selectedLayer }) => {
 
         <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
-            Heat Vulnerability by Area
+            <h3 className="text-lg font-semibold mb-2 text-gray-800">
+  {donutTitleMap[mapType] || "Heat Vulnerability by Area"}
+</h3>
+
           </h3>
           <div className="mt-4">
             <div className="h-48 w-full mt-7 -ml-7 flex items-center justify-center">
               <div>
-
-              <VulnerabilityDonutChart />
+                {
+                  donutChartMap[mapType]
+                    ? React.createElement(donutChartMap[mapType])
+                    : null // or a fallback, if mapType doesn't match
+                }
               </div>
             </div>
           </div>
         </div>
 
-        <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold mb-2 text-gray-800">
-            Seasonal Temperature Anomaly
-          </h3>
-          <div className="mt-4">
-            <div className="h-48 w-full mt-7 -ml-7">
-              <LineChart />
-            </div>
-          </div>
-        </div>
+        <div className="col-span-8 bg-#F9F6EE p-6 rounded-lg shadow border">
 
-        <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold mb-2 text-gray-800">
-            Heatwave Threshold Analysis
-          </h3>
-          <div className="text-sm text-gray-600 mb-2">Select Block</div>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]">
-            {subdistricts.map((subdistrict) => (
-              <option key={subdistrict}>{subdistrict}</option>
-            ))}
-          </select>
-          <div>
-            <GaugeChart />
-          </div>
-        </div>
-
-        <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold mb-2 text-gray-800">
-            Heat Risk Mitigation Strategies
-          </h3>
-          <div className="text-sm text-gray-600 mb-2">Select Block</div>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]">
-            {subdistricts.map((subdistrict) => (
-              <option key={subdistrict}>{subdistrict}</option>
-            ))}
-          </select>
-          <BubbleChart />
+          {SelectedPopulationChart ? <SelectedPopulationChart /> : null}
         </div>
 
         <div className="col-span-8 bg-#F9F6EE p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold mb-4 text-green-600">
+
+          {blocksChartMap[mapType] ? React.createElement(blocksChartMap[mapType]) : null}
+        </div>
+
+        <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
+          <h3 className="text-lg font-semibold mb-3 text-green-600">
             Heatwave Advisories
           </h3>
-          <div className="text-sm text-gray-700 space-y-2 leading-relaxed">
+          <div className="text-sm text-gray-700 space-y-1 leading-relaxed">
             {/* Advisory 1 */}
             <div className="flex items-start space-x-2">
               <div className="w-4 h-4 bg-orange-500 rounded mt-1"></div>
