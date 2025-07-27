@@ -195,7 +195,7 @@ const Dashboard = ({ mapType, selectedLayer }) => {
         </div>
 
         <div className="col-span-4 space-y-4">
-          <div className="grid grid-cols-2 gap-4 w-[23vw]">
+          <div className="grid grid-cols-2 gap-4 w-[28vw]">
             <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">
                 {loading ? (
@@ -221,7 +221,7 @@ const Dashboard = ({ mapType, selectedLayer }) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 w-[23vw]">
+          <div className="grid grid-cols-2 gap-4 w-[28vw]">
             <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
               <div className="text-3xl font-bold text-orange-600 mb-2">
                 {loading ? (
@@ -254,7 +254,7 @@ const Dashboard = ({ mapType, selectedLayer }) => {
           )}
 
           {mapType !== "adaptive_capacity_index" && (
-            <div className="w-[23vw] px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white ">
+            <div className="w-[28vw] px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white ">
               <h2 className="text-md font-semibold mb-3 text-gray-800">
                 Recommendations
               </h2>

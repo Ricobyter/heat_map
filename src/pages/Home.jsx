@@ -7,7 +7,7 @@ const Home = () => {
   const [mapType, setMap] = useState("vulnerability_index"); 
   const [selectedLayer, setSelectedLayer] = useState("None");
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white ">
       <Header />
 
       {/* Red Alert Banner */}

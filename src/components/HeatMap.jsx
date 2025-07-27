@@ -37,7 +37,7 @@ const HeatMap = ({ mapType, selectedLayer }) => {
       ? "Health Facilities Map"
       : mapName[mapType] || "Heat Vulnerability Map";
   return (
-    <div className="bg-#F9F6EE pt-6 rounded-lg shadow border h-full w-[50vw]">
+    <div className="bg-#F9F6EE pt-6 rounded-lg shadow border h-full w-[65vw]">
       <div className="relative h-96  rounded-lg overflow-hidden border border-gray-200">
         <iframe
           src={src}
