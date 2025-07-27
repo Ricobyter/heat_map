@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Dashboard from "../components/Dashboard";
 import { useState } from "react";
+import NavBar from "../components/Navbar";
 
 const Home = () => {
   const [mapType, setMap] = useState("vulnerability_index"); 
@@ -9,10 +10,11 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-white ">
       <Header />
+      <NavBar />
 
       {/* Red Alert Banner */}
       <div className="bg-red-600 text-white px-6 py-2 text-sm font-medium">
-        Red Alert: 40°C expected on 25 July 2025, Stay Hydrated!
+        Red Alert: 40°C expected on 28 July 2025, Stay Hydrated!
       </div>
 
       <div className="flex">
