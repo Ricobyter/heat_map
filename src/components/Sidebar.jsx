@@ -99,7 +99,7 @@ const Sidebar = ({
       className="w-[21vw] min-h-screen border-r border-gray-200"
       style={{ backgroundColor: "#FFFF" }}
     >
-      <div className="p-4">
+      <div className="p-4 overflow-y-auto h-[calc(100vh-0px)] scrollbar-thin scrollbar-thumb-gray-400">
         {/* Time Period */}
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-800 mb-3">
