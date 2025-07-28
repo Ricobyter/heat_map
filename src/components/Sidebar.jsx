@@ -140,37 +140,7 @@ const Sidebar = ({
     </select>
         </div>
 
-        {/* Vulnerable Group */}
-        <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
-            Vulnerable Group
-          </label>
-          <div className="space-y-3">
-            {[
-              { key: "elderly", label: "Elderly" },
-              { key: "children", label: "Children" },
-              { key: "pregnantWomen", label: "Pregnant Women" },
-              { key: "outdoorWorkers", label: "Outdoor Workers" },
-              { key: "slumDwellers", label: "Slum Dwellers" },
-            ].map(({ key, label }) => (
-              <label
-                key={key}
-                className="flex items-center text-sm cursor-pointer text-gray-700"
-              >
-                <input
-                  type="checkbox"
-                  checked={groups[key]}
-                  onChange={() => handleVulnerableGroupChange(key)}
-                  className="mr-3 w-4 h-4"
-                />
-                
-                {label}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* Heat Risk Scenario */}
+                {/* Heat Risk Scenario */}
         <div className="mb-8">
           <label className="block text-sm font-semibold text-gray-800 mb-3">
             Heat Risk Indices
@@ -202,6 +172,38 @@ const Sidebar = ({
             ))}
           </div>
         </div>
+
+        {/* Vulnerable Group */}
+        <div className="mb-6">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
+            Vulnerable Group
+          </label>
+          <div className="space-y-3">
+            {[
+              { key: "elderly", label: "Elderly" },
+              { key: "children", label: "Children" },
+              { key: "pregnantWomen", label: "Pregnant Women" },
+              { key: "outdoorWorkers", label: "Outdoor Workers" },
+              { key: "slumDwellers", label: "Slum Dwellers" },
+            ].map(({ key, label }) => (
+              <label
+                key={key}
+                className="flex items-center text-sm cursor-pointer text-gray-700"
+              >
+                <input
+                  type="checkbox"
+                  checked={groups[key]}
+                  onChange={() => handleVulnerableGroupChange(key)}
+                  className="mr-3 w-4 h-4"
+                />
+                
+                {label}
+              </label>
+            ))}
+          </div>
+        </div>
+
+
 
         {/* SSP Scenario */}
         <div className="mb-8">
