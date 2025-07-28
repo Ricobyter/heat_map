@@ -1,10 +1,9 @@
 import React from "react";
 
-// Percentages: Low (10.9%), Medium (26.6%), High (62.5%)
 const data = [
-  { label: "Low", value: 10.9, color: "bg-[#00b0f0]" },
-  { label: "Medium", value: 26.6, color: "bg-[#465f91]" },
-  { label: "High", value: 62.5, color: "bg-[#223863]" }
+  { label: "Low", value: 11.1, color: "bg-[#00b0f0]" },    // Low exposure (light orange)
+  { label: "Medium", value: 29.2, color: "bg-[#465f91]" }, // Medium exposure (yellow)
+  { label: "High", value: 59.7, color: "bg-[#223863]" }    // High exposure (red)
 ];
 
 export default function ExposurePopulationChart() {

@@ -17,7 +17,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="bg-[#12303b] w-full py-2">
+    <nav className="bg-[#25434e] w-full py-2">
       <div className="flex items-center justify-end space-x-10 px-8 w-full">
         <a href="#" className="text-white text-[17px] hover:text-blue-200 transition">Home</a>
         <a href="#" className="text-white text-[17px] hover:text-blue-200 transition">Analytics</a>
