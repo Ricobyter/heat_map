@@ -38,52 +38,7 @@ const Header = () => {
         </div>
 
         {/* Language Selector and Accessibility */}
-        <div className="flex items-center space-x-4">
-          {/* Accessibility Button with Dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              className="bg-white bg-opacity-20 rounded-full w-10 h-10 flex items-center justify-center border-2 border-white border-opacity-30 focus:outline-none"
-              onClick={() => setDropdownOpen((open) => !open)}
-              aria-haspopup="listbox"
-              aria-expanded={dropdownOpen}
-            >
-              <span className="text-lg font-bold text-blue-900">A</span>
-            </button>
-            {dropdownOpen && (
-              <ul
-                className="absolute right-0 mt-2 w-32 bg-white text-black rounded shadow-lg z-50 border"
-                role="listbox"
-              >
-                <li
-                  className={`px-4 py-2 cursor-pointer hover:bg-blue-100 ${
-                    language === "English" ? "bg-blue-200" : ""
-                  }`}
-                  onClick={() => {
-                    setLanguage("English");
-                    setDropdownOpen(false);
-                  }}
-                  role="option"
-                  aria-selected={language === "English"}
-                >
-                  English
-                </li>
-                <li
-                  className={`px-4 py-2 cursor-pointer hover:bg-blue-100 ${
-                    language === "Hindi" ? "bg-blue-200" : ""
-                  }`}
-                  onClick={() => {
-                    setLanguage("Hindi");
-                    setDropdownOpen(false);
-                  }}
-                  role="option"
-                  aria-selected={language === "Hindi"}
-                >
-                  Hindi
-                </li>
-              </ul>
-            )}
-          </div>
-        </div>
+
       </div>
     </header>
   );
