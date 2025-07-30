@@ -193,7 +193,7 @@ const donutTitleMap = {
 };
 
 const Dashboard = ({ mapType, selectedLayer }) => {
-  const options = ["Preparedness", "Response Recovery"];
+  const options = ["Preparedness", "Response", "Recovery"];
   const [mapName, setMapName] = useState(mapType);
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState(null);
