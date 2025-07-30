@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MdPublic, MdFavorite, MdTrendingUp, MdWarning } from 'react-icons/md';
+import { GrVulnerability } from "react-icons/gr";
 
 
 const Sidebar = ({
@@ -80,7 +81,7 @@ const Sidebar = ({
 
   const heatRiskIcons = {
   exposure_index: <MdPublic className="w-5 h-5 text-gray-800 mr-2" />,
-  sensitivity_index: <MdFavorite className="w-5 h-5 text-gray-800 mr-2" />,
+  sensitivity_index: <GrVulnerability className="w-5 h-5 text-gray-800 mr-2" />,
   adaptive_capacity_index: <MdTrendingUp className="w-5 h-5 text-gray-800 mr-2" />,
   vulnerability_index: <MdWarning className="w-5 h-5 text-gray-800 mr-2" />
 };

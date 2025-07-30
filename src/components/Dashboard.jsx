@@ -244,89 +244,100 @@ const Dashboard = ({ mapType, selectedLayer }) => {
           <HeatMap mapType={mapType} selectedLayer={selectedLayer} />
         </div>
 
-        <div className="col-span-4 space-y-4">
-          <div className="grid grid-cols-2 gap-4 w-[28vw]">
-            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">
-                {loading ? (
-                  <div className="flex justify-center items-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
-                  </div>
-                ) : weather ? (
-                  weather.temp + "°C"
-                ) : (
-                  "--"
-                )}
-              </div>
-              <div className="text-sm text-gray-600 font-medium">
-                Temperature
-              </div>
+<div className="col-span-4 space-y-4">
+  <div className="grid grid-cols-2 gap-4 w-[28vw]">
+    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+      <div className="relative group">
+        <div className="text-3xl font-bold text-blue-600 mb-2">
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
             </div>
-            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">7</div>
-              <div className="text-sm text-gray-600 font-medium">
-                Heat-Related
-                <br />
-                Mortality Rate
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 w-[28vw]">
-            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">
-                {loading ? (
-                  <div className="flex justify-center items-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
-                  </div>
-                ) : weather ? (
-                  weather.humidity + "%"
-                ) : (
-                  "--"
-                )}
-              </div>
-              <div className="text-sm text-gray-600 font-medium">
-                Relative Humidity
-              </div>
-            </div>
-            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">1</div>
-              <div className="text-sm text-gray-600 font-medium">
-                Cooling Centres
-              </div>
-            </div>
-          </div>
-
-          {mapType === "adaptive_capacity_index" && (
-            <div>
-              {/* <img src={charts} alt="Chart" className="h-31 w-full" /> */}
-              <AdaptiveCapacityMatrix />
-            </div>
+          ) : weather ? (
+            weather.temp + "°C"
+          ) : (
+            "--"
           )}
+        </div>
+        <div className="absolute bottom-full mb-2 hidden group-hover:block w-max px-3 py-1 rounded bg-gray-700 text-white text-xs">
+          Source: OpenWeather API
+        </div>
+      </div>
+      <div className="text-sm text-gray-600 font-medium">
+        Temperature
+      </div>
+    </div>
+    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+      <div className="text-3xl font-bold text-red-600 mb-2">7</div>
+      <div className="text-sm text-gray-600 font-medium">
+        Heat-Related
+        <br />
+        Mortality Rate
+      </div>
+    </div>
+  </div>
+  <div className="grid grid-cols-2 gap-4 w-[28vw]">
+    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+      <div className="relative group">
+        <div className="text-3xl font-bold text-orange-600 mb-2">
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+            </div>
+          ) : weather ? (
+            weather.humidity + "%"
+          ) : (
+            "--"
+          )}
+        </div>
+        <div className="absolute bottom-full mb-2 hidden group-hover:block w-max px-3 py-1 rounded bg-gray-700 text-white text-xs">
+          Source: OpenWeather API
+        </div>
+      </div>
+      <div className="text-sm text-gray-600 font-medium">
+        Relative Humidity
+      </div>
+    </div>
+    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+      <div className="text-3xl font-bold text-green-600 mb-2">1</div>
+      <div className="text-sm text-gray-600 font-medium">
+        Cooling Centres
+      </div>
+    </div>
+  </div>
 
-          {mapType !== "adaptive_capacity_index" && (
-            <div className="w-[28vw] px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white ">
-              <h2 className="text-md font-semibold mb-3 text-gray-800">
-                Recommendations
-              </h2>
-              <div className="grid grid-cols-2 gap-3">
-                {options.map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => setActiveOption(option)}
-                    className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
+  {mapType === "adaptive_capacity_index" && (
+    <div>
+      {/* <img src={charts} alt="Chart" className="h-31 w-full" /> */}
+      <AdaptiveCapacityMatrix />
+    </div>
+  )}
+
+  {mapType !== "adaptive_capacity_index" && (
+    <div className="w-[28vw] px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white ">
+      <h2 className="text-md font-semibold mb-3 text-gray-800">
+        Recommendations
+      </h2>
+      <div className="grid grid-cols-2 gap-3">
+        {options.map((option) => (
+          <button
+            key={option}
+            onClick={() => setActiveOption(option)}
+            className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
               ${
                 activeOption === option
                   ? "bg-blue-600 text-white border-blue-600"
                   : "bg-white text-gray-800 border-gray-400 hover:bg-gray-100"
               }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+
 
         <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
