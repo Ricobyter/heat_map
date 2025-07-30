@@ -39,7 +39,6 @@ import ExposurePopulationChart from './charts/ExposurePopulationChart';
 import SensitivityPopulationChart from './charts/SensitivityPopulationChart';
 import VulnerablePopulationChart from './charts/VulnerablePopulationChart';
 
-
 const barData = [
   { name: "Patna Sadar", value: 78 },
   { name: "Patna City", value: 74 },
@@ -177,7 +176,6 @@ const blocksChartMap = {
   exposure_index: ExposureBlocksChart,
   sensitivity_index: SensitivityBlocksChart,
   vulnerability_index: VulnerableBlocksChart,
-  
 };
 
 const populationChartMap = {
@@ -185,9 +183,7 @@ const populationChartMap = {
   exposure_index: ExposurePopulationChart,
   sensitivity_index: SensitivityPopulationChart,
   vulnerability_index: VulnerablePopulationChart,
-  
 };
-
 
 const donutTitleMap = {
   vulnerability_index: "Heat Vulnerability by Area",
@@ -197,11 +193,12 @@ const donutTitleMap = {
 };
 
 const Dashboard = ({ mapType, selectedLayer }) => {
-  const options = ["Financial", "Technology", "Capacity Building", "System"];
+  const options = ["Preparedness", "Response Recovery"];
   const [mapName, setMapName] = useState(mapType);
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -218,6 +215,7 @@ const Dashboard = ({ mapType, selectedLayer }) => {
             humidity: data.main.humidity,
             description: data.weather[0].description,
           });
+          setLastUpdated(new Date());
           setError(null);
         } else {
           setError("Unable to fetch weather data");
@@ -236,7 +234,17 @@ const Dashboard = ({ mapType, selectedLayer }) => {
 
   const [activeOption, setActiveOption] = useState(null);
 
+  const formatTimestamp = (date) => {
+    if (!date) return "";
+    return date.toLocaleTimeString('en-IN', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+  };
+
   const SelectedPopulationChart = populationChartMap[mapType];
+  
   return (
     <div className="flex-1 p-6 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-12 gap-6">
@@ -244,107 +252,114 @@ const Dashboard = ({ mapType, selectedLayer }) => {
           <HeatMap mapType={mapType} selectedLayer={selectedLayer} />
         </div>
 
-<div className="col-span-4 space-y-4">
-  <div className="grid grid-cols-2 gap-4 w-[28vw]">
-    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-      <div className="relative group">
-        <div className="text-3xl font-bold text-blue-600 mb-2">
-          {loading ? (
-            <div className="flex justify-center items-center">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+        <div className="col-span-4 space-y-4">
+          <div className="grid grid-cols-2 gap-4 w-[28vw]">
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+              <div className="relative group">
+                <div className="text-3xl font-bold text-blue-600 mb-2">
+                  {loading ? (
+                    <div className="flex justify-center items-center">
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+                    </div>
+                  ) : weather ? (
+                    weather.temp + "°C"
+                  ) : (
+                    "--"
+                  )}
+                </div>
+                <div className="absolute bottom-full mb-2 hidden group-hover:block w-max px-3 py-1 rounded bg-gray-700 text-white text-xs">
+                  Source: OpenWeather API
+                </div>
+              </div>
+              <div className="text-sm text-gray-600 font-medium">
+                Temperature
+              </div>
+              {lastUpdated && (
+                <div className="text-xs text-gray-400 mt-1">
+                  Updated: {formatTimestamp(lastUpdated)}
+                </div>
+              )}
             </div>
-          ) : weather ? (
-            weather.temp + "°C"
-          ) : (
-            "--"
-          )}
-        </div>
-        <div className="absolute bottom-full mb-2 hidden group-hover:block w-max px-3 py-1 rounded bg-gray-700 text-white text-xs">
-          Source: OpenWeather API
-        </div>
-      </div>
-      <div className="text-sm text-gray-600 font-medium">
-        Temperature
-      </div>
-    </div>
-    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-      <div className="text-3xl font-bold text-red-600 mb-2">7</div>
-      <div className="text-sm text-gray-600 font-medium">
-        Heat-Related
-        <br />
-        Mortality Rate
-      </div>
-    </div>
-  </div>
-  <div className="grid grid-cols-2 gap-4 w-[28vw]">
-    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-      <div className="relative group">
-        <div className="text-3xl font-bold text-orange-600 mb-2">
-          {loading ? (
-            <div className="flex justify-center items-center">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+              <div className="text-3xl font-bold text-red-600 mb-2">7</div>
+              <div className="text-sm text-gray-600 font-medium">
+                Heat-Related
+                <br />
+                Mortality Rate
+              </div>
             </div>
-          ) : weather ? (
-            weather.humidity + "%"
-          ) : (
-            "--"
+          </div>
+          <div className="grid grid-cols-2 gap-4 w-[28vw]">
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+              <div className="relative group">
+                <div className="text-3xl font-bold text-orange-600 mb-2">
+                  {loading ? (
+                    <div className="flex justify-center items-center">
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+                    </div>
+                  ) : weather ? (
+                    weather.humidity + "%"
+                  ) : (
+                    "--"
+                  )}
+                </div>
+                <div className="absolute bottom-full mb-2 hidden group-hover:block w-max px-3 py-1 rounded bg-gray-700 text-white text-xs">
+                  Source: OpenWeather API
+                </div>
+              </div>
+              <div className="text-sm text-gray-600 font-medium">
+                Relative Humidity
+              </div>
+              {lastUpdated && (
+                <div className="text-xs text-gray-400 mt-1">
+                  Updated: {formatTimestamp(lastUpdated)}
+                </div>
+              )}
+            </div>
+            <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
+              <div className="text-3xl font-bold text-green-600 mb-2">1</div>
+              <div className="text-sm text-gray-600 font-medium">
+                Cooling Centres
+              </div>
+            </div>
+          </div>
+
+          {mapType === "adaptive_capacity_index" && (
+            <div>
+              <AdaptiveCapacityMatrix />
+            </div>
           )}
-        </div>
-        <div className="absolute bottom-full mb-2 hidden group-hover:block w-max px-3 py-1 rounded bg-gray-700 text-white text-xs">
-          Source: OpenWeather API
-        </div>
-      </div>
-      <div className="text-sm text-gray-600 font-medium">
-        Relative Humidity
-      </div>
-    </div>
-    <div className="bg-#F9F6EE p-5 rounded-lg shadow border text-center">
-      <div className="text-3xl font-bold text-green-600 mb-2">1</div>
-      <div className="text-sm text-gray-600 font-medium">
-        Cooling Centres
-      </div>
-    </div>
-  </div>
 
-  {mapType === "adaptive_capacity_index" && (
-    <div>
-      {/* <img src={charts} alt="Chart" className="h-31 w-full" /> */}
-      <AdaptiveCapacityMatrix />
-    </div>
-  )}
-
-  {mapType !== "adaptive_capacity_index" && (
-    <div className="w-[28vw] px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white ">
-      <h2 className="text-md font-semibold mb-3 text-gray-800">
-        Recommendations
-      </h2>
-      <div className="grid grid-cols-2 gap-3">
-        {options.map((option) => (
-          <button
-            key={option}
-            onClick={() => setActiveOption(option)}
-            className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
+          {mapType !== "adaptive_capacity_index" && (
+            <div className="w-[28vw] px-5 py-3 mt-5 border border-gray-700 rounded shadow-md  bg-white ">
+              <h2 className="text-md font-semibold mb-3 text-gray-800">
+                Recommendations
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                {options.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => setActiveOption(option)}
+                    className={`flex justify-center items-center py-2 border rounded text-sm font-medium text-center
               ${
                 activeOption === option
                   ? "bg-blue-600 text-white border-blue-600"
                   : "bg-white text-gray-800 border-gray-400 hover:bg-gray-100"
               }`}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-    </div>
-  )}
-</div>
-
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="col-span-4 bg-#F9F6EE p-6 rounded-lg shadow border">
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
             <h3 className="text-lg font-semibold mb-2 text-gray-800">
-  {donutTitleMap[mapType] || "Heat Vulnerability by Area"}
-</h3>
-
+              {donutTitleMap[mapType] || "Heat Vulnerability by Area"}
+            </h3>
           </h3>
           <div className="mt-4">
             <div className="h-48 w-full mt-7 -ml-7 flex items-center justify-center">
@@ -352,7 +367,7 @@ const Dashboard = ({ mapType, selectedLayer }) => {
                 {
                   donutChartMap[mapType]
                     ? React.createElement(donutChartMap[mapType])
-                    : null // or a fallback, if mapType doesn't match
+                    : null
                 }
               </div>
             </div>
@@ -360,12 +375,10 @@ const Dashboard = ({ mapType, selectedLayer }) => {
         </div>
 
         <div className="col-span-8 bg-#F9F6EE p-6 rounded-lg shadow border">
-
           {SelectedPopulationChart ? <SelectedPopulationChart /> : null}
         </div>
 
         <div className="col-span-8 bg-#F9F6EE p-6 rounded-lg shadow border">
-
           {blocksChartMap[mapType] ? React.createElement(blocksChartMap[mapType]) : null}
         </div>
 
@@ -374,7 +387,6 @@ const Dashboard = ({ mapType, selectedLayer }) => {
             Heatwave Advisories
           </h3>
           <div className="text-sm text-gray-700 space-y-1 leading-relaxed">
-            {/* Advisory 1 */}
             <div className="flex items-start space-x-2">
               <div className="w-4 h-4 bg-orange-500 rounded mt-1"></div>
               <div>
@@ -386,7 +398,6 @@ const Dashboard = ({ mapType, selectedLayer }) => {
               </div>
             </div>
 
-            {/* Advisory 2 */}
             <div className="flex items-start space-x-2 mt-4">
               <div className="w-4 h-4 bg-red-500 rounded mt-1"></div>
               <div>
@@ -397,7 +408,6 @@ const Dashboard = ({ mapType, selectedLayer }) => {
               </div>
             </div>
 
-            {/* ✅ Advisory 3 */}
             <div className="flex items-start space-x-2 mt-4">
               <div className="w-4 h-4 bg-yellow-400 rounded mt-1"></div>
               <div>
@@ -411,7 +421,6 @@ const Dashboard = ({ mapType, selectedLayer }) => {
               </div>
             </div>
 
-            {/* ✅ Advisory 4 */}
             <div className="flex items-start space-x-2 mt-4">
               <div className="w-4 h-4 bg-blue-400 rounded mt-1"></div>
               <div>
