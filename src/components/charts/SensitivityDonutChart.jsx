@@ -172,7 +172,7 @@ export default function SensitivityDonutChart() {
       </div>
 
       {/* Legend */}
-      <div className="mt-2 flex items-center gap-4 text-[12px]">
+      <div className="mt-2 flex items-center gap-4 text-[12px] justify-center">
         <div className="flex items-center gap-2">
           <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: COLORS.High }} />
           <span className="text-slate-700">High</span>
