@@ -157,7 +157,7 @@ const Header1 = () => {
               About us
             </a>
 
-            <a href="http://www.bsdma.org/GetPrepared.aspx?id=1">Get Prepared</a>
+            <a href="http://www.bsdma.org/GetPrepared.aspx?id=1" className="text-gray-700 font-medium">Get Prepared</a>
           </nav>
 
           {/* Right Section */}
