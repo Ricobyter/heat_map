@@ -113,8 +113,8 @@ const Header1 = () => {
               alt="Logo" 
               className="w-21 h-21 rounded-full object-cover"
             />
-            <div className="flex flex-col">
-              <div className="text-md font-bold leading-tight">
+            <div className="flex flex-col font-staatliches">
+              <div className="text-md  font-semibold leading-tight">
                 <span className="text-blue-700">MODEL </span>
                 <span className="text-red-600">HEAT</span>
               </div>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { MdPublic, MdFavorite, MdTrendingUp, MdWarning } from 'react-icons/md';
 import { GrVulnerability } from "react-icons/gr";
 
-
 const Sidebar = ({
   mapType,
   setMap,
@@ -10,7 +9,7 @@ const Sidebar = ({
   setSelectedYear,
   vulnerableGroups,
   setVulnerableGroups,
-    selectedLayer,
+  selectedLayer,
   setSelectedLayer
 }) => {
   // Local state if not received from parent — can be omitted if lifted entirely to Home
@@ -25,7 +24,7 @@ const Sidebar = ({
 
   const groups = vulnerableGroups ?? internalVulnerableGroups[0];
   const setGroups = setVulnerableGroups ?? internalVulnerableGroups[1];
-  const year = selectedYear ?? internalSelectedYear[0];
+  const year = selectedYear ?? internalSelectedYear;
   const setYear = setSelectedYear ?? internalSelectedYear[1];
 
   const years = [
@@ -80,11 +79,11 @@ const Sidebar = ({
   ];
 
   const heatRiskIcons = {
-  exposure_index: <MdPublic className="w-5 h-5 text-gray-800 mr-2" />,
-  sensitivity_index: <GrVulnerability className="w-5 h-5 text-gray-800 mr-2" />,
-  adaptive_capacity_index: <MdTrendingUp className="w-5 h-5 text-gray-800 mr-2" />,
-  vulnerability_index: <MdWarning className="w-5 h-5 text-gray-800 mr-2" />
-};
+    exposure_index: <MdPublic className="w-5 h-5 text-gray-600 mr-2" />,
+    sensitivity_index: <GrVulnerability className="w-5 h-5 text-gray-600 mr-2" />,
+    adaptive_capacity_index: <MdTrendingUp className="w-5 h-5 text-gray-600 mr-2" />,
+    vulnerability_index: <MdWarning className="w-5 h-5 text-gray-600 mr-2" />
+  };
 
   const handleVulnerableGroupChange = (group) => {
     setGroups((prev) => ({
@@ -93,20 +92,18 @@ const Sidebar = ({
     }));
   };
 
-  // const [selectedLayer, setSelectedLayer] = useState("None");
-
   return (
     <div
-      className="w-[21vw] min-h-screen border-r border-gray-200"
+      className="w-[25vw] min-h-screen shadow-md shadow-gray-400 font-noto-sans rounded-lg flex flex-col"
       style={{ backgroundColor: "#FFFF" }}
     >
-      <div className="p-4 overflow-y-auto h-[calc(100vh-0px)] scrollbar-thin scrollbar-thumb-gray-400">
+      <div className="p-4 flex-grow overflow-auto">
         {/* Time Period */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
+          <label className="block text-sm font-semibold text-gray-600 mb-3">
             Time Period
           </label>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]">
+          <select className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white">
             <option>Today</option>
             <option>This Week</option>
             <option>This Month</option>
@@ -115,10 +112,10 @@ const Sidebar = ({
 
         {/* Subdistrict/Block */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
+          <label className="block text-sm font-semibold text-gray-600 mb-3">
             Subdistrict/Block
           </label>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]">
+          <select className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white">
             {subdistricts.map((subdistrict) => (
               <option key={subdistrict}>{subdistrict}</option>
             ))}
@@ -127,23 +124,23 @@ const Sidebar = ({
 
         {/* Layers Dropdown */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
+          <label className="block text-sm font-semibold text-gray-600 mb-3">
             Layers
           </label>
-    <select
-      className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE]"
-      value={selectedLayer}
-      onChange={(e) => setSelectedLayer(e.target.value)}
-    >
-      {layers.map((layer) => (
-        <option key={layer} value={layer}>{layer}</option>
-      ))}
-    </select>
+          <select
+            className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white"
+            value={selectedLayer}
+            onChange={(e) => setSelectedLayer(e.target.value)}
+          >
+            {layers.map((layer) => (
+              <option key={layer} value={layer}>{layer}</option>
+            ))}
+          </select>
         </div>
 
-                {/* Heat Risk Scenario */}
+        {/* Heat Risk Scenario */}
         <div className="mb-8">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
+          <label className="block text-sm font-semibold text-gray-600 mb-3">
             Heat Risk Indices
           </label>
           <div className="space-y-3">
@@ -176,7 +173,7 @@ const Sidebar = ({
 
         {/* Vulnerable Group */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
+          <label className="block text-sm font-semibold text-gray-600 mb-3">
             Vulnerable Group
           </label>
           <div className="space-y-3">
@@ -197,21 +194,19 @@ const Sidebar = ({
                   onChange={() => handleVulnerableGroupChange(key)}
                   className="mr-3 w-4 h-4"
                 />
-                
+
                 {label}
               </label>
             ))}
           </div>
         </div>
 
-
-
         {/* SSP Scenario */}
         <div className="mb-8">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
+          <label className="block text-sm font-semibold text-gray-600 mb-3">
             Heat Risk Scenario
           </label>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-800 text-sm bg-[#F9F6EE] mb-4">
+          <select className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white mb-4">
             <option>Select Year</option>
           </select>
           <div className="space-y-2">
@@ -223,8 +218,8 @@ const Sidebar = ({
                     onClick={() => setYear(yearValue)}
                     className={`py-2 px-1 text-xs font-medium rounded ${
                       year === yearValue
-                        ? "bg-green-600 text-[#F9F6EE]"
-                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                        ? "bg-green-600 text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
                     }`}
                   >
                     {yearValue}
@@ -234,13 +229,13 @@ const Sidebar = ({
             ))}
           </div>
         </div>
-
-        {/* Run Simulation Button */}
-        <div className="mt-8">
-          <button className="w-full bg-green-600 text-[#F9F6EE] py-3 px-4 rounded font-semibold hover:bg-green-700 transition-colors">
-            Run Simulation
-          </button>
-        </div>
+      </div>
+      
+      {/* Run Simulation Button at the bottom */}
+      <div className="p-4">
+        <button className="w-full bg-blue-200 border border-blue-700 py-3 px-4 rounded text-blue-700 font-semibold hover:bg-blue-300 transition-colors cursor-pointer">
+          Run Simulation
+        </button>
       </div>
     </div>
   );

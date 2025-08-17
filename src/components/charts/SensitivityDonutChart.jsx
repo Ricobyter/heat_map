@@ -63,15 +63,15 @@ const CustomTooltip = ({ active, payload }) => {
 
 export default function SensitivityDonutChart() {
   return (
-    <div className="w-full flex items-center justify-center py-8 pl-16">
-      <PieChart width={300} height={280}>
+    <div className="w-full flex items-center justify-center py-4 ">
+      <PieChart width={120} height={120}>
         <Pie
           data={CHART_DATA}
           dataKey="value"
           cx="50%"
           cy="50%"
-          innerRadius={60}
-          outerRadius={110}
+          innerRadius={30}
+          outerRadius={60}
           label={renderCustomLabel}
           isAnimationActive={true}
           labelLine={false}
