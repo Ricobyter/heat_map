@@ -66,11 +66,11 @@ const exposureData = [
 
 export default function ExposurePopulationChart() {
   return (
-    <div className="max-w-xs mx-auto my-8">
+    <div className="max-w-xs mx-auto my-0">
       <h2 className="text-center text-xs font-semibold mb-4">
         Category Wise Population Falling <br /> in Sensitivity Index (in %)
       </h2>
-      <div className="flex justify-center items-end h-60 gap-2">
+      <div className="flex justify-center items-end h-50 gap-2">
         {exposureData.map(({ label, value, gradientId, patternId, gradientFrom, gradientTo }) => {
           const svgHeight = 150;
           const svgWidth = 40;

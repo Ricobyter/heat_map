@@ -62,11 +62,11 @@ const data = [
 
 export default function AdaptiveCapacityPopulationChart() {
   return (
-    <div className="max-w-xs mx-auto my-8">
+    <div className="max-w-xs mx-auto my-0">
       <h2 className="text-center text-xs font-semibold mb-6">
         Category Wise Population Falling <br /> in Adaptive Capacity Index (in%)
       </h2>
-      <div className="flex justify-center items-end h-60 gap-2">
+      <div className="flex justify-center items-end h-50 gap-2">
         {data.map(({ label, value, gradientId, patternId, gradientFrom, gradientTo }) => {
           const svgHeight = 150;
           const svgWidth = 40;
