@@ -15,7 +15,7 @@ const Footer1 = () => {
             <br />
             <span className='mr-1'>
                <a href="mailto:info@bsdma.org" >
-    Email
+    Email : info@bsdma.org
   </a>
 
             </span>

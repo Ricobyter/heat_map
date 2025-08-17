@@ -236,15 +236,15 @@
 
 //   const formatTimestamp = (date) => {
 //     if (!date) return "";
-//     return date.toLocaleTimeString('en-IN', { 
-//       hour: '2-digit', 
+//     return date.toLocaleTimeString('en-IN', {
+//       hour: '2-digit',
 //       minute: '2-digit',
-//       hour12: true 
+//       hour12: true
 //     });
 //   };
 
 //   const SelectedPopulationChart = populationChartMap[mapType];
-  
+
 //   return (
 //     <div className="flex-1 p-6 bg-gray-50 min-h-screen">
 //       <div className="grid grid-cols-12 gap-6">
@@ -442,7 +442,6 @@
 
 // export default Dashboard;
 
-
 import React, { useEffect, useState } from "react";
 import HeatMap from "./HeatMap";
 
@@ -486,12 +485,16 @@ const donutTitleMap = {
   vulnerability_index: "Heat Vulnerability by Area",
   exposure_index: "Exposure by Area",
   sensitivity_index: "Sensitivity by Area",
-  adaptive_capacity_index: "Adaptive Capacity by Area"
+  adaptive_capacity_index: "Adaptive Capacity by Area",
 };
 
 const recommendations = ["Preparedness", "Response", "Recovery"];
 
-export default function Dashboard({ mapType = "vulnerability_index", selectedLayer, selectedYear }) {
+export default function Dashboard({
+  mapType = "vulnerability_index",
+  selectedLayer,
+  selectedYear,
+}) {
   const [weather, setWeather] = useState(null);
 
   // Dummy Data for Demo
@@ -504,75 +507,115 @@ export default function Dashboard({ mapType = "vulnerability_index", selectedLay
   const SelectedBlocksChart = blocksChartMap[mapType];
 
   const tempColorClass = (t) => {
-  if (t == null || Number.isNaN(Number(t))) return "text-gray-500";
-  const temp = Number(t);
-  if (temp <= 15) return "text-blue-600";
-  if (temp <= 25) return "text-sky-500";
-  if (temp <= 32) return "text-orange-500";
-  if (temp <= 40) return "text-red-600";
-  return "text-rose-700";
-};
+    if (t == null || Number.isNaN(Number(t))) return "text-gray-500";
+    const temp = Number(t);
+    if (temp <= 15) return "text-blue-600";
+    if (temp <= 25) return "text-sky-500";
+    if (temp <= 32) return "text-orange-500";
+    if (temp <= 40) return "text-red-600";
+    return "text-rose-700";
+  };
 
   return (
     <div className=" min-h-screen bg-white pt-5 w-full  shadow-md rounded-lg shadow-gray-400 font-roboto">
       {/* TOP PANEL */}
 
-
       {/* DASHBOARD GRID */}
       <div className="grid grid-cols-12 gap-5 px-5">
         {/* MAIN COLUMN */}
         <div className="col-span-9">
-                <div className="flex flex-row items-center gap-6 mb-3">
-        {/* left temp/card */}
-        <div className="flex items-center gap-2">
-          <div className="flex flex-col items-center px-3 py-1 border-r-1 border-gray-400 bg-white ">
-                <span className={`text-xl font-bold ${tempColorClass(weather?.temp)}`}>
+          <div className="flex flex-row items-center gap-6 mb-3">
+{/* left temp/card */}
+<div className="flex items-center gap-2">
+  <div className="relative group flex flex-col items-center px-3 py-1 border-r-1 border-gray-400 bg-white">
+    <span className={`text-xl font-bold ${tempColorClass(weather?.temp)}`}>
       {weather?.temp ?? "--"}°C
     </span>
-            <span className="text-xs text-gray-600">Temperature</span>
-            <span className="text-xs text-blue-500">Relative Humidity: <span className="font-bold text-yellow-500">{weather?.humidity ?? "--"}%</span></span>
+    <span className="text-xs text-gray-600">Temperature</span>
+    <span className="text-xs text-blue-500">
+      Relative Humidity:{" "}
+      <span className="font-bold text-yellow-500">
+        {weather?.humidity ?? "--"}%
+      </span>
+    </span>
+
+    {/* Tooltip */}
+    <div
+      className="
+        pointer-events-none
+        absolute -top-8 left-1/2 -translate-x-1/2
+        whitespace-nowrap
+        rounded-md bg-blue-100 px-2 py-1 text-[10px] font-medium text-blue-700 border-0.5 border-blue-700
+        opacity-0 transition-opacity duration-150
+        group-hover:opacity-100
+      "
+    >
+      Source: Open Weather API
+      <span
+        className="absolute left-1/2 top-full -translate-x-1/2
+                   h-0 w-0 border-x-8 border-x-transparent border-t-8 border-blue-100"
+      />
+    </div>
+  </div>
+</div>
+
+            {/* center alert */}
+            <div className="flex-1 bg-yellow-100 px-5 py-2 rounded-lg flex items-center gap-2 border border-red-300">
+              <span className="text-yellow-600 text-lg font-semibold">
+                <svg
+                  className="inline-block h-5 w-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"
+                  />
+                </svg>
+                {`Yellow Alert: Heavy Rainfall Predicted Across Several Districts on ${new Date().toLocaleDateString(
+                  "en-IN",
+                  { day: "2-digit", month: "long", year: "numeric" }
+                )}, `}
+              </span>
+            </div>
           </div>
-        </div>
-        {/* center alert */}
-        <div className="flex-1 bg-yellow-100 px-5 py-2 rounded-lg flex items-center gap-2 border border-red-300">
-          <span className="text-yellow-600 text-lg font-semibold">
-            <svg className="inline-block h-5 w-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
-            </svg>
-              {`Yellow Alert: Heavy Rainfall Predicted Across Several Districts on ${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}, `}
-          </span>
-        </div>
-      </div>
           <div className="bg-white rounded-lg shadow mb-3">
             {/* HEATMAP */}
-            <HeatMap mapType={mapType} selectedLayer={selectedLayer} selectedYear={selectedYear} />
+            <HeatMap
+              mapType={mapType}
+              selectedLayer={selectedLayer}
+              selectedYear={selectedYear}
+            />
           </div>
-
-
         </div>
 
         {/* SIDEBAR COLUMN */}
         <div className="col-span-3 flex flex-col gap-4">
           {/* Vulnerability Donut/Index */}
           <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className=" text-center text-xs font-semibold mb-2 text-gray-800">{donutTitleMap[mapType]}</h3>
+            <h3 className=" text-center text-xs font-semibold mb-2 text-gray-800">
+              {donutTitleMap[mapType]}
+            </h3>
             <div className="flex justify-center">
               {SelectedDonutChart ? <SelectedDonutChart /> : null}
             </div>
           </div>
           {/* Population Chart */}
           <div className="bg-white p-3 rounded-lg shadow">
-           
-            <div>{SelectedPopulationChart ? <SelectedPopulationChart /> : null}</div>
+            <div>
+              {SelectedPopulationChart ? <SelectedPopulationChart /> : null}
+            </div>
           </div>
           {/* Blocks Chart */}
           <div className="bg-white p-3 rounded-lg shadow">
-           
             <div>{SelectedBlocksChart ? <SelectedBlocksChart /> : null}</div>
           </div>
         </div>
       </div>
-      
+
       <Footer1 />
     </div>
   );

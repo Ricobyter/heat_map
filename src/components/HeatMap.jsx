@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import compass from "../assets/compass2.png";
 
 const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", selectedYear }) => {
-  // Base map htmls by index type (public/)
+
   const baseMaps = {
     exposure_index: "/exposure_index_satellite.html",
     vulnerability_index: "/vulnerability_index_satellite.html",
@@ -11,8 +11,6 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
     adaptive_capacity_index: "/adaptive_capacity_satellite.html",
   };
 
-  // Layer-specific overrides by index type (public/roads/* and public/water/*)
-  // Replace these with your real file names/paths later.
   const roadsMaps = {
     exposure_index: "/exposure_index_satellite_roads.html",
     vulnerability_index: "/vulnerability_index_and_road_satellites.html",
@@ -47,7 +45,7 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
   const { src, title } = useMemo(() => {
     const type = mapType in baseMaps ? mapType : "vulnerability_index";
 
-    // Selected layer routing
+    // Selected layer Routing
     if (selectedLayer === "Roads") {
       return {
         src: roadsMaps[type] || baseMaps[type],
@@ -97,12 +95,21 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
       };
     }
 
+
+
     // Default to the base heat index map
     return {
       src: baseMaps[type] || baseMaps.vulnerability_index,
       title: mapName[type] || "Heat Vulnerability Map",
     };
   }, [mapType, selectedLayer, selectedYear]);
+
+  const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(
+  String(selectedYear)
+);
+const legendLabels = isProjectionYear
+  ? { high: "Very High", mid: "High", low: "Moderate" }
+  : { high: "High", mid: "Medium", low: "Low" };
 
   return (
     <div className="bg-#F9F6EE pt-0 rounded-lg shadow-md shadow-gray-400 h-full w-full font-roboto">
@@ -126,7 +133,7 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
                 {/* Legend */}
                 <div className="flex flex-row text-xs space-x-2 px-2">
                   <div className="flex flex-col items-center space-y-1">
-                    <span className="font-medium">High</span>
+                    <span className="font-medium">{legendLabels.mid}</span>
                     <div
                       className={`w-6 h-6 rounded-full ${
                         mapType === "adaptive_capacity_index"
@@ -136,7 +143,7 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
                     />
                   </div>
                   <div className="flex flex-col items-center space-y-1">
-                    <span className="font-medium">Medium</span>
+                    <span className="font-medium">{legendLabels.low}</span>
                     <div
                       className={`w-6 h-6 rounded-full ${
                         mapType === "adaptive_capacity_index"
@@ -146,7 +153,7 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
                     />
                   </div>
                   <div className="flex flex-col items-center space-y-1">
-                    <span className="font-medium">Low</span>
+                    <span className="font-medium">{legendLabels.high}</span>
                     <div
                       className={`w-6 h-6 rounded-full shadow-sm ${
                         mapType === "adaptive_capacity_index"
