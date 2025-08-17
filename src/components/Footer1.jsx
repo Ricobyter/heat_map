@@ -6,7 +6,7 @@ import ipf_global_logo from '../assets/undp.png';
 
 const Footer1 = () => {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 py-5  shadow-xl mt-4">
+    <footer className="bg-none border-t border-gray-200 py-5   mt-4">
       <div className="max-w-full mx-auto px-5 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0">
           {/* Copyright Text */}
