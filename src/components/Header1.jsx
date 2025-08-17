@@ -102,6 +102,9 @@ const Header1 = () => {
     }
   }, []);
 
+ 
+
+
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,15 +116,15 @@ const Header1 = () => {
               alt="Logo" 
               className="w-21 h-21 rounded-full object-cover"
             />
-            <div className="flex flex-col font-staatliches">
-              <div className="text-md  font-semibold leading-tight">
-                <span className="text-blue-700">MODEL </span>
+            <div className="flex flex-col font-staatliches font-semibold tracking-wide">
+              <div className="text-lg  leading-tight">
+                <span className="text-blue-700 ">MODEL </span>
                 <span className="text-red-600">HEAT</span>
               </div>
-              <div className="text-md font-bold text-blue-700 leading-tight">
+              <div className="text-lg text-blue-700 leading-tight">
                 ACTION PLAN FOR
               </div>
-              <div className="text-md font-bold text-green-700 leading-tight">
+              <div className="text-lg text-green-700 leading-tight">
                 PATNA
               </div>
             </div>
