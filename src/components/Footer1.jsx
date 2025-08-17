@@ -13,7 +13,13 @@ const Footer1 = () => {
           <div className="text-xs text-gray-600 text-center sm:text-left">
             <span>© 2025 IPE Global | Developed for BSDMA by IPE Global in collaboration with UNDP</span>
             <br />
-            <span>Email Helpline : 0612-2547232</span>
+            <span>
+               <a href="mailto:info@bsdma.org" >
+    Email
+  </a>
+
+            </span>
+            <span>Helpline : 0612-2547232</span>
           </div>
 
           {/* Organization Logos */}

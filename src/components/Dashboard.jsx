@@ -547,11 +547,6 @@ export default function Dashboard({ mapType = "vulnerability_index", selectedLay
             <div className="flex justify-center">
               {SelectedDonutChart ? <SelectedDonutChart /> : null}
             </div>
-            <div className="flex justify-center pt-3 text-xs">
-              <div className="mr-2 flex items-center gap-1 text-red-400"><div className="w-2 h-2 rounded-full bg-red-400"></div>High</div>
-              <div className="mr-2 flex items-center gap-1 text-yellow-400"><div className="w-2 h-2 rounded-full bg-yellow-400"></div>Medium</div>
-              <div className="flex items-center gap-1 text-blue-400"><div className="w-2 h-2 rounded-full bg-blue-400"></div>Low</div>
-            </div>
           </div>
           {/* Population Chart */}
           <div className="bg-white p-3 rounded-lg shadow">
