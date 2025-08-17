@@ -69,8 +69,8 @@ export default function ExposurePopulationChart() {
       </h2>
       <div className="flex justify-center items-end h-60 gap-2">
         {exposureData.map(({ label, value, gradientId, patternId, gradientFrom, gradientTo }) => {
-          const svgHeight = 180;
-          const svgWidth = 48;
+          const svgHeight = 150;
+          const svgWidth = 40;
           const barHeight = (value * svgHeight) / 100;
           return (
             <div key={label} className="relative flex flex-col items-center">
