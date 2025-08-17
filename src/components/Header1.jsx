@@ -156,6 +156,8 @@ const Header1 = () => {
             >
               About us
             </a>
+
+            <a href="http://www.bsdma.org/GetPrepared.aspx?id=1">Get Prepared</a>
           </nav>
 
           {/* Right Section */}
