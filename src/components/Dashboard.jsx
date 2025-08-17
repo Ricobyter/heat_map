@@ -522,12 +522,12 @@ export default function Dashboard({ mapType = "vulnerability_index", selectedLay
           </div>
         </div>
         {/* center alert */}
-        <div className="flex-1 bg-red-100 px-5 py-2 rounded-lg flex items-center gap-2 border border-red-300">
-          <span className="text-red-600 text-lg font-semibold">
+        <div className="flex-1 bg-yellow-100 px-5 py-2 rounded-lg flex items-center gap-2 border border-red-300">
+          <span className="text-yellow-600 text-lg font-semibold">
             <svg className="inline-block h-5 w-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
-              {`Red Alert: 40°C expected on ${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}, Stay Hydrated!`}
+              {`Yellow Alert: Heavy Rainfall Predicted Across Several Districts on ${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}, `}
           </span>
         </div>
       </div>
