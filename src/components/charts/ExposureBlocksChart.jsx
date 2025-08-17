@@ -53,8 +53,8 @@ export default function ExposureBlocksChart() {
 
   return (
     <div className="max-w-[230px] mx-auto my-8 h-full">
-      <h2 className="text-center font-semibold mb-8">
-        Category wise Block Vulnerability (in %)
+      <h2 className="text-center text-xs font-semibold mb-8">
+        Category wise Block Exposure (in %)
       </h2>
       <div className="space-y-4">
         {data.map(({ label, value, color, blocks }) => {
