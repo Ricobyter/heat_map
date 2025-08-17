@@ -56,7 +56,7 @@ export default function AdaptiveCapacityBlocksChart() {
 
   return (
     <div className="max-w-[230px] mx-auto my-8 h-full">
-      <h2 className="text-center font-semibold mb-8">
+      <h2 className="text-center text-xs font-semibold mb-4">
         Category Wise Blocks Adaptive Capacity (in %)
       </h2>
       <div className="space-y-4">

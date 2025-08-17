@@ -9,6 +9,7 @@ import Footer1 from "../components/Footer1";
 const Home = () => {
   const [mapType, setMap] = useState("vulnerability_index"); 
   const [selectedLayer, setSelectedLayer] = useState("None");
+  const [selectedYear, setSelectedYear] = useState("2025");
   return (
     <div className="min-h-screen bg-gray-100 pb-10">
       {/* <Header /> */}
@@ -17,10 +18,10 @@ const Home = () => {
 
 
       <div className="flex px-4 mt-4 gap-4">
-        <Sidebar mapType={mapType} setMap={setMap}       selectedLayer={selectedLayer}
-      setSelectedLayer={setSelectedLayer}/>
+        <Sidebar mapType={mapType} setMap={setMap} selectedLayer={selectedLayer}
+      setSelectedLayer={setSelectedLayer} selectedYear={selectedYear} setSelectedYear={setSelectedYear}/>
       
-        <Dashboard mapType={mapType} selectedLayer={selectedLayer}/>
+        <Dashboard mapType={mapType} selectedLayer={selectedLayer} selectedYear={selectedYear}/>
       </div>
 
     

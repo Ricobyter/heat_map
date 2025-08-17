@@ -491,7 +491,7 @@ const donutTitleMap = {
 
 const recommendations = ["Preparedness", "Response", "Recovery"];
 
-export default function Dashboard({ mapType = "vulnerability_index", selectedLayer }) {
+export default function Dashboard({ mapType = "vulnerability_index", selectedLayer, selectedYear }) {
   const [weather, setWeather] = useState(null);
 
   // Dummy Data for Demo
@@ -503,8 +503,18 @@ export default function Dashboard({ mapType = "vulnerability_index", selectedLay
   const SelectedPopulationChart = populationChartMap[mapType];
   const SelectedBlocksChart = blocksChartMap[mapType];
 
+  const tempColorClass = (t) => {
+  if (t == null || Number.isNaN(Number(t))) return "text-gray-500";
+  const temp = Number(t);
+  if (temp <= 15) return "text-blue-600";
+  if (temp <= 25) return "text-sky-500";
+  if (temp <= 32) return "text-orange-500";
+  if (temp <= 40) return "text-red-600";
+  return "text-rose-700";
+};
+
   return (
-    <div className=" min-h-screen bg-white pt-5  shadow-md rounded-lg shadow-gray-400 font-roboto">
+    <div className=" min-h-screen bg-white pt-5 w-full  shadow-md rounded-lg shadow-gray-400 font-roboto">
       {/* TOP PANEL */}
 
 
@@ -516,7 +526,9 @@ export default function Dashboard({ mapType = "vulnerability_index", selectedLay
         {/* left temp/card */}
         <div className="flex items-center gap-2">
           <div className="flex flex-col items-center px-3 py-1 border-r-1 border-gray-400 bg-white ">
-            <span className="text-xl font-bold text-blue-700">{weather?.temp ?? "--"}°C</span>
+                <span className={`text-xl font-bold ${tempColorClass(weather?.temp)}`}>
+      {weather?.temp ?? "--"}°C
+    </span>
             <span className="text-xs text-gray-600">Temperature</span>
             <span className="text-xs text-blue-500">Relative Humidity: <span className="font-bold text-yellow-500">{weather?.humidity ?? "--"}%</span></span>
           </div>
@@ -533,7 +545,7 @@ export default function Dashboard({ mapType = "vulnerability_index", selectedLay
       </div>
           <div className="bg-white rounded-lg shadow mb-3">
             {/* HEATMAP */}
-            <HeatMap mapType={mapType} selectedLayer={selectedLayer} />
+            <HeatMap mapType={mapType} selectedLayer={selectedLayer} selectedYear={selectedYear} />
           </div>
 
 
@@ -543,7 +555,7 @@ export default function Dashboard({ mapType = "vulnerability_index", selectedLay
         <div className="col-span-3 flex flex-col gap-4">
           {/* Vulnerability Donut/Index */}
           <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className="text-md font-semibold mb-2 text-gray-800">{donutTitleMap[mapType]}</h3>
+            <h3 className=" text-center text-xs font-semibold mb-2 text-gray-800">{donutTitleMap[mapType]}</h3>
             <div className="flex justify-center">
               {SelectedDonutChart ? <SelectedDonutChart /> : null}
             </div>
