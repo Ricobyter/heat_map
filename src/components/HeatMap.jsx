@@ -138,7 +138,7 @@ const legendLabels = isProjectionYear
                       className={`w-6 h-6 rounded-full ${
                         mapType === "adaptive_capacity_index"
                           ? "bg-[#a1d885]"
-                          : "bg-[#ed0900]"
+                          : "bg-[#f26963]"
                       }`}
                     />
                   </div>
@@ -148,7 +148,7 @@ const legendLabels = isProjectionYear
                       className={`w-6 h-6 rounded-full ${
                         mapType === "adaptive_capacity_index"
                           ? "bg-[#d6f5be]"
-                          : "bg-[#f5a319]"
+                          : "bg-[#f3c26e]"
                       }`}
                     />
                   </div>
@@ -159,7 +159,7 @@ const legendLabels = isProjectionYear
                         mapType === "adaptive_capacity_index"
                           ? "bg-[#b7c6b0]"
                           : mapType === "vulnerability_index"
-                          ? "bg-[#f2f3d0]"
+                          ? "bg-[#f1c2aa]"
                           : "bg-[#ecc1aa]"
                       }`}
                     />
