@@ -133,7 +133,7 @@ const legendLabels = isProjectionYear
                 {/* Legend */}
                 <div className="flex flex-row text-xs space-x-2 px-2">
                   <div className="flex flex-col items-center space-y-1">
-                    <span className="font-medium">{legendLabels.mid}</span>
+                    <span className="font-medium">{legendLabels.high}</span>
                     <div
                       className={`w-6 h-6 rounded-full ${
                         mapType === "adaptive_capacity_index"
@@ -143,7 +143,7 @@ const legendLabels = isProjectionYear
                     />
                   </div>
                   <div className="flex flex-col items-center space-y-1">
-                    <span className="font-medium">{legendLabels.low}</span>
+                    <span className="font-medium">{legendLabels.mid}</span>
                     <div
                       className={`w-6 h-6 rounded-full ${
                         mapType === "adaptive_capacity_index"
@@ -153,7 +153,7 @@ const legendLabels = isProjectionYear
                     />
                   </div>
                   <div className="flex flex-col items-center space-y-1">
-                    <span className="font-medium">{legendLabels.high}</span>
+                    <span className="font-medium">{legendLabels.low}</span>
                     <div
                       className={`w-6 h-6 rounded-full shadow-sm ${
                         mapType === "adaptive_capacity_index"
