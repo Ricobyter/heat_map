@@ -67,9 +67,9 @@ export default function AdaptiveCapacityDonutChart() {
   }, []);
 
   // Geometry (consistent with other charts)
-  const size = 210;
+  const size = 180;
   const center = '50%';
-  const outerR = 88;
+  const outerR = 84;
   const gap = 10;
   const thickness = 14;
   const padAngle = 3;

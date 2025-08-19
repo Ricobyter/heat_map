@@ -582,7 +582,7 @@ export default function Dashboard({
               </span>
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow mb-3">
+          <div className="bg-white rounded-lg shadow ">
             {/* HEATMAP */}
             <HeatMap
               mapType={mapType}
@@ -593,9 +593,9 @@ export default function Dashboard({
         </div>
 
         {/* SIDEBAR COLUMN */}
-        <div className="col-span-3 flex flex-col gap-4">
+        <div className="col-span-3 flex flex-col justify-between">
           {/* Vulnerability Donut/Index */}
-          <div className="bg-white p-4 rounded-lg shadow">
+          <div className="bg-white p-4 rounded-lg shadow max-h-[36vh]">
             <h3 className=" text-center text-xs font-semibold mb-2 text-gray-800">
               {donutTitleMap[mapType]}
             </h3>
@@ -604,13 +604,13 @@ export default function Dashboard({
             </div>
           </div>
           {/* Population Chart */}
-          <div className="bg-white p-3 rounded-lg shadow">
+          <div className="bg-white p-3 rounded-lg shadow max-h-[36vh]">
             <div>
               {SelectedPopulationChart ? <SelectedPopulationChart /> : null}
             </div>
           </div>
           {/* Blocks Chart */}
-          <div className="bg-white p-3 rounded-lg shadow">
+          <div className="bg-white p-3 rounded-lg shadow max-h-[36vh]">
             <div>{SelectedBlocksChart ? <SelectedBlocksChart /> : null}</div>
           </div>
         </div>
