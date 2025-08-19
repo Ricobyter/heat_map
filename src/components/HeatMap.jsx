@@ -2,8 +2,11 @@ import { useMemo } from "react";
 import "leaflet/dist/leaflet.css";
 import compass from "../assets/compass2.png";
 
-const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", selectedYear }) => {
-
+const HeatMap = ({
+  mapType = "vulnerability_index",
+  selectedLayer = "None",
+  selectedYear,
+}) => {
   const baseMaps = {
     exposure_index: "/exposure_index_satellite.html",
     vulnerability_index: "/vulnerability_index_satellite.html",
@@ -15,23 +18,25 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
     exposure_index: "/exposure_index_satellite_roads.html",
     vulnerability_index: "/vulnerability_index_and_road_satellites.html",
     sensitivity_index: "/sensitivity_index_and_road_satellites.html",
-    adaptive_capacity_index: "/adaptive_capacity_index_road_satellite_view.html",
+    adaptive_capacity_index:
+      "/adaptive_capacity_index_road_satellite_view.html",
   };
 
   const waterSewerMaps = {
     exposure_index: "/patna_blocks_with_water&sewer_infradetailed.html",
     vulnerability_index: "/vulnerability_index_water_sewer_infrastructure.html",
     sensitivity_index: "/sensitivity_index_water_sewer_infrastructure.html",
-    adaptive_capacity_index: "/adaptive_capacity_index_water_sewer_infrastructure.html",
+    adaptive_capacity_index:
+      "/adaptive_capacity_index_water_sewer_infrastructure.html",
   };
 
   // Health facilities special case (kept from your code)
   const healthFacilitiesMap = "/exposure_index_health_facilities.html";
 
-  const HRIIndex2030 = "/vulnerability_index_v2_satellite.html"
-  const HRIIndex2035 = "/vulnerability_index_2035_satellite.html"
-  const HRIIndex2040 = "/vulnerability_index_2040_satellite.html"
-  const HRIIndex2050 = "/vulnerability_index_2050_satellite.html"
+  const HRIIndex2030 = "/vulnerability_index_v2_satellite.html";
+  const HRIIndex2035 = "/vulnerability_index_2035_satellite.html";
+  const HRIIndex2040 = "/vulnerability_index_2040_satellite.html";
+  const HRIIndex2050 = "/vulnerability_index_2050_satellite.html";
 
   // Friendly titles per index type
   const mapName = {
@@ -67,35 +72,33 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
       };
     }
 
-    if(selectedYear === "2030"){
-        return {
+    if (selectedYear === "2030") {
+      return {
         src: HRIIndex2030,
         title: "HRI Map 2030",
       };
     }
 
-    if(selectedYear === "2035"){
-        return {
+    if (selectedYear === "2035") {
+      return {
         src: HRIIndex2035,
         title: "HRI Map 2035",
       };
     }
 
-    if(selectedYear == "2040"){
-        return {
+    if (selectedYear == "2040") {
+      return {
         src: HRIIndex2040,
         title: "HRI Map 2040",
       };
     }
 
-    if(selectedYear == "2050"){
-        return {
+    if (selectedYear == "2050") {
+      return {
         src: HRIIndex2050,
         title: "HRI Map 2050",
       };
     }
-
-
 
     // Default to the base heat index map
     return {
@@ -105,11 +108,11 @@ const HeatMap = ({ mapType = "vulnerability_index", selectedLayer = "None", sele
   }, [mapType, selectedLayer, selectedYear]);
 
   const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(
-  String(selectedYear)
-);
-const legendLabels = isProjectionYear
-  ? { high: "Very High", mid: "High", low: "Moderate" }
-  : { high: "High", mid: "Medium", low: "Low" };
+    String(selectedYear)
+  );
+  const legendLabels = isProjectionYear
+    ? { high: "Very High", mid: "High", low: "Moderate" }
+    : { high: "High", mid: "Medium", low: "Low" };
 
   return (
     <div className="bg-#F9F6EE pt-0 rounded-lg shadow-md shadow-gray-400 h-full w-full font-roboto">
@@ -156,7 +159,9 @@ const legendLabels = isProjectionYear
                     <span className="font-medium">{legendLabels.low}</span>
                     <div
                       className={`w-6 h-6 rounded-full shadow-sm ${
-                        mapType === "adaptive_capacity_index"
+                        isProjectionYear
+                          ? "bg-[#fce99f]"
+                          : mapType === "adaptive_capacity_index"
                           ? "bg-[#b7c6b0]"
                           : mapType === "vulnerability_index"
                           ? "bg-[#f1c2aa]"
@@ -169,7 +174,9 @@ const legendLabels = isProjectionYear
 
               {/* Population Density (static sample) */}
               <div className="mb-6">
-                <p className="text-gray-600 text-sm mb-2">Population Density (2025) / km²:</p>
+                <p className="text-gray-600 text-sm mb-2">
+                  Population Density (2025) / km²:
+                </p>
                 <div className="flex items-center gap-6">
                   <span className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 bg-red-900 rounded-full" />
@@ -200,8 +207,16 @@ const legendLabels = isProjectionYear
               <div className="flex items-start gap-4">
                 <div className="bg-yellow-200 border-2 border-yellow-400 rounded-lg p-3 flex items-center gap-3">
                   <div className="flex items-center justify-center w-8 h-8 bg-yellow-300 rounded">
-                    <svg className="w-5 h-5 text-yellow-800" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-yellow-800"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                   </div>
                   <div className="text-sm">
@@ -212,10 +227,12 @@ const legendLabels = isProjectionYear
 
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-800 mb-1">
-                    Elderly <span className="text-orange-600">(Orange Alert)</span>
+                    Elderly{" "}
+                    <span className="text-orange-600">(Orange Alert)</span>
                   </h3>
                   <p className="text-sm text-gray-700">
-                    Drink 2-3L water daily, visit cooling shelters. BSDMA Helpline: 0612-2547232
+                    Drink 2-3L water daily, visit cooling shelters. BSDMA
+                    Helpline: 0612-2547232
                   </p>
                 </div>
               </div>
@@ -224,7 +241,9 @@ const legendLabels = isProjectionYear
 
           {/* Right Sidebar (Recommendations) */}
           <div className="bg-blue-100 rounded-lg shadow-sm p-4 min-w-[280px]">
-            <h3 className="text-lg font-semibold text-gray-800 text-center mb-4">Recommendations</h3>
+            <h3 className="text-lg font-semibold text-gray-800 text-center mb-4">
+              Recommendations
+            </h3>
             <div className="grid grid-cols-2 gap-3 mb-4">
               <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
                 Preparedness
