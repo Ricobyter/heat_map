@@ -389,7 +389,7 @@ const Sidebar = ({
               { key: "exposure_index", label: "Exposure Index" },
               { key: "sensitivity_index", label: "Sensitivity Index" },
               { key: "adaptive_capacity_index", label: "Adaptive Capacity Index" },
-              { key: "vulnerability_index", label: "Vulnerability Index" },
+              { key: "vulnerability_index", label: "Heat Vulnerability Index" },
             ].map(({ key, label }) => (
               <label
                 key={key}
