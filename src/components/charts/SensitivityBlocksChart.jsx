@@ -64,11 +64,12 @@ export default function SensitivityBlocksChart() {
             <div key={label} className="flex items-center relative">
               <span className="w-16 mr-2 text-sm font-semibold text-gray-600">{label}</span>
               <div
-                className="relative flex-1 h-8 rounded cursor-pointer"
+                className="relative flex-1 h-8 rounded-lg cursor-pointer"
                 onMouseEnter={() => handleMouseEnter(label)}
                 onMouseLeave={handleMouseLeave}
                 style={{
-                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`
+                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`,
+                  borderRadius: '12px',
                 }}
               >
                 {/* Colored bar with white shine at start */}
@@ -76,7 +77,8 @@ export default function SensitivityBlocksChart() {
                   className="h-full rounded relative overflow-hidden"
                   style={{
                     width: `${value}%`,
-                    backgroundColor: color
+                    backgroundColor: color,
+                    borderRadius: '12px',
                   }}
                 >
                   {/* White gradient shine only at start */}

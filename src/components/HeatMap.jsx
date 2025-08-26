@@ -205,8 +205,8 @@ const HeatMap = ({
 
               {/* Advisory snippet */}
               <div className="flex items-start gap-4">
-                <div className="bg-yellow-200 border-2 border-yellow-400 rounded-lg p-3 flex items-center gap-3">
-                  <div className="flex items-center justify-center w-8 h-8 bg-yellow-300 rounded">
+                <div className="bg-yellow-200 border-2 border-[#FFEF10] rounded-lg p-3 flex items-center gap-3">
+                  <div className="flex items-center justify-center w-8 h-8 bg-[#FFFCE8] rounded">
                     <svg
                       className="w-5 h-5 text-yellow-800"
                       fill="currentColor"
@@ -240,19 +240,19 @@ const HeatMap = ({
           </div>
 
           {/* Right Sidebar (Recommendations) */}
-          <div className="bg-blue-100 rounded-lg shadow-sm p-4 min-w-[280px]">
+          <div className=" bg-white hover:bg-[#E2ECF4] duration-100 rounded-lg shadow-sm p-4 min-w-[280px]">
             <h3 className="text-lg font-semibold text-gray-800 text-center mb-4">
               Recommendations
             </h3>
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
+              <button className="bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
                 Preparedness
               </button>
-              <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
+              <button className="bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
                 Response
               </button>
             </div>
-            <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
+            <button className="w-full bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
               Recovery
             </button>
           </div>

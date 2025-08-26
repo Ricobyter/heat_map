@@ -117,14 +117,14 @@ const Header1 = () => {
               className="w-21 h-21 rounded-full object-cover"
             />
             <div className="flex flex-col font-staatliches font-semibold tracking-wide">
-              <div className="text-lg  leading-tight">
+              <div className="text-[20px]  leading-tight">
                 <span className="text-[#004275] ">MODEL </span>
                 <span className="text-red-600">HEAT</span>
               </div>
-              <div className="text-lg text-[#004275] leading-tight">
+              <div className="text-[20px] text-[#004275] leading-tight">
                 ACTION PLAN FOR
               </div>
-              <div className="text-lg text-green-700 leading-tight">
+              <div className="text-[20px] text-green-700 leading-tight">
                 PATNA
               </div>
             </div>
@@ -138,12 +138,7 @@ const Header1 = () => {
             >
               Home
             </a>
-            <a 
-              href="#" 
-              className="text-gray-700 font-medium"
-            >
-              Analytics
-            </a>
+
             <a 
               href="#" 
               className="text-gray-700 font-medium"

@@ -560,7 +560,7 @@ export default function Dashboard({
 </div>
 
             {/* center alert */}
-            <div className="flex-1 bg-yellow-100 px-5 py-2 rounded-lg flex items-center gap-2 border border-red-300">
+            <div className="flex-1 bg-yellow-100 px-5 py-2 rounded-lg flex items-center gap-2 border-none">
               <span className="text-yellow-600 text-lg font-semibold">
                 <svg
                   className="inline-block h-5 w-5 mr-2"
@@ -595,7 +595,7 @@ export default function Dashboard({
         {/* SIDEBAR COLUMN */}
         <div className="col-span-3 flex flex-col justify-between">
           {/* Vulnerability Donut/Index */}
-          <div className="bg-white p-4 rounded-lg shadow max-h-[36vh]">
+          <div className="bg-white p-4 rounded-lg shadow-md shadow-gray-400 max-h-[36vh]">
             <h3 className=" text-center text-xs font-semibold mb-2 text-gray-800">
               {donutTitleMap[mapType]}
             </h3>
@@ -604,18 +604,17 @@ export default function Dashboard({
             </div>
           </div>
           {/* Population Chart */}
-          <div className="bg-white p-3 rounded-lg shadow max-h-[36vh]">
+          <div className="bg-white p-3 rounded-lg shadow-md shadow-gray-400 max-h-[36vh]">
             <div>
               {SelectedPopulationChart ? <SelectedPopulationChart /> : null}
             </div>
           </div>
           {/* Blocks Chart */}
-          <div className="bg-white p-3 rounded-lg shadow max-h-[36vh]">
+          <div className="bg-white p-3 rounded-lg shadow-md shadow-gray-400 max-h-[36vh]">
             <div>{SelectedBlocksChart ? <SelectedBlocksChart /> : null}</div>
           </div>
         </div>
       </div>
-
       <Footer1 />
     </div>
   );
