@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-@theme{
-    --font-roboto: 'Roboto', 'sans-serif';
-    --font-noto-sans: 'Noto Sans', 'sans-serif';
-    --font-staatliches: 'Staatliches', 'sans-serif';
-}
+/* *{
+    margin: 0;
+    padding: 0;
+} */
