@@ -30,7 +30,7 @@ const CustomTooltip = ({ active, hoveredCategory, chart, title = 'Exposure' }) =
     <div className="bg-white border rounded shadow p-2 text-xs max-w-[260px]">
       <div className="font-bold mb-1">{hoveredCategory} {title}</div>
       <div className="mb-1 text-[13px] font-semibold text-slate-600">
-        {info.percentText} of districts
+        {info.percentText} of total blocks
       </div>
       <div className="text-[11px] leading-snug">{info.items.join(', ')}</div>
     </div>
