@@ -401,7 +401,7 @@ const Sidebar = ({
                   name="heatRiskScenario"
                   checked={(mapType ?? "vulnerability_index") === key}
                   onChange={() => setMap(key)}
-                  className="mr-3 w-4 h-4"
+                  className="mr-3 w-4 h-4 accent-green-700"
                 />
                 {heatRiskIcons[key]}
                 {label}
