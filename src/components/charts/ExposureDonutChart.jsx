@@ -69,9 +69,9 @@ export default function ExposureDonutChart() {
   }, []);
 
   // Geometry (consistent with other charts)
-  const size = 180;
+  const size = 165;
   const center = '50%';
-  const outerR = 84;
+  const outerR = 80;
   const gap = 10;
   const thickness = 14;
   const padAngle = 3;
