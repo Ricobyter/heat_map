@@ -138,13 +138,13 @@ const Header1 = () => {
             >
               Home
             </a>
-
             <a 
               href="#" 
               className="text-gray-700 font-medium"
             >
-              Datasets
+              Analytics
             </a>
+
             <a 
               href="#" 
               className="text-gray-700 font-medium"
