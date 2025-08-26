@@ -1,7 +1,34 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
-// --- Data
+// --- Areas (km²) for each block
+const areaMap = {
+  Dhanarua: 183.40,
+  Naubatpur: 168.03,
+  Masaurhi: 202.26,
+  Maner: 171.96,
+  Pandarak: 205.75,
+  Barh: 120.19,
+  Athmalgola: 50.41,
+  Belchhi: 69.65,
+  Khusrupur: 63.10,
+  Fatwah: 125.98,
+  Ghoswari: 138.61,
+  Bihta: 198.16,
+  Sampatchak: 63.81,
+  Punpun: 130.78,
+  Paliganj: 238.78,
+  Bikram: 152.79,
+  "Dulhin Bazar": 108.43,
+  Bakhtiyarpur: 171.16,
+  Mokama: 194.23,
+  "Patna Sadar": 148.91,
+  Daniyawan: 65.37,
+  Danapur: 128.18,
+  "Phulwari Sharif": 110.20,
+};
+
+// --- Data (your groupings)
 const districtData = {
   Low: ['Masaurhi', 'Pandarak', 'Ghoswari', 'Bikram'],
   Medium: [
@@ -20,7 +47,7 @@ const TRACKS = { High: '#f9e0df', Medium: '#fde7c6', Low: '#f5f1cf' };
 
 const toPercent = (n, d) => ((n / d) * 100).toFixed(1);
 
-// Tooltip driven by hoveredCategory state
+// Tooltip shows area percentage and km²
 const CustomTooltip = ({ active, hoveredCategory, chart, title = 'Exposure' }) => {
   if (!active || !hoveredCategory) return null;
   const info = chart?.[hoveredCategory];
@@ -30,7 +57,10 @@ const CustomTooltip = ({ active, hoveredCategory, chart, title = 'Exposure' }) =
     <div className="bg-white border rounded shadow p-2 text-xs max-w-[260px]">
       <div className="font-bold mb-1">{hoveredCategory} {title}</div>
       <div className="mb-1 text-[13px] font-semibold text-slate-600">
-        {info.percentText} of total blocks
+        {info.percentText} of total area
+      </div>
+      <div className="mb-1 text-[13px] text-slate-600">
+        {info.areaText} km²
       </div>
       <div className="text-[11px] leading-snug">{info.items.join(', ')}</div>
     </div>
@@ -41,27 +71,31 @@ export default function ExposureDonutChart() {
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
   const chart = useMemo(() => {
-    const total =
-      districtData.Low.length +
-      districtData.Medium.length +
-      districtData.High.length;
+    const sumCategoryArea = (blocks) =>
+      blocks.reduce((sum, b) => sum + (areaMap[b] || 0), 0);
+
+    const totalArea =
+      sumCategoryArea(districtData.Low) +
+      sumCategoryArea(districtData.Medium) +
+      sumCategoryArea(districtData.High);
 
     const build = (key) => {
-      const value = districtData[key].length;
-      const percent = toPercent(value, total);
+      const area = sumCategoryArea(districtData[key]);
+      const percent = toPercent(area, totalArea);
       return {
         key,
-        value,
+        value: area,           // use area for slice size
         color: COLORS[key],
         track: TRACKS[key],
         percentText: `${percent}%`,
+        areaText: area.toFixed(2),
         items: districtData[key],
-        total
+        total: totalArea,
       };
     };
 
     return {
-      total,
+      total: totalArea,
       High: build('High'),
       Medium: build('Medium'),
       Low: build('Low')

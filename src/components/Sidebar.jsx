@@ -230,7 +230,7 @@
 //           </div>
 //         </div>
 //       </div>
-      
+
 //       {/* Run Simulation Button at the bottom */}
 //       <div className="p-4">
 //         <button className="w-full bg-blue-200 border border-blue-700 py-3 px-4 rounded text-blue-700 font-semibold hover:bg-blue-300 transition-colors cursor-pointer">
@@ -243,9 +243,8 @@
 
 // export default Sidebar;
 
-
 import { useState } from "react";
-import { MdPublic, MdTrendingUp, MdWarning } from 'react-icons/md';
+import { MdPublic, MdTrendingUp, MdWarning } from "react-icons/md";
 import { GrVulnerability } from "react-icons/gr";
 
 const Sidebar = ({
@@ -256,7 +255,7 @@ const Sidebar = ({
   vulnerableGroups,
   setVulnerableGroups,
   selectedLayer,
-  setSelectedLayer
+  setSelectedLayer,
 }) => {
   // Local fallback state (only used if parent doesn't control these)
   const internalVulnerableGroups = useState({
@@ -275,12 +274,10 @@ const Sidebar = ({
   // Correctly read the value part of the internal tuple
   const [fallbackYear, setFallbackYear] = internalSelectedYear;
   const year = typeof selectedYear === "string" ? selectedYear : fallbackYear;
-  const setYear = typeof setSelectedYear === "function" ? setSelectedYear : setFallbackYear;
+  const setYear =
+    typeof setSelectedYear === "function" ? setSelectedYear : setFallbackYear;
 
-  const years = [
-    ["2025", "2030", "2035", "2040"],
-    ["2050"],
-  ];
+  const years = [["2025", "2030", "2035", "2040"], ["2050"]];
 
   const subdistricts = [
     "Athamalgola",
@@ -330,17 +327,19 @@ const Sidebar = ({
     "Children",
     "Pregnant Women",
     "Outdoor Workers",
-    "Slum Dwellers"
+    "Slum Dwellers",
   ];
 
   const heatRiskIcons = {
     exposure_index: <MdPublic className="w-5 h-5 text-gray-600 mr-2" />,
-    sensitivity_index: <GrVulnerability className="w-5 h-5 text-gray-600 mr-2" />,
-    adaptive_capacity_index: <MdTrendingUp className="w-5 h-5 text-gray-600 mr-2" />,
-    vulnerability_index: <MdWarning className="w-5 h-5 text-gray-600 mr-2" />
+    sensitivity_index: (
+      <GrVulnerability className="w-5 h-5 text-gray-600 mr-2" />
+    ),
+    adaptive_capacity_index: (
+      <MdTrendingUp className="w-5 h-5 text-gray-600 mr-2" />
+    ),
+    vulnerability_index: <MdWarning className="w-5 h-5 text-gray-600 mr-2" />,
   };
-
-
 
   return (
     <div
@@ -349,7 +348,6 @@ const Sidebar = ({
     >
       <div className="p-4 flex-grow overflow-auto">
         {/* Time Period */}
-
 
         {/* Block */}
         <div className="mb-8">
@@ -374,7 +372,9 @@ const Sidebar = ({
             onChange={(e) => setSelectedLayer(e.target.value)}
           >
             {layers.map((layer) => (
-              <option key={layer} value={layer}>{layer}</option>
+              <option key={layer} value={layer}>
+                {layer}
+              </option>
             ))}
           </select>
         </div>
@@ -388,7 +388,10 @@ const Sidebar = ({
             {[
               { key: "exposure_index", label: "Exposure Index" },
               { key: "sensitivity_index", label: "Sensitivity Index" },
-              { key: "adaptive_capacity_index", label: "Adaptive Capacity Index" },
+              {
+                key: "adaptive_capacity_index",
+                label: "Adaptive Capacity Index",
+              },
               { key: "vulnerability_index", label: "Heat Vulnerability Index" },
             ].map(({ key, label }) => (
               <label
@@ -409,7 +412,6 @@ const Sidebar = ({
             ))}
           </div>
         </div>
-
 
         {/* SSP Scenario (Year) */}
         <div className="mb-6">

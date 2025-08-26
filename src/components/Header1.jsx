@@ -8,57 +8,39 @@ const Header1 = () => {
   const [locationError, setLocationError] = useState(false);
 
   // Function to get location name from coordinates using free Nominatim service
-  const getLocationName = async (latitude, longitude) => {
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
-      );
-      const data = await response.json();
-      
-      if (data && data.address) {
-        // Try to get city/town/village name
-        const city = data.address.city || 
-                    data.address.town || 
-                    data.address.village || 
-                    data.address.suburb || 
-                    data.address.neighbourhood ||
-                    data.address.hamlet;
-        
-        // Try to get state or state code
-        const state = data.address.state;
-        const stateCode = data.address['ISO3166-2-lvl4'] || 
-                         (state ? state.substring(0, 2).toUpperCase() : '');
-        
-        // If we have both city and state, return formatted string
-        if (city && (state || stateCode)) {
-          return `${city}, ${stateCode || state}`;
-        }
-        
-        // If we only have city, return just city
-        if (city) {
-          return city;
-        }
-        
-        // If we have country, return country
-        if (data.address.country) {
-          return data.address.country;
-        }
-        
-        // Last resort - return the display name (formatted address)
-        if (data.display_name) {
-          // Extract the first two parts of the address
-          const parts = data.display_name.split(',');
-          return parts.slice(0, 2).join(',').trim();
-        }
+const getLocationName = async (latitude, longitude) => {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+    );
+    const data = await response.json();
+
+    if (data && data.address) {
+      const state = data.address.state;
+      const country = data.address.country;
+      // Prefer showing state and country
+      if (state && country) {
+        return `${state}, ${country}`;
       }
-      
-      // If all else fails, show coordinates
-      return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
-    } catch (error) {
-      console.error('Error getting location name:', error);
-      return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+      if (state) {
+        return state;
+      }
+      if (country) {
+        return country;
+      }
+      // fallback: display_name or coordinates
+      if (data.display_name) {
+        const parts = data.display_name.split(',');
+        return parts.slice(-3).join(',').trim();
+      }
     }
-  };
+    return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+  } catch (error) {
+    console.error('Error getting location name:', error);
+    return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+  }
+};
+
 
   // Get user's current location
   useEffect(() => {
@@ -158,12 +140,12 @@ const Header1 = () => {
           {/* Right Section */}
           <div className="flex items-center space-x-4">
             {/* Location */}
-            <div className="hidden sm:flex items-center space-x-1 text-sm">
-              <MdLocationOn className={`w-4 h-4 ${locationError ? 'text-red-500' : 'text-gray-600'}`} />
-              <span className={locationError ? 'text-red-500' : 'text-gray-600'}>
-                Your Location
-              </span>
-            </div>
+<div className="hidden sm:flex items-center space-x-1 text-sm">
+  <MdLocationOn className={`w-4 h-4 ${locationError ? 'text-red-500' : 'text-gray-600'}`} />
+  <span className={locationError ? 'text-red-500' : 'text-gray-600'}>
+    {location}
+  </span>
+</div>
 
             {/* Mobile Menu Button */}
             <button
