@@ -310,11 +310,11 @@ const Sidebar = ({
 
   const layers = [
     "None",
+    "Roads",
+    "Water and Sewer Infrastructure",
+    "Health Facilities",
     "Point of Interest",
     "Settlements and Buildings",
-    "Health Facilities",
-    "Water and Sewer Infrastructure",
-    "Roads",
     "Facilities",
     "Residential Densities",
     "Solid Waste",
@@ -326,6 +326,11 @@ const Sidebar = ({
     "Planning",
     "Nature",
     "Waste Management",
+    "Elderly",
+    "Children",
+    "Pregnant Women",
+    "Outdoor Workers",
+    "Slum Dwellers"
   ];
 
   const heatRiskIcons = {
@@ -335,12 +340,7 @@ const Sidebar = ({
     vulnerability_index: <MdWarning className="w-5 h-5 text-gray-600 mr-2" />
   };
 
-  const handleVulnerableGroupChange = (group) => {
-    setGroups((prev) => ({
-      ...prev,
-      [group]: !prev[group],
-    }));
-  };
+
 
   return (
     <div
@@ -349,21 +349,12 @@ const Sidebar = ({
     >
       <div className="p-4 flex-grow overflow-auto">
         {/* Time Period */}
-        <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-600 mb-3">
-            Time Period
-          </label>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white">
-            <option>Today</option>
-            <option>This Week</option>
-            <option>This Month</option>
-          </select>
-        </div>
 
-        {/* Subdistrict/Block */}
-        <div className="mb-6">
+
+        {/* Block */}
+        <div className="mb-8">
           <label className="block text-sm font-semibold text-gray-600 mb-3">
-            Subdistrict/Block
+            Block
           </label>
           <select className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white">
             {subdistricts.map((subdistrict) => (
@@ -373,7 +364,7 @@ const Sidebar = ({
         </div>
 
         {/* Layers Dropdown */}
-        <div className="mb-6">
+        <div className="mb-8">
           <label className="block text-sm font-semibold text-gray-600 mb-3">
             Layers
           </label>
@@ -391,7 +382,7 @@ const Sidebar = ({
         {/* Heat Risk Indices */}
         <div className="mb-8">
           <label className="block text-sm font-semibold text-gray-600 mb-3">
-            Heat Risk Indices
+            Heat Risk Assessment
           </label>
           <div className="space-y-3">
             {[
@@ -419,43 +410,12 @@ const Sidebar = ({
           </div>
         </div>
 
-        {/* Vulnerable Group */}
-        <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-600 mb-3">
-            Vulnerable Group
-          </label>
-          <div className="space-y-3">
-            {[
-              { key: "elderly", label: "Elderly" },
-              { key: "children", label: "Children" },
-              { key: "pregnantWomen", label: "Pregnant Women" },
-              { key: "outdoorWorkers", label: "Outdoor Workers" },
-              { key: "slumDwellers", label: "Slum Dwellers" },
-            ].map(({ key, label }) => (
-              <label
-                key={key}
-                className="flex items-center text-sm cursor-pointer text-gray-700"
-              >
-                <input
-                  type="checkbox"
-                  checked={!!groups[key]}
-                  onChange={() => handleVulnerableGroupChange(key)}
-                  className="mr-3 w-4 h-4"
-                />
-                {label}
-              </label>
-            ))}
-          </div>
-        </div>
 
         {/* SSP Scenario (Year) */}
-        <div className="mb-8">
+        <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-600 mb-3">
             Heat Risk Scenario
           </label>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white mb-4">
-            <option>Select Year</option>
-          </select>
           <div className="space-y-2">
             {years.map((row, rowIndex) => (
               <div key={rowIndex} className="grid grid-cols-4 gap-2">
@@ -480,7 +440,7 @@ const Sidebar = ({
 
       {/* Run Simulation Button at the bottom */}
       <div className="p-4">
-        <button className="w-full bg-blue-200 border border-blue-700 py-3 px-4 rounded text-blue-700 font-semibold hover:bg-blue-300 transition-colors cursor-pointer">
+        <button className="w-full bg-[#E2ECF4] border border-[#007CDB] py-3 px-4 rounded text-[#007CDB] font-semibold hover:bg-blue-300 transition-colors cursor-pointer">
           Run Simulation
         </button>
       </div>
