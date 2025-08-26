@@ -134,13 +134,13 @@ const Header1 = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <a 
               href="#" 
-              className="text-red-600 font-semibold border-b-2 border-red-600 pb-1"
+              className="text-gray-700 font-medium"
             >
               Home
             </a>
             <a 
               href="#" 
-              className="text-gray-700 font-medium"
+              className="text-red-600 font-semibold border-b-2 border-red-600 pb-1"
             >
               Analytics
             </a>
