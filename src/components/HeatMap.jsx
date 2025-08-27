@@ -133,7 +133,7 @@ const shouldHidePopulationDensity =
     String(selectedYear)
   );
   const legendLabels = isProjectionYear
-    ? { high: "Very High", mid: "High", low: "Moderate" }
+    ? { high: "Very High, Urban", mid: "High, Peri-Urban", low: "Moderate, Rural" }
     : { high: "High", mid: "Medium", low: "Low" };
 
     const HIDE_DENSITY_YEARS = new Set([2030, 2035, 2040, 2050]);
@@ -180,7 +180,7 @@ const shouldHidePopulationDensity =
                     />
                   </div>
                   <div className="flex flex-col items-center space-y-1">
-                    <span className="font-medium">{legendLabels.low}</span>
+                    <span className="font-medium ">{legendLabels.low}</span>
                     <div
                       className={`w-6 h-6 rounded-full shadow-sm ${
                         isProjectionYear
