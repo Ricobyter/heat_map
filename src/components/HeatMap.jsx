@@ -46,9 +46,24 @@ const HeatMap = ({
     adaptive_capacity_index: "Adaptive Capacity Map",
   };
 
+      const PROJECTION_YEARS = new Set([2030, 2035, 2040, 2050]);
+const INDEX_TYPES = new Set([
+  "vulnerability_index",
+]);
+
+const shouldHidePopulationDensity =
+  PROJECTION_YEARS.has(Number(selectedYear)) && INDEX_TYPES.has(mapType);
+
   // Compute src and title once per prop change
   const { src, title } = useMemo(() => {
     const type = mapType in baseMaps ? mapType : "vulnerability_index";
+    const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(String(selectedYear));
+
+
+
+  const forceBaseMapForProjection =
+    isProjectionYear &&
+    ["exposure_index", "sensitivity_index", "adaptive_capacity_index"].includes(type);
 
     // Selected layer Routing
     if (selectedLayer === "Roads") {
@@ -71,6 +86,13 @@ const HeatMap = ({
         title: "Health Facilities Map",
       };
     }
+
+      if (forceBaseMapForProjection) {
+    return {
+      src: baseMaps[type],
+      title: mapName[type] || "Heat Map",
+    };
+  }
 
     if (selectedYear === "2030") {
       return {
@@ -175,7 +197,7 @@ const HeatMap = ({
               </div>
 
               {/* Population Density (static sample) */}
-              {!HIDE_DENSITY_YEARS.has(Number(selectedYear)) && (
+              {!shouldHidePopulationDensity && (
               <div className="mb-6">
                 <p className="text-gray-600 text-sm mb-2">
                   Population Density (2025) / km²:
