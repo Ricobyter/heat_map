@@ -253,7 +253,10 @@ const shouldHidePopulationDensity =
 
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-800 mb-1">
+                    <a href="http://www.bsdma.org/GetPrepared.aspx?id=1">
+
                     Heatwave Advisories devised by BSDMA
+                    </a>
                     
                   </h3>
                   <p className="text-sm text-gray-700">

@@ -420,15 +420,15 @@ const Sidebar = ({
           </label>
           <div className="space-y-2">
             {years.map((row, rowIndex) => (
-              <div key={rowIndex} className="grid grid-cols-4 gap-2">
+              <div key={rowIndex} className="grid grid-cols-2 gap-2">
                 {row.map((yearValue) => (
                   <button
                     key={yearValue}
                     onClick={() => setYear(yearValue)}
-                    className={`py-2 px-1 text-xs font-medium rounded ${
+                    className={`py-3 px-2 text-md font-medium rounded-md ${
                       year === yearValue
                         ? "bg-green-600 text-white"
-                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-300"
                     }`}
                   >
                     {yearValue}
