@@ -75,28 +75,28 @@ const HeatMap = ({
     if (selectedYear === "2030") {
       return {
         src: HRIIndex2030,
-        title: "HRI Map 2030",
+        title: "HRI for 2030 Scenario",
       };
     }
 
     if (selectedYear === "2035") {
       return {
         src: HRIIndex2035,
-        title: "HRI Map 2035",
+        title: "HRI for 2035 Scenario",
       };
     }
 
     if (selectedYear == "2040") {
       return {
         src: HRIIndex2040,
-        title: "HRI Map 2040",
+        title: "HRI for 2040 Scenario",
       };
     }
 
     if (selectedYear == "2050") {
       return {
         src: HRIIndex2050,
-        title: "HRI Map 2050",
+        title: "HRI for 2050 Scenario",
       };
     }
 
@@ -113,6 +113,8 @@ const HeatMap = ({
   const legendLabels = isProjectionYear
     ? { high: "Very High", mid: "High", low: "Moderate" }
     : { high: "High", mid: "Medium", low: "Low" };
+
+    const HIDE_DENSITY_YEARS = new Set([2030, 2035, 2040, 2050]);
 
   return (
     <div className="bg-#F9F6EE pt-0 rounded-lg shadow-md shadow-gray-400 h-full w-full font-roboto">
@@ -173,6 +175,7 @@ const HeatMap = ({
               </div>
 
               {/* Population Density (static sample) */}
+              {!HIDE_DENSITY_YEARS.has(Number(selectedYear)) && (
               <div className="mb-6">
                 <p className="text-gray-600 text-sm mb-2">
                   Population Density (2025) / km²:
@@ -200,6 +203,7 @@ const HeatMap = ({
                   </span>
                 </div>
               </div>
+              )}
 
               <div className="border-b border-gray-300 mb-6" />
 
