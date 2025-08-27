@@ -30,7 +30,7 @@ const areaMap = {
 
 // --- Data
 const districtData = {
-  Low: ["Maner", "Khusrupur", "Ghoswari", "Danapur"],
+  Low: [ ],
   Medium: [
     "Dhanarua",
     "Naubatpur",
@@ -43,6 +43,8 @@ const districtData = {
     "Bikram",
     "Dulhin Bazar",
     "Phulwari Sharif",
+    "Maner",
+    "Danapur"
   ],
   High: [
     "Pandarak",
@@ -53,6 +55,8 @@ const districtData = {
     "Mokama",
     "Patna Sadar",
     "Daniyawan",
+    "Khusrupur",
+     "Ghoswari",
   ],
 };
 
