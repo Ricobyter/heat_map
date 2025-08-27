@@ -225,17 +225,17 @@ const HeatMap = ({
                   </div>
                   <div className="text-sm">
                     <div className="font-semibold text-gray-800">Heatwave</div>
-                    <div className="text-gray-700">Advisories</div>
+                    <div className="text-gray-700">Advisories </div>
                   </div>
                 </div>
 
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-800 mb-1">
-                    Elderly{" "}
-                    <span className="text-orange-600">(Orange Alert)</span>
+                    Heatwave Advisories devised by BSDMA
+                    
                   </h3>
                   <p className="text-sm text-gray-700">
-                    Drink 2-3L water daily, visit cooling shelters. BSDMA
+                    Email: info@bsdma.org
                     Helpline: 0612-2547232
                   </p>
                 </div>

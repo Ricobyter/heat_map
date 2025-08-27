@@ -94,7 +94,7 @@ const getLocationName = async (latitude, longitude) => {
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
             <img 
-              src='logo1.png' 
+              src='logo_new.jpg' 
               alt="Logo" 
               className="w-21 h-21 rounded-full object-cover"
             />
