@@ -61,9 +61,11 @@ export default function Dashboard({
   // Fetch live weather
   useEffect(() => {
     setLoading(true);
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=Patna,IN&units=metric&appid=${API_KEY}`)
-      .then(res => res.json())
-      .then(data => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=Patna,IN&units=metric&appid=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
         if (data && data.main && data.weather) {
           setWeather({
             temp: data.main.temp,
@@ -100,20 +102,31 @@ export default function Dashboard({
         {/* MAIN COLUMN */}
         <div className="col-span-9">
           <div className="flex flex-row items-center gap-6 mb-3">
-{/* left temp/card */}
-<div className="flex items-center gap-2">
-<div className="relative group flex flex-col items-center px-3 py-1 border-r-1 border-gray-400 bg-white cursor-pointer">
-  <span className={`text-xl font-bold ${tempColorClass(weather?.temp)}`}>
-    {loading ? <span className="text-xs">Loading...</span> : (weather?.temp ?? "--")}°C
-  </span>
-  <span className="text-xs text-gray-600">Temperature</span>
-  <span className="text-xs text-blue-500">
-    Relative Humidity: <span className="font-bold text-yellow-500">
-      {loading ? "--" : (weather?.humidity ?? "--")}%</span>
-  </span>
-  {/* Tooltip */}
-  <div
-    className="
+            {/* left temp/card */}
+            <div className="flex items-center gap-2">
+              <div className="relative group flex flex-col items-center px-3 py-1 border-r-1 border-gray-400 bg-white cursor-pointer">
+                <span
+                  className={`text-xl font-bold ${tempColorClass(
+                    weather?.temp
+                  )}`}
+                >
+                  {loading ? (
+                    <span className="text-xs">Loading...</span>
+                  ) : (
+                    weather?.temp ?? "--"
+                  )}
+                  °C
+                </span>
+                <span className="text-xs text-gray-600">Temperature</span>
+                <span className="text-xs text-blue-500">
+                  Relative Humidity:{" "}
+                  <span className="font-bold text-yellow-500">
+                    {loading ? "--" : weather?.humidity ?? "--"}%
+                  </span>
+                </span>
+                {/* Tooltip */}
+                <div
+                  className="
       pointer-events-none
       absolute -top-12 left-1/2 -translate-x-1/2
       whitespace-nowrap
@@ -121,28 +134,28 @@ export default function Dashboard({
       opacity-0 transition-opacity duration-150
       group-hover:opacity-100
     "
-  >
-    Source: Open Weather API
-    {lastUpdated && (
-      <div className="text-[9px] text-gray-500 mt-1">
-        Updated: {lastUpdated.toLocaleString("en-IN", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        })}
-      </div>
-    )}
-    <span
-      className="absolute left-1/2 top-full -translate-x-1/2
+                >
+                  Source: Open Weather API
+                  {lastUpdated && (
+                    <div className="text-[9px] text-gray-500 mt-1">
+                      Updated:{" "}
+                      {lastUpdated.toLocaleString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      })}
+                    </div>
+                  )}
+                  <span
+                    className="absolute left-1/2 top-full -translate-x-1/2
               h-0 w-0 border-x-8 border-x-transparent border-t-8 border-blue-100"
-    />
-  </div>
-</div>
-
-</div>
+                  />
+                </div>
+              </div>
+            </div>
 
             {/* center alert */}
             <div className="flex-1 bg-yellow-100 px-5 py-2 rounded-lg flex items-center gap-2 border-none">

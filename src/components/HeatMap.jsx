@@ -231,7 +231,7 @@ const shouldHidePopulationDensity =
 
               {/* Advisory snippet */}
               <div className="flex items-start gap-4">
-                <div className="bg-yellow-200 border-2 border-[#FFEF10] rounded-lg p-3 flex items-center gap-3">
+                <div className="bg-[#FFFCE8] border-2 border-[#FFEF10] rounded-lg p-3 flex items-center gap-3">
                   <div className="flex items-center justify-center w-8 h-8 bg-[#FFFCE8] rounded">
                     <svg
                       className="w-5 h-5 text-yellow-800"
