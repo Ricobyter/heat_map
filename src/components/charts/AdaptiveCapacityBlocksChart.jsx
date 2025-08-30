@@ -1,44 +1,9 @@
-// AdaptiveCapacityBlocksChart.jsx
-// import React from "react";
-
-// const data = [
-//   { label: "Low", value: 21.7, color: "bg-[#46b1e1]" },
-//   { label: "Medium", value: 52.2, color: "bg-[#215f9a]" },
-//   { label: "High", value: 26.1, color: "bg-[#104862]" },
-// ];
-
-// export default function AdaptiveCapacityBlocksChart() {
-//   return (
-//     <div className="max-w-xl mx-auto my-8 h-full ">
-//       <h2 className="text-center font-semibold mb-8">
-//         Category Wise Blocks Adaptive Capacity (in %)
-//       </h2>
-//       <div className="space-y-4">
-//         {data.map(({ label, value, color }) => (
-//           <div key={label} className="flex items-center">
-//             <span className="w-16 mr-2 text-sm">{label}</span>
-//             <div className="flex-1 bg-gray-100 rounded h-11  relative">
-//               <div
-//                 className={`h-11 rounded ${color}`}
-//                 style={{ width: `${value}%` }}
-//               ></div>
-//               <span className="absolute right-2 top-1/2 -translate-y-1/2 text-sm font-medium">
-//                 {value}%
-//               </span>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
 import React, { useState } from 'react';
 
 const data = [
   { label: 'Low', value: 21.7, color: '#46b1e1', blocks: 5 },
-  { label: 'Medium', value: 52.2, color: '#215f9a', blocks: 12 },
-  { label: 'High', value: 26.1, color: '#104862', blocks: 6 }
+  { label: 'Medium', value: 52.2, color: '#465f91', blocks: 12 },
+  { label: 'High', value: 26.1, color: '#7d50c7', blocks: 6 }
 ];
 
 export default function AdaptiveCapacityBlocksChart() {
@@ -71,7 +36,8 @@ export default function AdaptiveCapacityBlocksChart() {
                 onMouseEnter={() => handleMouseEnter(label)}
                 onMouseLeave={handleMouseLeave}
                 style={{
-                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`
+                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`,
+                  borderRadius: "12px",
                 }}
               >
                 {/* Colored bar */}
@@ -80,7 +46,8 @@ export default function AdaptiveCapacityBlocksChart() {
                   style={{
                     width: `${value}%`,
                     backgroundColor: color,
-                    background: `${color}, linear-gradient(to right, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 30%)`
+                    background: `${color}, linear-gradient(to right, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 30%)`,
+                    borderRadius: "12px",
                   }}
                 ></div>
 

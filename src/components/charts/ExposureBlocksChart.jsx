@@ -32,12 +32,12 @@
 //   );
 // }
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const data = [
-  { label: 'Low', value: 17.4, color: '#46b1e1', blocks: 4 },
-  { label: 'Medium', value: 39.1, color: '#465f91', blocks: 9 },
-  { label: 'High', value: 43.5, color: '#7d50c7', blocks: 10 }
+  { label: "Low", value: 17.4, color: "#46b1e1", blocks: 4 },
+  { label: "Medium", value: 39.1, color: "#465f91", blocks: 9 },
+  { label: "High", value: 43.5, color: "#7d50c7", blocks: 10 },
 ];
 
 export default function ExposureBlocksChart() {
@@ -58,17 +58,20 @@ export default function ExposureBlocksChart() {
       </h2>
       <div className="space-y-4">
         {data.map(({ label, value, color, blocks }) => {
-          const lightColor = color + '40';
-          
+          const lightColor = color + "40";
+
           return (
             <div key={label} className="flex items-center relative">
-              <span className="w-16 mr-2 text-sm font-semibold text-gray-600">{label}</span>
+              <span className="w-16 mr-2 text-sm font-semibold text-gray-600">
+                {label}
+              </span>
               <div
                 className="relative flex-1 h-8 rounded cursor-pointer"
                 onMouseEnter={() => handleMouseEnter(label)}
                 onMouseLeave={handleMouseLeave}
                 style={{
-                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`
+                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`,
+                  borderRadius: "12px",
                 }}
               >
                 {/* Colored bar with white shine at start */}
@@ -76,39 +79,41 @@ export default function ExposureBlocksChart() {
                   className="h-full rounded relative overflow-hidden"
                   style={{
                     width: `${value}%`,
-                    backgroundColor: color
+                    backgroundColor: color,
+                    borderRadius: "12px",
                   }}
                 >
                   <div
                     style={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 0,
                       left: 0,
-                      width: '80%',
-                      height: '100%',
-                      background: 'linear-gradient(to right, rgba(255,255,255,0.6), rgba(255,255,255,0))',
-                      pointerEvents: 'none'
+                      width: "80%",
+                      height: "100%",
+                      background:
+                        "linear-gradient(to right, rgba(255,255,255,0.6), rgba(255,255,255,0))",
+                      pointerEvents: "none",
                     }}
                   ></div>
                 </div>
 
                 {/* Tooltip */}
                 {hovered === label && (
-                  <div 
+                  <div
                     style={{
-                      position: 'absolute',
-                      top: '-40px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      backgroundColor: 'white',
-                      padding: '4px 8px',
-                      borderRadius: '14px',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                      fontSize: '1rem',
-                      fontWeight: '500',
-                      color: '#5e6acc',
-                      whiteSpace: 'nowrap',
-                      zIndex: 1000
+                      position: "absolute",
+                      top: "-40px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      backgroundColor: "white",
+                      padding: "4px 8px",
+                      borderRadius: "14px",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                      fontSize: "1rem",
+                      fontWeight: "500",
+                      color: "#5e6acc",
+                      whiteSpace: "nowrap",
+                      zIndex: 1000,
                     }}
                   >
                     {value}
@@ -122,6 +127,3 @@ export default function ExposureBlocksChart() {
     </div>
   );
 }
-
-
-
