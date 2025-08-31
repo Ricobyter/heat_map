@@ -1,10 +1,40 @@
-
 import React, { useState } from "react";
+
+const districtData = {
+  Low: [],
+  Medium: [
+    "Dhanarua",
+    "Naubatpur",
+    "Masaurhi",
+    "Fatwah",
+    "Bihta",
+    "Sampatchak",
+    "Punpun",
+    "Paliganj",
+    "Bikram",
+    "Dulhin Bazar",
+    "Phulwari Sharif",
+    "Maner",
+    "Danapur",
+  ],
+  High: [
+    "Pandarak",
+    "Barh",
+    "Athmalgola",
+    "Belchhi",
+    "Bakhtiyarpur",
+    "Mokama",
+    "Patna Sadar",
+    "Daniyawan",
+    "Khusrupur",
+    "Ghoswari",
+  ],
+};
 
 const data = [
   { label: "Low", value: 0.0, color: "#46b1e1", blocks: 0 },
-  { label: "Medium", value: 60.9, color: "#465f91", blocks: 14 },
-  { label: "High", value: 39.1, color: "#7d50c7", blocks: 9 },
+  { label: "Medium", value: 60.9, color: "#465f91", blocks: 13 },
+  { label: "High", value: 39.1, color: "#7d50c7", blocks: 10 },
 ];
 
 export default function SensitivityBlocksChart() {
@@ -19,79 +49,104 @@ export default function SensitivityBlocksChart() {
   };
 
   return (
-    <div className="max-w-[230px] mx-auto my-8 h-full">
-      <h2 className="text-center text-xs font-semibold mb-4">
-        Category Wise Blocks Sensitivity (in %)
+    <div className="max-w-[280px] mx-auto my-8 h-full">
+      <h2 className="text-center text-xs font-semibold mb-6 text-gray-700">
+        Category Wise Block <br />Sensitivity (in %)
       </h2>
       <div className="space-y-4">
-        {data.map(({ label, value, color, blocks }) => {
-          const lightColor = color + "40";
+        {data.map(({ label, value, color }) => {
+          const lightColor = color + "30";
+          const isHovered = hovered === label;
+          const districts = districtData[label] || [];
 
           return (
-            <div key={label} className="flex items-center relative">
-              <span className="w-16 mr-2 text-sm font-semibold text-gray-600">
-                {label}
-              </span>
-              <div
-                className="relative flex-1 h-8 rounded-lg cursor-pointer"
-                onMouseEnter={() => handleMouseEnter(label)}
-                onMouseLeave={handleMouseLeave}
-                style={{
-                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`,
-                  borderRadius: "12px",
-                }}
-              >
-                {/* Colored bar with white shine at start */}
+            <div key={label} className="relative">
+              <div className="flex items-center">
+                <span className="w-16 mr-3 text-sm font-medium text-gray-600">
+                  {label}
+                </span>
                 <div
-                  className="h-full rounded relative overflow-hidden"
+                  className="relative flex-1 h-8 rounded-lg cursor-pointer transition-all duration-200"
+                  onMouseEnter={() => handleMouseEnter(label)}
+                  onMouseLeave={handleMouseLeave}
                   style={{
-                    width: `${value}%`,
-                    backgroundColor: color,
+                    background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`,
                     borderRadius: "12px",
                   }}
                 >
-                  {/* White gradient shine only at start */}
+                  {/* Filled bar */}
                   <div
+                    className="h-full rounded-lg"
                     style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "80%",
-                      height: "100%",
-                      background:
-                        "linear-gradient(to right, rgba(255,255,255,0.6), rgba(255,255,255,0))",
-                      pointerEvents: "none",
+                      width: `${value}%`,
+                      backgroundColor: color,
+                      borderRadius: "12px",
                     }}
-                  ></div>
-                </div>
+                  />
 
-                {/* Hover tooltip */}
-                {hovered === label && (
-                  <div
+                  {/* Percentage label just past bar end */}
+                  <span
+                    className="absolute top-0 h-full flex items-center text-xs font-semibold px-3 py-0.5 bg-white rounded-lg"
                     style={{
-                      position: "absolute",
-                      top: "-40px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      backgroundColor: "white",
-                      padding: "4px 8px",
-                      borderRadius: "16px",
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                      fontSize: "1rem",
-                      fontWeight: "500",
-                      color: "#5e6acc",
-                      whiteSpace: "nowrap",
-                      zIndex: 1000,
+                      left: `${value}%`,
+                      marginLeft: "8px",
+                      color: color,
                     }}
                   >
-                    {value}
-                  </div>
-                )}
+                    {value}%
+                  </span>
+                </div>
               </div>
+
+              {/* Tooltip with district list on hover */}
+              {isHovered && (
+                <div
+                  className="absolute z-50 mt-2 p-3 bg-white rounded-lg shadow-lg border animate-fade-in"
+                  style={{
+                    left: "20px",
+                    minWidth: "240px",
+                    borderTop: `3px solid ${color}`,
+                  }}
+                >
+                  <div className="text-xs font-semibold text-gray-700 mb-2">
+                    {label} Districts ({districts.length})
+                  </div>
+                  <div className="grid grid-cols-2 gap-1">
+                    {districts.map((d, i) => (
+                      <div
+                        key={i}
+                        className="text-xs text-gray-600 px-2 py-1 bg-gray-50 rounded hover:bg-blue-50 transition-colors cursor-pointer"
+                        onClick={() => {
+                          console.log("District selected:", d);
+                          // Add your district-click logic here
+                        }}
+                      >
+                        {d}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.2s ease-out;
+        }
+      `}</style>
     </div>
   );
 }
