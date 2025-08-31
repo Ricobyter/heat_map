@@ -48,17 +48,17 @@ const Sidebar = ({
   const years = [["Default", "2030", "2035", "2040"], ["2050"]];
 
   const subdistricts = [
-    "Athamalgola",
+    "Athmalgola",
     "Bakhtiyarpur",
     "Barh",
-    "Belchi",
+    "Belchhi",
     "Bihta",
     "Bikram",
     "Daniyawan",
     "Danapur",
     "Dhanarua",
     "Dulhin Bazar",
-    "Fatuha",
+    "Fatwah",
     "Ghoswari",
     "Khusrupur",
     "Maner",
@@ -68,7 +68,7 @@ const Sidebar = ({
     "Paliganj",
     "Pandarak",
     "Patna Sadar",
-    "Phulwari harif",
+    "Phulwari Sharif",
     "Punpun",
     "Sampatchak",
   ];
@@ -117,10 +117,32 @@ const Sidebar = ({
       onBlockSelect(selectedBlockName);
     }
 
-    const iframe = document.getElementById("patnaMap");
-    const url = new URL(iframe.src, window.location.href);
-    url.searchParams.set("block", "Paliganj");
-    iframe.src = url.toString(); // reloads map and auto-zooms
+    // Only try to update iframe if a block is selected
+    if (selectedBlockName) {
+      setTimeout(() => {
+        const iframe = document.getElementById("heatMapIframe");
+        if (iframe) {
+          try {
+            const currentSrc = iframe.src;
+            // Remove any existing block parameter first
+            const url = new URL(currentSrc);
+            url.searchParams.delete("block");
+            url.searchParams.set("block", selectedBlockName);
+            // Add cache buster to force reload
+            url.searchParams.set("_t", Date.now());
+            
+            // Force reload by setting src twice - this ensures proper reload
+            iframe.src = "about:blank";
+            setTimeout(() => {
+              iframe.src = url.toString();
+            }, 50);
+            
+          } catch (error) {
+            console.error("Error updating iframe src:", error);
+          }
+        }
+      }, 100);
+    }
   };
 
   return (
