@@ -15,7 +15,7 @@ const HeatMap = ({
   };
 
   const roadsMaps = {
-    exposure_index: "/exposure_index_satellite_roads.html",
+    exposure_index: "/patna_exposure_esri_sat_with_hybrid_switch.html",
     vulnerability_index: "/vulnerability_index_and_road_satellites.html",
     sensitivity_index: "/sensitivity_index_and_road_satellites.html",
     adaptive_capacity_index:
