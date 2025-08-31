@@ -8,7 +8,7 @@ const HeatMap = ({
   selectedYear,
 }) => {
   const baseMaps = {
-    exposure_index: "/exposure_index_satellite.html",
+    exposure_index: "/patna_exposure_esri_sat_with_hybrid_switch.html",
     vulnerability_index: "/vulnerability_index_satellite.html",
     sensitivity_index: "/sensitivity_index_satellite.html",
     adaptive_capacity_index: "/adaptive_capacity_satellite.html",
@@ -142,6 +142,7 @@ const shouldHidePopulationDensity =
     <div className="bg-#F9F6EE pt-0 rounded-lg shadow-md shadow-gray-400 h-full w-full font-roboto">
       <div className="relative h-120 rounded-lg overflow-hidden border border-gray-200">
         <iframe
+          id="heatMapIframe"
           src={src}
           title="Interactive Heat Map"
           style={{ width: "100%", height: "100%", border: "none" }}
