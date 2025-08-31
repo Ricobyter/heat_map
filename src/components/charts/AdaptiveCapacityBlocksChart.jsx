@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 
+const districtData = {
+  Low: ['Maner', 'Khusrupur', 'Ghoswari', 'Bakhtiyarpur'],
+  Medium: [
+    'Naubatpur', 'Barh', 'Athmalgola', 'Belchhi', 'Pandarak', 'Fatwah', 'Paliganj',
+    'Mokama', 'Patna Sadar', 'Daniyawan', 'Danapur', 'Phulwari Sharif'
+  ],
+  High: [
+    'Dhanarua', 'Masaurhi', 'Bihta', 'Sampatchak', 'Punpun', 'Bikram', 'Dulhin Bazar'
+  ]
+};
+
 const data = [
   { label: 'Low', value: 21.7, color: '#46b1e1', blocks: 5 },
   { label: 'Medium', value: 52.2, color: '#465f91', blocks: 12 },
@@ -7,80 +18,118 @@ const data = [
 ];
 
 export default function AdaptiveCapacityBlocksChart() {
-  const [hovered, setHovered] = useState(null);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
 
   const handleMouseEnter = (label) => {
-    console.log('Hovering:', label);
-    setHovered(label);
+    setHoveredCategory(label);
   };
 
   const handleMouseLeave = () => {
-    console.log('Mouse left');
-    setHovered(null);
+    setHoveredCategory(null);
   };
 
   return (
-    <div className="max-w-[230px] mx-auto my-8 h-full">
-      <h2 className="text-center text-xs font-semibold mb-4">
-        Category Wise Blocks Adaptive Capacity (in %)
+    <div className="max-w-[280px] mx-auto my-8 h-full">
+      <h2 className="text-center text-sm font-semibold mb-6 text-gray-700">
+        Category wise Block<br />Vulnerability (in %)
       </h2>
-      <div className="space-y-4">
+      <div className="space-y-6">
         {data.map(({ label, value, color, blocks }) => {
-          const lightColor = color + '40';
+          const lightColor = color + '30';
+          const isHovered = hoveredCategory === label;
+          const districts = districtData[label] || [];
           
           return (
-            <div key={label} className="flex items-center relative">
-              <span className="w-16 mr-2 text-sm font-semibold text-gray-600">{label}</span>
-              <div
-                className="relative flex-1 h-8 rounded cursor-pointer"
-                onMouseEnter={() => handleMouseEnter(label)}
-                onMouseLeave={handleMouseLeave}
-                style={{
-                  background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`,
-                  borderRadius: "12px",
-                }}
-              >
-                {/* Colored bar */}
-                <div
-                  className="h-full rounded"
-                  style={{
-                    width: `${value}%`,
-                    backgroundColor: color,
-                    background: `${color}, linear-gradient(to right, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 30%)`,
-                    borderRadius: "12px",
-                  }}
-                ></div>
-
-                {/* Tooltip */}
-                {hovered === label && (
-                  <div 
+            <div key={label} className="relative">
+              {/* Main bar section */}
+              <div className="flex items-center relative">
+                <span className="w-16 mr-3 text-sm font-medium text-gray-600">
+                  {label}
+                </span>
+                <div className="relative flex-1">
+                  <div
+                    className="relative h-8 rounded cursor-pointer transition-all duration-200"
+                    onMouseEnter={() => handleMouseEnter(label)}
+                    onMouseLeave={handleMouseLeave}
                     style={{
-                      position: 'absolute',
-                      top: '-40px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      backgroundColor: 'white',
-                      padding: '4px 8px',
-                      borderRadius: '14px',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                      fontSize: '1rem',
-                      fontWeight: '500',
-                      color: '#5e6acc',
-                      whiteSpace: 'nowrap',
-                      zIndex: 1000
+                      background: `repeating-linear-gradient(0deg, ${lightColor} 0px, ${lightColor} 2px, transparent 2px, transparent 4px)`,
+                      borderRadius: "12px",
                     }}
                   >
-                    {value}
+                    {/* Colored bar */}
+                    <div
+                      className="h-full rounded relative"
+                      style={{
+                        width: `${value}%`,
+                        backgroundColor: color,
+                        borderRadius: "12px",
+                      }}
+                    />
+                    
+                    {/* Percentage text positioned at the end of the bar */}
+                    <span 
+                      className="absolute top-0 h-full flex items-center text-xs font-semibold bg-white px-2 py-0.5 rounded-lg"
+                      style={{
+                        left: `${value}%`,
+                        marginLeft: '8px',
+                        color: color
+                      }}
+                    >
+                      {value}
+                    </span>
                   </div>
-                )}
+                </div>
               </div>
+
+              {/* Districts tooltip on hover */}
+              {isHovered && (
+                <div 
+                  className="absolute z-50 mt-2 p-3 bg-white rounded-lg shadow-lg border animate-fade-in"
+                  style={{ 
+                    left: '20px',
+                    minWidth: '240px',
+                    borderTop: `3px solid ${color}`
+                  }}
+                >
+                  <div className="text-xs font-semibold text-gray-700 mb-2">
+                    {label} Category Districts ({districts.length}):
+                  </div>
+                  <div className="grid grid-cols-2 gap-1">
+                    {districts.map((district, index) => (
+                      <div
+                        key={index}
+                        className="text-xs text-gray-600 px-2 py-1 bg-gray-50 rounded hover:bg-blue-50 transition-colors cursor-pointer"
+                        onClick={() => {
+                          console.log('District selected:', district);
+                          // Add your district selection logic here
+                        }}
+                      >
+                        {district}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.2s ease-out;
+        }
+      `}</style>
     </div>
   );
 }
-
-
-

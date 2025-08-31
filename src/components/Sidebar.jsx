@@ -11,6 +11,9 @@ const Sidebar = ({
   setVulnerableGroups,
   selectedLayer,
   setSelectedLayer,
+  selectedBlock,
+  setSelectedBlock,
+  onBlockSelect, // New prop for handling block selection
 }) => {
   // Local fallback state (only used if parent doesn't control these)
   const internalVulnerableGroups = useState({
@@ -21,6 +24,7 @@ const Sidebar = ({
     slumDwellers: false,
   });
   const internalSelectedYear = useState("2025");
+  const internalSelectedBlock = useState(""); // New internal state for block
 
   // Controlled or fallback state wiring
   const groups = vulnerableGroups ?? internalVulnerableGroups[0];
@@ -32,11 +36,20 @@ const Sidebar = ({
   const setYear =
     typeof setSelectedYear === "function" ? setSelectedYear : setFallbackYear;
 
-  const years = [["2025", "2030", "2035", "2040"], ["2050"]];
+  // Block selection state
+  const [fallbackBlock, setFallbackBlock] = internalSelectedBlock;
+  const block =
+    typeof selectedBlock === "string" ? selectedBlock : fallbackBlock;
+  const setBlock =
+    typeof setSelectedBlock === "function"
+      ? setSelectedBlock
+      : setFallbackBlock;
+
+  const years = [["Default", "2030", "2035", "2040"], ["2050"]];
 
   const subdistricts = [
     "Athamalgola",
-    "Bakhtiarpur",
+    "Bakhtiyarpur",
     "Barh",
     "Belchi",
     "Bihta",
@@ -55,7 +68,7 @@ const Sidebar = ({
     "Paliganj",
     "Pandarak",
     "Patna Sadar",
-    "Phulwarisharif",
+    "Phulwari harif",
     "Punpun",
     "Sampatchak",
   ];
@@ -96,22 +109,41 @@ const Sidebar = ({
     vulnerability_index: <MdWarning className="w-5 h-5 text-gray-600 mr-2" />,
   };
 
+  // Handle block selection change
+  const handleBlockChange = (selectedBlockName) => {
+    setBlock(selectedBlockName);
+    // Call the parent's block selection handler if provided
+    if (onBlockSelect && typeof onBlockSelect === "function") {
+      onBlockSelect(selectedBlockName);
+    }
+
+    const iframe = document.getElementById("patnaMap");
+    const url = new URL(iframe.src, window.location.href);
+    url.searchParams.set("block", "Paliganj");
+    iframe.src = url.toString(); // reloads map and auto-zooms
+  };
+
   return (
     <div
       className="w-[25vw] min-h-screen shadow-md shadow-gray-400 font-noto-sans rounded-lg flex flex-col"
       style={{ backgroundColor: "#FFFF" }}
     >
       <div className="p-4 flex-grow overflow-auto">
-        {/* Time Period */}
-
-        {/* Block */}
+        {/* Block Selection */}
         <div className="mb-8">
           <label className="block text-sm font-bold text-gray-600 mb-3">
             Block
           </label>
-          <select className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white">
+          <select
+            className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
+            value={block}
+            onChange={(e) => handleBlockChange(e.target.value)}
+          >
+            <option value="">Select a block...</option>
             {subdistricts.map((subdistrict) => (
-              <option key={subdistrict}>{subdistrict}</option>
+              <option key={subdistrict} value={subdistrict}>
+                {subdistrict}
+              </option>
             ))}
           </select>
         </div>
@@ -122,7 +154,7 @@ const Sidebar = ({
             Layers
           </label>
           <select
-            className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white"
+            className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
             value={selectedLayer}
             onChange={(e) => setSelectedLayer(e.target.value)}
           >
@@ -151,7 +183,7 @@ const Sidebar = ({
             ].map(({ key, label }) => (
               <label
                 key={key}
-                className="flex items-center text-sm cursor-pointer text-gray-700"
+                className="flex items-center text-sm cursor-pointer text-gray-700 hover:bg-gray-50 p-2 rounded"
               >
                 {/* Use radio for single selection */}
                 <input
@@ -180,7 +212,7 @@ const Sidebar = ({
                   <button
                     key={yearValue}
                     onClick={() => setYear(yearValue)}
-                    className={`py-3 px-2 text-md font-medium rounded-md ${
+                    className={`py-3 px-2 text-md font-medium rounded-md transition-colors ${
                       year === yearValue
                         ? "bg-green-600 text-white"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-300"

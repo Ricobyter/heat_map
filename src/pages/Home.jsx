@@ -9,7 +9,7 @@ import Footer1 from "../components/Footer1";
 const Home = () => {
   const [mapType, setMap] = useState("vulnerability_index"); 
   const [selectedLayer, setSelectedLayer] = useState("None");
-  const [selectedYear, setSelectedYear] = useState("2025");
+  const [selectedYear, setSelectedYear] = useState("Default");
   return (
     <div className="min-h-screen bg-gray-100 pb-10">
       {/* <Header /> */}
