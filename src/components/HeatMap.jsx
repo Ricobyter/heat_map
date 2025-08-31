@@ -8,7 +8,7 @@ const HeatMap = ({
   selectedYear,
 }) => {
   const baseMaps = {
-    exposure_index: "/patna_exposure_esri_sat_with_hybrid_switch.html",
+    exposure_index: "/exposure_index_satellite.html",
     vulnerability_index: "/vulnerability_index_satellite.html",
     sensitivity_index: "/sensitivity_index_satellite.html",
     adaptive_capacity_index: "/adaptive_capacity_satellite.html",
