@@ -31,9 +31,9 @@ export default function AdaptiveCapacityBlocksChart() {
   return (
     <div className="max-w-[280px] mx-auto my-8 h-full">
       <h2 className="text-center text-sm font-semibold mb-6 text-gray-700">
-        Category wise Block<br />Vulnerability (in %)
+        Category wise Block<br />Adaptive capacity (in %)
       </h2>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {data.map(({ label, value, color, blocks }) => {
           const lightColor = color + '30';
           const isHovered = hoveredCategory === label;
