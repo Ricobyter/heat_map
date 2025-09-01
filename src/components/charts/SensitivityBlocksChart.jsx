@@ -109,7 +109,7 @@ export default function SensitivityBlocksChart() {
                   }}
                 >
                   <div className="text-xs font-semibold text-gray-700 mb-2">
-                    {label} Districts ({districts.length})
+                    {label} Blocks ({districts.length})
                   </div>
                   <div className="grid grid-cols-2 gap-1">
                     {districts.map((d, i) => (
