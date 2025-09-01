@@ -1,157 +1,127 @@
-import React, { useState, useEffect } from 'react';
-import { MdLocationOn } from 'react-icons/md';
-import { HiMenu } from 'react-icons/hi';
+// Header1.jsx
+import React, { useState, useEffect } from "react";
+import { MdLocationOn } from "react-icons/md";
+import { HiMenu } from "react-icons/hi";
+import { NavLink } from "react-router-dom";
 
 const Header1 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [location, setLocation] = useState('Getting location...');
+  const [location, setLocation] = useState("Getting location...");
   const [locationError, setLocationError] = useState(false);
 
-  // Function to get location name from coordinates using free Nominatim service
-const getLocationName = async (latitude, longitude) => {
-  try {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
-    );
-    const data = await response.json();
+  // Reverse geocode via Nominatim (unchanged)
+  const getLocationName = async (latitude, longitude) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+      );
+      const data = await response.json();
 
-    if (data && data.address) {
-      const state = data.address.state;
-      const country = data.address.country;
-      // Prefer showing state and country
-      if (state && country) {
-        return `${state}, ${country}`;
+      if (data && data.address) {
+        const state = data.address.state;
+        const country = data.address.country;
+        if (state && country) return `${state}, ${country}`;
+        if (state) return state;
+        if (country) return country;
+        if (data.display_name) {
+          const parts = data.display_name.split(",");
+          return parts.slice(-3).join(",").trim();
+        }
       }
-      if (state) {
-        return state;
-      }
-      if (country) {
-        return country;
-      }
-      // fallback: display_name or coordinates
-      if (data.display_name) {
-        const parts = data.display_name.split(',');
-        return parts.slice(-3).join(',').trim();
-      }
+      return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+    } catch (err) {
+      console.error("Error getting location name:", err);
+      return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
     }
-    return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
-  } catch (error) {
-    console.error('Error getting location name:', error);
-    return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
-  }
-};
+  };
 
-
-  // Get user's current location
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          console.log('Coordinates:', latitude, longitude); // Debug log
           const locationName = await getLocationName(latitude, longitude);
-          console.log('Location name:', locationName); // Debug log
           setLocation(locationName);
           setLocationError(false);
         },
         (error) => {
-          console.error('Error getting location:', error);
+          console.error("Error getting location:", error);
           switch (error.code) {
             case error.PERMISSION_DENIED:
-              setLocation('Permission denied');
+              setLocation("Permission denied");
               break;
             case error.POSITION_UNAVAILABLE:
-              setLocation('Location unavailable');
+              setLocation("Location unavailable");
               break;
             case error.TIMEOUT:
-              setLocation('Location timeout');
+              setLocation("Location timeout");
               break;
             default:
-              setLocation('Location error');
-              break;
+              setLocation("Location error");
           }
           setLocationError(true);
         },
-        {
-          enableHighAccuracy: true,
-          timeout: 15000, // Increased timeout
-          maximumAge: 300000 // Cache for 5 minutes
-        }
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 300000 }
       );
     } else {
-      setLocation('Geolocation not supported');
+      setLocation("Geolocation not supported");
       setLocationError(true);
     }
   }, []);
 
- 
-
+  // Utility to render NavLink with active underline
+  const linkClasses = ({ isActive }) =>
+    [
+      "pb-1 border-b-2",
+      "text-gray-700 font-medium hover:text-red-600",
+      isActive ? "text-red-600 font-semibold border-red-600" : "border-transparent",
+    ].join(" ");
 
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-2">
-          {/* Logo Section */}
+          {/* Logo */}
           <div className="flex items-center space-x-3">
-            <img 
-              src='logo_new.jpg' 
-              alt="Logo" 
-              className="w-21 h-21 rounded-full object-cover"
-            />
-            <div className="flex flex-col font-staatliches font-semibold tracking-wide">
-              <div className="text-[20px]  leading-tight">
-                <span className="text-[#004275] ">MODEL </span>
+            <img src="logo_new.jpg" alt="Logo" className="w-21 h-21 rounded-full object-cover" />
+            <div className="flex flex-col font-staatliches font-semibold tracking-wide leading-tight">
+              <div className="text-[20px]">
+                <span className="text-[#004275]">MODEL </span>
                 <span className="text-red-600">HEAT</span>
               </div>
-              <div className="text-[20px] text-[#004275] leading-tight">
-                ACTION PLAN FOR
-              </div>
-              <div className="text-[20px] text-green-700 leading-tight">
-                PATNA
-              </div>
+              <div className="text-[20px] text-[#004275]">ACTION PLAN FOR</div>
+              <div className="text-[20px] text-green-700">PATNA</div>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a 
-              href="#" 
-              className="text-gray-700 font-medium"
-            >
+            <NavLink to="/" end className={linkClasses}>
               Home
-            </a>
-            <a 
-              href="#" 
-              className="text-red-600 font-semibold border-b-2 border-red-600 pb-1"
-            >
+            </NavLink>
+            <NavLink to="/analytics" className={linkClasses}>
               Analytics
-            </a>
-
-            <a 
-              href="#" 
-              className="text-gray-700 font-medium"
-            >
+            </NavLink>
+            <NavLink to="/about" className={linkClasses}>
               About us
+            </NavLink>
+            <a
+              href="http://www.bsdma.org/GetPrepared.aspx?id=1"
+              className="pb-1 border-b-2 border-transparent text-gray-700 font-medium hover:text-red-600"
+            >
+              Get Prepared
             </a>
-
-            <a href="http://www.bsdma.org/GetPrepared.aspx?id=1" className="text-gray-700 font-medium">Get Prepared</a>
           </nav>
 
-          {/* Right Section */}
+          {/* Right */}
           <div className="flex items-center space-x-4">
             {/* Location */}
-<div className="hidden sm:flex items-center space-x-1 text-sm">
-  <MdLocationOn className={`w-4 h-4 ${locationError ? 'text-red-500' : 'text-gray-600'}`} />
-  <span className={locationError ? 'text-red-500' : 'text-gray-600'}>
-    {location}
-  </span>
-</div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-600"
-            >
+            <div className="hidden sm:flex items-center space-x-1 text-sm">
+              <MdLocationOn className={`w-4 h-4 ${locationError ? "text-red-500" : "text-gray-600"}`} />
+              <span className={locationError ? "text-red-500" : "text-gray-600"}>{location}</span>
+            </div>
+            {/* Mobile menu button */}
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 text-gray-600">
               <HiMenu className="w-6 h-6" />
             </button>
           </div>
@@ -161,35 +131,18 @@ const getLocationName = async (latitude, longitude) => {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-200 py-3">
             <nav className="flex flex-col space-y-3">
-              <a 
-                href="#" 
-                className="text-red-600 font-semibold px-2 py-1"
-              >
+              <NavLink to="/" end className={linkClasses} onClick={() => setIsMenuOpen(false)}>
                 Home
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-700 font-medium px-2 py-1"
-              >
+              </NavLink>
+              <NavLink to="/analytics" className={linkClasses} onClick={() => setIsMenuOpen(false)}>
                 Analytics
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-700 font-medium px-2 py-1"
-              >
-                Datasets
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-700 font-medium px-2 py-1"
-              >
+              </NavLink>
+              <NavLink to="/about" className={linkClasses} onClick={() => setIsMenuOpen(false)}>
                 About us
-              </a>
+              </NavLink>
               <div className="flex items-center space-x-1 text-sm px-2 py-1">
-                <MdLocationOn className={`w-4 h-4 ${locationError ? 'text-red-500' : 'text-gray-600'}`} />
-                <span className={locationError ? 'text-red-500' : 'text-gray-600'}>
-                  {location}
-                </span>
+                <MdLocationOn className={`w-4 h-4 ${locationError ? "text-red-500" : "text-gray-600"}`} />
+                <span className={locationError ? "text-red-500" : "text-gray-600"}>{location}</span>
               </div>
             </nav>
           </div>
