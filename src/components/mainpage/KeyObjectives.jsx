@@ -1,7 +1,7 @@
 // KeyObjectives.jsx
 import leftPhoto from "../../assets/sunset_image.png";
-import aiIcon from "../../assets/flight.png";
-import planIcon from "../../assets/flight (1).png";
+import aiIcon from "../../assets/flight (1).png";
+import planIcon from "../../assets/flight.png";
 import capacityIcon from "../../assets/flight (2).png";
 
 export default function KeyObjectives() {
