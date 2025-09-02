@@ -117,32 +117,37 @@ const Sidebar = ({
       onBlockSelect(selectedBlockName);
     }
 
-    // Only try to update iframe if a block is selected
-    if (selectedBlockName) {
-      setTimeout(() => {
-        const iframe = document.getElementById("heatMapIframe");
-        if (iframe) {
-          try {
-            const currentSrc = iframe.src;
-            // Remove any existing block parameter first
-            const url = new URL(currentSrc);
+    // Always update iframe - either zoom to block or reset to normal view
+    setTimeout(() => {
+      const iframe = document.getElementById("heatMapIframe");
+      if (iframe) {
+        try {
+          const currentSrc = iframe.src;
+          const url = new URL(currentSrc);
+          
+          if (selectedBlockName) {
+            // Zoom to selected block
             url.searchParams.delete("block");
             url.searchParams.set("block", selectedBlockName);
-            // Add cache buster to force reload
-            url.searchParams.set("_t", Date.now());
-            
-            // Force reload by setting src twice - this ensures proper reload
-            iframe.src = "about:blank";
-            setTimeout(() => {
-              iframe.src = url.toString();
-            }, 50);
-            
-          } catch (error) {
-            console.error("Error updating iframe src:", error);
+          } else {
+            // Reset to normal view - remove block parameter
+            url.searchParams.delete("block");
           }
+          
+          // Add cache buster to force reload
+          url.searchParams.set("_t", Date.now());
+          
+          // Force reload by setting src twice - this ensures proper reload
+          iframe.src = "about:blank";
+          setTimeout(() => {
+            iframe.src = url.toString();
+          }, 50);
+          
+        } catch (error) {
+          console.error("Error updating iframe src:", error);
         }
-      }, 100);
-    }
+      }
+    }, 100);
   };
 
   return (
