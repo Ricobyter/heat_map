@@ -79,9 +79,9 @@ export default function Dashboard({
       .catch(() => setLoading(false));
   }, [API_KEY]);
 
-  const SelectedDonutChart = donutChartMap[mapType];
-  const SelectedPopulationChart = populationChartMap[mapType];
-  const SelectedBlocksChart = blocksChartMap[mapType];
+  const SelectedDonutChart = mapType? donutChartMap[mapType] : donutChartMap["vulnerability_index"];
+  const SelectedPopulationChart = mapType? populationChartMap[mapType]: populationChartMap["vulnerability_index"] ;
+  const SelectedBlocksChart = mapType ? blocksChartMap[mapType] : blocksChartMap["vulnerability_index"];
 
   const tempColorClass = (t) => {
     if (t == null || Number.isNaN(Number(t))) return "text-gray-500";

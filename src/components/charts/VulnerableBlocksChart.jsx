@@ -89,7 +89,7 @@ export default function VulnerableBlocksChart() {
               {/* Tooltip with districts */}
               {isHovered && (
                 <div
-                  className="absolute z-50 mt-2 p-3 bg-white rounded-lg shadow-lg border animate-fade-in"
+                  className="absolute z-50 mt-1 p-1 bg-white rounded-lg shadow-lg border animate-fade-in"
                   style={{
                     left: "20px",
                     minWidth: "240px",
@@ -99,11 +99,11 @@ export default function VulnerableBlocksChart() {
                   <div className="text-xs font-semibold text-gray-700 mb-2">
                     {label} Blocks ({districts.length})
                   </div>
-                  <div className="grid grid-cols-2 gap-1">
+                  <div className="grid grid-cols-3 gap-0.5">
                     {districts.map((d, i) => (
                       <div
                         key={i}
-                        className="text-xs text-gray-600 px-2 py-1 bg-gray-50 rounded hover:bg-blue-50 transition-colors cursor-pointer"
+                        className="text-xs text-gray-600 px-1 py-1 bg-gray-50 rounded hover:bg-blue-50 transition-colors cursor-pointer"
                         onClick={() => {
                           console.log("District selected:", d);
                           // add your district-click logic
