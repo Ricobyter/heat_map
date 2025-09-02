@@ -1,7 +1,7 @@
 // ExploreCTA.jsx
 export default function Explore() {
   return (
-    <section className="bg-[#004275] mt-24">
+    <section className="bg-[#004275] mt-24 ">
       <div className="mx-auto max-w-5xl px-6 py-10 sm:py-16">
         <div className="flex flex-col items-center text-center gap-5">
           <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
@@ -13,7 +13,7 @@ export default function Explore() {
           </p>
 
           <a
-            href="#"
+            href="/analytics"
             className="group inline-flex items-center gap-3 rounded-full bg-white/95 px-5 py-2.5 text-sm font-semibold text-[#0F4C73] shadow-sm hover:shadow md:px-6 md:py-3 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 focus:ring-offset-[#0F4C73]"
           >
             <span className="inline-flex size-6 items-center justify-center rounded-full border border-[#0F4C73]/30 text-[#0F4C73]">

@@ -33,8 +33,8 @@ const districtData = {
 
 const data = [
   { label: "Low", value: 0.0, color: "#46b1e1", blocks: 0 },
-  { label: "Medium", value: 60.9, color: "#465f91", blocks: 13 },
-  { label: "High", value: 39.1, color: "#7d50c7", blocks: 10 },
+  { label: "Medium", value: 57.5, color: "#465f91", blocks: 13 },
+  { label: "High", value: 43.5, color: "#7d50c7", blocks: 10 },
 ];
 
 export default function SensitivityBlocksChart() {
@@ -111,7 +111,7 @@ export default function SensitivityBlocksChart() {
                   <div className="text-xs font-semibold text-gray-700 mb-2">
                     {label} Blocks ({districts.length})
                   </div>
-                  <div className="grid grid-cols-2 gap-1">
+                  <div className="grid grid-cols-3 gap-1">
                     {districts.map((d, i) => (
                       <div
                         key={i}
