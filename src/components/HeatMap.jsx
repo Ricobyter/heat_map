@@ -50,13 +50,13 @@ const HeatMap = ({
     adaptive_capacity_index: "Adaptive Capacity Map",
   };
 
-      const PROJECTION_YEARS = new Set([2030, 2035, 2040, 2050]);
-const INDEX_TYPES = new Set([
-  "vulnerability_index",
-]);
+//       const PROJECTION_YEARS = new Set([2030, 2035, 2040, 2050]);
+// const INDEX_TYPES = new Set([
+//   "vulnerability_index",
+// ]);
 
-const shouldHidePopulationDensity =
-  PROJECTION_YEARS.has(Number(selectedYear)) && INDEX_TYPES.has(mapType);
+// const shouldHidePopulationDensity =
+//   PROJECTION_YEARS.has(Number(selectedYear)) && INDEX_TYPES.has(mapType);
 
   // Compute src and title once per prop change
   const { src, title } = useMemo(() => {
@@ -202,7 +202,7 @@ const shouldHidePopulationDensity =
               </div>
 
               {/* Population Density (static sample) */}
-              {!shouldHidePopulationDensity && (
+              {/* {!shouldHidePopulationDensity && ( */}
               <div className="mb-6">
                 <p className="text-gray-600 text-sm mb-2">
                   Population Density (2025) / km²:
@@ -230,7 +230,7 @@ const shouldHidePopulationDensity =
                   </span>
                 </div>
               </div>
-              )}
+              {/* )} */}
 
               <div className="border-b border-gray-300 mb-6" />
 

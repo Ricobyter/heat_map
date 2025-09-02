@@ -20,6 +20,8 @@ const Footer1 = () => {
 
             </span>
             <span>Helpline : 0612-2547232</span>
+            <br />
+            <span className='text-xs text-gray-600 text-center sm:text-left'> <a href="/termsandconditions">Terms and Conditions</a></span>
           </div>
 
           {/* Organization Logos */}
