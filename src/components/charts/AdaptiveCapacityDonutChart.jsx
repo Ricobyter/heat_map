@@ -178,6 +178,9 @@ export default function AdaptiveCapacityDonutChart() {
 
   return (
     <div className="w-full max-w-sm bg-white">
+                  <h2 className="text-center text-sm font-semibold mb-4">
+        Adative Capacity by Area 
+      </h2>
       <div className="relative flex items-center justify-center">
         <ResponsiveContainer width={size} height={size}>
           <PieChart>

@@ -42,6 +42,10 @@ const HeatMap = ({
   const HRIIndex2040 = "/vulnerability_index_2040_satellite.html";
   const HRIIndex2050 = "/vulnerability_index_2050_satellite.html";
 
+  const exposure_index_facilities = "/exposure_index_health_facilities.html";
+  const exposure_index_point_of_interests = "/exposure_index_point_of_interests.html";
+  const exposure_index_transportation = "/exposure_index_transportation.html";
+  const exposure_index_settlements_buildings = "/exposure_index_settlements_buildings.html";
   // Friendly titles per index type
   const mapName = {
     exposure_index: "Heat Exposure Map",
@@ -81,6 +85,14 @@ const HeatMap = ({
         title: "HRI for 2050 Scenario",
       };
     }
+
+    // if(selectedLayer === "Point Of Interest"){
+    //   return {
+    //     src: exposure_index_point_of_interests,
+      
+    //   }
+
+    // }
     
     const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(String(selectedYear));
 

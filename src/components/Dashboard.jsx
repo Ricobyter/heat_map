@@ -37,12 +37,6 @@ const populationChartMap = {
   vulnerability_index: VulnerablePopulationChart,
 };
 
-const donutTitleMap = {
-  vulnerability_index: "Heat Vulnerability by Area",
-  exposure_index: "Exposure by Area",
-  sensitivity_index: "Sensitivity by Area",
-  adaptive_capacity_index: "Adaptive Capacity by Area",
-};
 
 const recommendations = ["Preparedness", "Response", "Recovery"];
 
@@ -234,10 +228,10 @@ export default function Dashboard({
         {/* SIDEBAR COLUMN */}
         <div className="col-span-3 flex flex-col justify-between">
           {/* Vulnerability Donut/Index */}
-          <div className="bg-white p-4 rounded-lg shadow-md shadow-gray-400 ">
-            <h3 className=" text-center text-xs font-semibold mb-2 text-gray-800">
+          <div className="bg-white p-3 rounded-lg shadow-md shadow-gray-400 ">
+            {/* <h3 className=" text-center text-xs font-semibold mb-2 text-gray-800">
               {donutTitleMap[mapType]}
-            </h3>
+            </h3> */}
             <div className="flex justify-center">
               {SelectedDonutChart ? <SelectedDonutChart /> : null}
             </div>

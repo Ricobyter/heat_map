@@ -55,6 +55,7 @@ const CustomTooltip = ({ active, hoveredCategory, chart, title = 'Exposure' }) =
 
   return (
     <div className="bg-white border rounded shadow p-2 text-xs max-w-[260px]">
+      
       <div className="font-bold mb-1">{hoveredCategory} {title}</div>
       <div className="mb-1 text-[13px] font-semibold text-slate-600">
         {info.percentText} of total area
@@ -181,6 +182,9 @@ export default function ExposureDonutChart() {
 
   return (
     <div className="w-full max-w-sm bg-white">
+            <h2 className="text-center text-sm font-semibold mb-4">
+        Exposure by Area 
+      </h2>
       <div className="relative flex items-center justify-center">
         <ResponsiveContainer width={size} height={size}>
           <PieChart>
