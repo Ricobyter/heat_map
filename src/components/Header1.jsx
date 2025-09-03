@@ -1,15 +1,59 @@
 // Header1.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { HiMenu } from "react-icons/hi";
 import { FiGlobe } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
+import { FiExternalLink, FiDownload } from "react-icons/fi";
+// import {IoChevronDown } from "react-icons/io"
+import { FaChevronDown } from "react-icons/fa";
 
 const Header1 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isPreparedDropdownOpen, setIsPreparedDropdownOpen] = useState(false);
+
   const [location, setLocation] = useState("Getting location...");
   const [locationError, setLocationError] = useState(false);
   const [selectedLang, setSelectedLang] = useState('en');
+  const dropdownRef = useRef(null);
+
+
+    useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsPreparedDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Handle PDF download
+const handlePdfDownload = () => {
+  // Open in new window first, then trigger download
+  const pdfWindow = window.open('/get_prepared.pdf', '_blank');
+  
+  // If popup blocked, use direct download
+  if (!pdfWindow) {
+    const link = document.createElement('a');
+    link.href = '/get_prepared.pdf';
+    link.download = 'Heat-Action-Plan-Preparedness-Guide.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  
+  setIsPreparedDropdownOpen(false);
+};
+
+  
+  const linkClasses = ({ isActive }) =>
+    [
+      "pb-1 border-b-2",
+      "text-gray-700 font-medium hover:text-red-600",
+      isActive ? "text-red-600 font-semibold border-red-600" : "border-transparent",
+    ].join(" ");
 
   // Prevent hash changes from affecting React Router
   useEffect(() => {
@@ -213,13 +257,7 @@ const Header1 = () => {
     }
   }, []);
 
-  // Utility to render NavLink with active underline
-  const linkClasses = ({ isActive }) =>
-    [
-      "pb-1 border-b-2",
-      "text-gray-700 font-medium hover:text-red-600",
-      isActive ? "text-red-600 font-semibold border-red-600" : "border-transparent",
-    ].join(" ");
+
 
   return (
     <>
@@ -250,14 +288,52 @@ const Header1 = () => {
               <NavLink to="/about" className={linkClasses}>
                 About us
               </NavLink>
-              <a
-                href="http://www.bsdma.org/GetPrepared.aspx?id=1"
-                className="pb-1 border-b-2 border-transparent text-gray-700 font-medium hover:text-red-600"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get Prepared
-              </a>
+<div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsPreparedDropdownOpen(!isPreparedDropdownOpen)}
+                  className="flex items-center space-x-1 pb-1 border-b-2 border-transparent text-gray-700 font-medium hover:text-red-600 transition-colors"
+                  aria-label="Get Prepared Options"
+                >
+                  <span>Get Prepared</span>
+                  <FaChevronDown  
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isPreparedDropdownOpen ? 'rotate-180' : ''
+                    }`} 
+                  />
+                </button>
+
+                {/* Dropdown Menu */}
+                {isPreparedDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
+                    {/* Website Link Option */}
+                    <a
+                      href="http://www.bsdma.org/GetPrepared.aspx?id=1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors"
+                      onClick={() => setIsPreparedDropdownOpen(false)}
+                    >
+                      <FiExternalLink className="w-4 h-4" />
+                      <div>
+                        <div className="font-medium">Visit Website</div>
+                        <div className="text-sm text-gray-500">Official preparedness guide</div>
+                      </div>
+                    </a>
+
+                    {/* PDF Download Option */}
+                    <button
+                      onClick={handlePdfDownload}
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors text-left"
+                    >
+                      <FiDownload className="w-4 h-4" />
+                      <div>
+                        <div className="font-medium">Download PDF</div>
+                        <div className="text-sm text-gray-500">Preparedness guide document</div>
+                      </div>
+                    </button>
+                  </div>
+                )}
+              </div>
             </nav>
 
             {/* Right */}
