@@ -64,8 +64,9 @@ const data = [
 export default function VulnerablePopulationChart() {
   return (
     <div className="max-w-xs mx-auto my-0">
-      <h2 className="text-center text-xs font-semibold mb-4">
-        Category wise Vulnerable Population (in %)
+      <h2 className="text-center text-sm font-semibold mb-4">
+        Category wise Vulnerable <br />
+         Population (in %)
       </h2>
       <div className="flex justify-center items-end h-45 gap-2">
         {data.map(({ label, value, gradientId, patternId, gradientFrom, gradientTo }) => {
