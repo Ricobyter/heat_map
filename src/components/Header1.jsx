@@ -321,7 +321,7 @@ const handlePdfDownload = () => {
                     </a>
 
                     {/* PDF Download Option */}
-                    <button
+                    {/* <button
                       onClick={handlePdfDownload}
                       className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors text-left"
                     >
@@ -330,7 +330,7 @@ const handlePdfDownload = () => {
                         <div className="font-medium">Download PDF</div>
                         <div className="text-sm text-gray-500">Preparedness guide document</div>
                       </div>
-                    </button>
+                    </button> */}
                   </div>
                 )}
               </div>
