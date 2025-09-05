@@ -37,6 +37,44 @@ const HeatMap = ({
     adaptive_capacity_index: "/adaptive_capacity_index_and_health_facilities.html",
   };
 
+  const pointOfInterestMaps = {
+  exposure_index: "/exposure_index_point_of_interest.html",
+  // vulnerability_index: "/vulnerability_index_point_of_interests.html", // Add if you have it
+  // sensitivity_index: "/sensitivity_index_point_of_interests.html", // Add if you have it
+  // adaptive_capacity_index: "/adaptive_capacity_index_point_of_interests.html", // Add if you have it
+};
+
+const settlementsAndBuildingsMaps = {
+  exposure_index: "/exposure_index_settlements_buildings.html",
+  // vulnerability_index: "/vulnerability_index_settlements_buildings.html",
+  // sensitivity_index: "/sensitivity_index_settlements_buildings.html", 
+  // adaptive_capacity_index: "/adaptive_capacity_index_settlements_buildings.html",
+};
+
+// Facilities maps
+const facilitiesMaps = {
+  exposure_index: "/exposure_index_facilities.html",
+  // vulnerability_index: "/vulnerability_index_facilities.html",
+  // sensitivity_index: "/sensitivity_index_facilities.html",
+  // adaptive_capacity_index: "/adaptive_capacity_index_facilities.html",
+};
+
+// Residential Densities maps
+const residentialDensityMaps = {
+  exposure_index: "/exposure_index_residential_densities.html",
+  // vulnerability_index: "/vulnerability_index_residential_densities.html",
+  // sensitivity_index: "/sensitivity_index_residential_densities.html",
+  // adaptive_capacity_index: "/adaptive_capacity_index_residential_densities.html",
+};
+
+// Utilities and Infrastructure maps
+const utilitiesAndInfrastructureMaps = {
+  exposure_index: "/exposure_index_utilities_infrastructure.html",
+  // vulnerability_index: "/vulnerability_index_utilities_and_infrastructure.html",
+  // sensitivity_index: "/sensitivity_index_utilities_and_infrastructure.html",
+  // adaptive_capacity_index: "/adaptive_capacity_index_utilities_and_infrastructure.html",
+};
+
   const HRIIndex2030 = "/vulnerability_index_v2_satellite.html";
   const HRIIndex2035 = "/vulnerability_index_2035_satellite.html";
   const HRIIndex2040 = "/vulnerability_index_2040_satellite.html";
@@ -124,6 +162,41 @@ const HeatMap = ({
       };
     }
 
+      if (selectedLayer === "Point Of Interest") {
+    return {
+      src: pointOfInterestMaps[type] || baseMaps[type],
+      title: (mapName[type] || "Heat Map"),
+    };
+  }
+
+    if (selectedLayer === "Settlements and Buildings") {
+    return {
+      src: settlementsAndBuildingsMaps[type] || baseMaps[type],
+      title: (mapName[type] || "Heat Map"),
+    };
+  }
+
+    if (selectedLayer === "Facilities") {
+    return {
+      src: facilitiesMaps[type] || baseMaps[type],
+      title: (mapName[type] || "Heat Map"),
+    };
+  }
+
+  if (selectedLayer === "Residential Densities") {
+    return {
+      src: residentialDensityMaps[type] || baseMaps[type],
+      title: (mapName[type] || "Heat Map"),
+    };
+  }
+
+  if (selectedLayer === "Utilities and Infrastructure") {
+    return {
+      src: utilitiesAndInfrastructureMaps[type] || baseMaps[type],
+      title: (mapName[type] || "Heat Map"),
+    };
+  }
+
       if (forceBaseMapForProjection) {
     return {
       src: baseMaps[type],
@@ -147,7 +220,8 @@ const HeatMap = ({
     ? { high: "Very High, Urban", mid: "High, Peri-Urban", low: "Moderate, Rural" }
     : { high: "High", mid: "Medium", low: "Low" };
 
-    const HIDE_DENSITY_YEARS = new Set([2030, 2035, 2040, 2050]);
+    const HIDE_DENSITY_YEARS = new Set(["2030", "2035", "2040", "2050"]);
+    const shouldHidePopulationDensity = HIDE_DENSITY_YEARS.has(selectedYear);
 
   return (
     <div className="bg-#F9F6EE pt-0 rounded-lg shadow-md shadow-gray-400 h-full w-full font-roboto">
@@ -209,7 +283,7 @@ const HeatMap = ({
               </div>
 
               {/* Population Density (static sample) */}
-              {/* {!shouldHidePopulationDensity && ( */}
+              {!shouldHidePopulationDensity && (
               <div className="mb-6">
                 <p className="text-gray-600 text-sm mb-2">
                   Population Density (2025) / km²:
@@ -237,7 +311,7 @@ const HeatMap = ({
                   </span>
                 </div>
               </div>
-              {/* )} */}
+               )} 
 
               <div className="border-b border-gray-300 mb-6" />
 

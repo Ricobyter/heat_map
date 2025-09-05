@@ -313,9 +313,16 @@ const Sidebar = ({
   ];
 
   const layers = [
-    "None","Roads","Water and Sewer Infrastructure","Health Facilities","Point of Interest",
-    "Settlements and Buildings","Facilities","Residential Densities","Solid Waste","BMA Buildup Area",
-    "BMA Soil Type","BMA Agriculture","Utilities and Infrastructure","Transportation","Planning",
+    "None","Roads","Water and Sewer Infrastructure","Health Facilities",
+    "Settlements and Buildings","Facilities","Residential Densities",
+    "Utilities and Infrastructure",
+    "Point of Interest",
+    "Solid Waste",
+    "BMA Buildup Area",
+    "BMA Soil Type",
+    "BMA Agriculture",
+    "Transportation",
+    "Planning",
     "Nature","Waste Management","Elderly","Children","Pregnant Women","Outdoor Workers","Slum Dwellers",
   ];
 

@@ -5,20 +5,17 @@ import { HiMenu } from "react-icons/hi";
 import { FiGlobe } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 import { FiExternalLink, FiDownload } from "react-icons/fi";
-// import {IoChevronDown } from "react-icons/io"
 import { FaChevronDown } from "react-icons/fa";
 
 const Header1 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isPreparedDropdownOpen, setIsPreparedDropdownOpen] = useState(false);
-
+  const [isPreparedDropdownOpen, setIsPreparedDropdownOpen] = useState(false);
   const [location, setLocation] = useState("Getting location...");
   const [locationError, setLocationError] = useState(false);
   const [selectedLang, setSelectedLang] = useState('en');
   const dropdownRef = useRef(null);
 
-
-    useEffect(() => {
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsPreparedDropdownOpen(false);
@@ -30,24 +27,21 @@ const Header1 = () => {
   }, []);
 
   // Handle PDF download
-const handlePdfDownload = () => {
-  // Open in new window first, then trigger download
-  const pdfWindow = window.open('/get_prepared.pdf', '_blank');
-  
-  // If popup blocked, use direct download
-  if (!pdfWindow) {
-    const link = document.createElement('a');
-    link.href = '/get_prepared.pdf';
-    link.download = 'Heat-Action-Plan-Preparedness-Guide.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-  
-  setIsPreparedDropdownOpen(false);
-};
+  const handlePdfDownload = () => {
+    const pdfWindow = window.open('/get_prepared.pdf', '_blank');
+    
+    if (!pdfWindow) {
+      const link = document.createElement('a');
+      link.href = '/get_prepared.pdf';
+      link.download = 'Heat-Action-Plan-Preparedness-Guide.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    
+    setIsPreparedDropdownOpen(false);
+  };
 
-  
   const linkClasses = ({ isActive }) =>
     [
       "pb-1 border-b-2",
@@ -55,11 +49,28 @@ const handlePdfDownload = () => {
       isActive ? "text-red-600 font-semibold border-red-600" : "border-transparent",
     ].join(" ");
 
+  // Handle navigation clicks - reset to English before navigating
+  const handleNavClick = () => {
+    if (selectedLang !== 'en') {
+      // Reset to English before navigation
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
+      document.cookie = 'googtrans=/auto/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
+      
+      // Clean URL hash
+      if (window.location.hash.includes('googtrans')) {
+        const cleanUrl = window.location.pathname + window.location.search;
+        window.history.replaceState(null, null, cleanUrl);
+      }
+      
+      setSelectedLang('en');
+    }
+    setIsMenuOpen(false);
+  };
+
   // Prevent hash changes from affecting React Router
   useEffect(() => {
     const handleHashChange = (e) => {
       if (window.location.hash.includes('googtrans')) {
-        // Don't prevent the event, just clean up the URL after translation
         setTimeout(() => {
           const cleanUrl = window.location.pathname + window.location.search;
           window.history.replaceState(null, null, cleanUrl);
@@ -73,11 +84,9 @@ const handlePdfDownload = () => {
 
   // Simplified function to reset to English
   const resetToEnglish = () => {
-    // Clear Google Translate cookies
     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
     document.cookie = 'googtrans=/auto/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
     
-    // Remove hash and reload
     if (window.location.hash) {
       window.history.replaceState("", document.title, window.location.pathname + window.location.search);
     }
@@ -89,10 +98,7 @@ const handlePdfDownload = () => {
 
   // Simplified function to translate to Hindi
   const translateToHindi = () => {
-    // Set the cookie first
     document.cookie = 'googtrans=/auto/hi; path=/; domain=' + window.location.hostname;
-    
-    // Use the hash method (this is necessary for Google Translate to work)
     window.location.hash = '#googtrans(auto|hi)';
     
     setTimeout(() => {
@@ -105,11 +111,9 @@ const handlePdfDownload = () => {
     const selectElement = document.querySelector('.goog-te-combo');
     if (selectElement) {
       selectElement.value = targetLang;
-      // Create and dispatch the change event
       const event = new Event('change', { bubbles: true });
       selectElement.dispatchEvent(event);
       
-      // Also try triggering with mouse events
       const clickEvent = new MouseEvent('click', { bubbles: true });
       selectElement.dispatchEvent(clickEvent);
     }
@@ -122,11 +126,9 @@ const handlePdfDownload = () => {
     if (lang === 'en') {
       resetToEnglish();
     } else if (lang === 'hi') {
-      // Try programmatic method first, fallback to hash method
       setTimeout(() => {
         triggerGoogleTranslate('hi');
         
-        // If programmatic doesn't work, use hash method as backup
         setTimeout(() => {
           const isTranslated = document.body.classList.contains('translated-ltr') || 
                               document.querySelector('font[style*="background-color"]');
@@ -142,7 +144,6 @@ const handlePdfDownload = () => {
   // Initialize Google Translate
   useEffect(() => {
     const addGoogleTranslateScript = () => {
-      // Remove existing script if any
       const existingScript = document.querySelector('script[src*="translate.google.com"]');
       if (existingScript) {
         existingScript.remove();
@@ -165,25 +166,21 @@ const handlePdfDownload = () => {
       document.head.appendChild(script);
     };
 
-    // Initialize Google Translate
     if (!window.google || !window.google.translate) {
       addGoogleTranslateScript();
     } else {
       window.googleTranslateElementInit();
     }
 
-    // Check current translation state
     const checkCurrentLanguage = () => {
       const hash = window.location.hash;
       const cookie = document.cookie;
       
-      // Clean up hash immediately
       if (hash && hash.includes('googtrans')) {
         const cleanUrl = window.location.pathname + window.location.search;
         window.history.replaceState(null, null, cleanUrl);
       }
       
-      // Determine current language from cookie or DOM
       if (cookie.includes('googtrans=/auto/hi') || cookie.includes('googtrans=/en/hi') ||
           document.body.classList.contains('translated-ltr') ||
           document.querySelector('font[style*="background-color"]')) {
@@ -193,11 +190,10 @@ const handlePdfDownload = () => {
       }
     };
 
-    // Check language state after a delay to ensure Google Translate is loaded
     setTimeout(checkCurrentLanguage, 1000);
   }, []);
 
-  // Reverse geocode via Nominatim (unchanged)
+  // Location functionality
   const getLocationName = async (latitude, longitude) => {
     try {
       const response = await fetch(
@@ -257,8 +253,6 @@ const handlePdfDownload = () => {
     }
   }, []);
 
-
-
   return (
     <>
       <header className="bg-white border-b border-gray-200 shadow-sm">
@@ -279,16 +273,17 @@ const handlePdfDownload = () => {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
-              <NavLink to="/" end className={linkClasses}>
+              <NavLink to="/" end className={linkClasses} onClick={handleNavClick}>
                 Home
               </NavLink>
-              <NavLink to="/analytics" className={linkClasses}>
+              <NavLink to="/analytics" className={linkClasses} onClick={handleNavClick}>
                 Analytics
               </NavLink>
-              <NavLink to="/about" className={linkClasses}>
+              <NavLink to="/about" className={linkClasses} onClick={handleNavClick}>
                 About us
               </NavLink>
-<div className="relative" ref={dropdownRef}>
+              
+              <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsPreparedDropdownOpen(!isPreparedDropdownOpen)}
                   className="flex items-center space-x-1 pb-1 border-b-2 border-transparent text-gray-700 font-medium hover:text-red-600 transition-colors"
@@ -302,10 +297,8 @@ const handlePdfDownload = () => {
                   />
                 </button>
 
-                {/* Dropdown Menu */}
                 {isPreparedDropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
-                    {/* Website Link Option */}
                     <a
                       href="http://www.bsdma.org/GetPrepared.aspx?id=1"
                       target="_blank"
@@ -319,18 +312,6 @@ const handlePdfDownload = () => {
                         <div className="text-sm text-gray-500">Official preparedness guide</div>
                       </div>
                     </a>
-
-                    {/* PDF Download Option */}
-                    {/* <button
-                      onClick={handlePdfDownload}
-                      className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors text-left"
-                    >
-                      <FiDownload className="w-4 h-4" />
-                      <div>
-                        <div className="font-medium">Download PDF</div>
-                        <div className="text-sm text-gray-500">Preparedness guide document</div>
-                      </div>
-                    </button> */}
                   </div>
                 )}
               </div>
@@ -373,13 +354,13 @@ const handlePdfDownload = () => {
           {isMenuOpen && (
             <div className="md:hidden border-t border-gray-200 py-3">
               <nav className="flex flex-col space-y-3">
-                <NavLink to="/" end className={linkClasses} onClick={() => setIsMenuOpen(false)}>
+                <NavLink to="/" end className={linkClasses} onClick={handleNavClick}>
                   Home
                 </NavLink>
-                <NavLink to="/analytics" className={linkClasses} onClick={() => setIsMenuOpen(false)}>
+                <NavLink to="/analytics" className={linkClasses} onClick={handleNavClick}>
                   Analytics
                 </NavLink>
-                <NavLink to="/about" className={linkClasses} onClick={() => setIsMenuOpen(false)}>
+                <NavLink to="/about" className={linkClasses} onClick={handleNavClick}>
                   About us
                 </NavLink>
 
@@ -406,12 +387,10 @@ const handlePdfDownload = () => {
         </div>
       </header>
 
-      {/* Visible Google Translate element for programmatic access */}
-      {/* <div id="google_translate_element" style={{ display: 'none' }}></div> */}
+      {/* Hidden Google Translate Element */}
+      <div id="google_translate_element" style={{ display: 'none' }}></div>
 
-      {/* Enhanced CSS to hide Google Translate UI */}
       <style jsx global>{`
-        /* Hide Google Translate widget UI */
         #google_translate_element {
           display: none !important;
         }
@@ -432,7 +411,6 @@ const handlePdfDownload = () => {
           top: 0px !important;
         }
         
-        /* Keep the dropdown accessible but hidden */
         .goog-te-combo {
           position: absolute !important;
           left: -9999px !important;
@@ -440,7 +418,6 @@ const handlePdfDownload = () => {
           pointer-events: none !important;
         }
         
-        /* Fix translation styling issues */
         font[style*="background-color: rgba(0, 0, 0, 0.1)"] {
           background-color: transparent !important;
           background: none !important;
