@@ -49,101 +49,41 @@ const Header1 = () => {
       isActive ? "text-red-600 font-semibold border-red-600" : "border-transparent",
     ].join(" ");
 
-  // Handle navigation clicks - reset to English before navigating
+  // Handle navigation clicks
   const handleNavClick = () => {
-    if (selectedLang !== 'en') {
-      // Reset to English before navigation
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-      document.cookie = 'googtrans=/auto/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-      
-      // Clean URL hash
+    setIsMenuOpen(false);
+  };
+
+  // Prevent any hash changes that could cause 404 errors
+  useEffect(() => {
+    const preventHashChange = (e) => {
+      if (window.location.hash.includes('googtrans')) {
+        // Clean the URL without triggering navigation
+        const cleanUrl = window.location.pathname + window.location.search;
+        window.history.replaceState(null, null, cleanUrl);
+      }
+    };
+
+    // Monitor and clean hash changes
+    const hashMonitor = setInterval(() => {
       if (window.location.hash.includes('googtrans')) {
         const cleanUrl = window.location.pathname + window.location.search;
         window.history.replaceState(null, null, cleanUrl);
       }
-      
-      setSelectedLang('en');
-    }
-    setIsMenuOpen(false);
-  };
+    }, 100);
 
-  // Prevent hash changes from affecting React Router
-  useEffect(() => {
-    const handleHashChange = (e) => {
-      if (window.location.hash.includes('googtrans')) {
-        setTimeout(() => {
-          const cleanUrl = window.location.pathname + window.location.search;
-          window.history.replaceState(null, null, cleanUrl);
-        }, 100);
-      }
+    window.addEventListener('hashchange', preventHashChange);
+    
+    return () => {
+      window.removeEventListener('hashchange', preventHashChange);
+      clearInterval(hashMonitor);
     };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
-
-  // Simplified function to reset to English
-  const resetToEnglish = () => {
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-    document.cookie = 'googtrans=/auto/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-    
-    if (window.location.hash) {
-      window.history.replaceState("", document.title, window.location.pathname + window.location.search);
-    }
-    
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
-
-  // Simplified function to translate to Hindi
-  const translateToHindi = () => {
-    document.cookie = 'googtrans=/auto/hi; path=/; domain=' + window.location.hostname;
-    window.location.hash = '#googtrans(auto|hi)';
-    
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
-
-  // Trigger translation programmatically using the dropdown
-  const triggerGoogleTranslate = (targetLang) => {
-    const selectElement = document.querySelector('.goog-te-combo');
-    if (selectElement) {
-      selectElement.value = targetLang;
-      const event = new Event('change', { bubbles: true });
-      selectElement.dispatchEvent(event);
-      
-      const clickEvent = new MouseEvent('click', { bubbles: true });
-      selectElement.dispatchEvent(clickEvent);
-    }
-  };
-
-  // Handle language change
-  const handleLanguageChange = (lang) => {
-    setSelectedLang(lang);
-    
-    if (lang === 'en') {
-      resetToEnglish();
-    } else if (lang === 'hi') {
-      setTimeout(() => {
-        triggerGoogleTranslate('hi');
-        
-        setTimeout(() => {
-          const isTranslated = document.body.classList.contains('translated-ltr') || 
-                              document.querySelector('font[style*="background-color"]');
-          
-          if (!isTranslated) {
-            translateToHindi();
-          }
-        }, 1000);
-      }, 500);
-    }
-  };
 
   // Initialize Google Translate
   useEffect(() => {
-    const addGoogleTranslateScript = () => {
+    const initializeTranslate = () => {
+      // Remove existing script if present
       const existingScript = document.querySelector('script[src*="translate.google.com"]');
       if (existingScript) {
         existingScript.remove();
@@ -161,27 +101,19 @@ const Header1 = () => {
           autoDisplay: false,
           multilanguagePage: true
         }, 'google_translate_element');
+        
+        // Check current language from cookie after initialization
+        setTimeout(checkCurrentLanguage, 500);
       };
 
       document.head.appendChild(script);
     };
 
-    if (!window.google || !window.google.translate) {
-      addGoogleTranslateScript();
-    } else {
-      window.googleTranslateElementInit();
-    }
-
     const checkCurrentLanguage = () => {
-      const hash = window.location.hash;
       const cookie = document.cookie;
       
-      if (hash && hash.includes('googtrans')) {
-        const cleanUrl = window.location.pathname + window.location.search;
-        window.history.replaceState(null, null, cleanUrl);
-      }
-      
-      if (cookie.includes('googtrans=/auto/hi') || cookie.includes('googtrans=/en/hi') ||
+      if (cookie.includes('googtrans=/auto/hi') || 
+          cookie.includes('googtrans=/en/hi') ||
           document.body.classList.contains('translated-ltr') ||
           document.querySelector('font[style*="background-color"]')) {
         setSelectedLang('hi');
@@ -190,8 +122,59 @@ const Header1 = () => {
       }
     };
 
-    setTimeout(checkCurrentLanguage, 1000);
+    if (!window.google || !window.google.translate) {
+      initializeTranslate();
+    } else {
+      window.googleTranslateElementInit();
+      setTimeout(checkCurrentLanguage, 500);
+    }
   }, []);
+
+  // Trigger translation via the hidden select element
+  const triggerGoogleTranslateSelect = (langCode) => {
+    const checkAndTrigger = () => {
+      const selectElement = document.querySelector('.goog-te-combo');
+      if (selectElement) {
+        selectElement.value = langCode;
+        selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        // Retry if Google Translate isn't ready yet
+        setTimeout(checkAndTrigger, 100);
+      }
+    };
+    
+    setTimeout(checkAndTrigger, 200);
+  };
+
+  // Handle language change without URL manipulation
+  const handleLanguageChange = (lang) => {
+    setSelectedLang(lang);
+    
+    if (lang === 'en') {
+      // Clear translation - reset to original language
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
+      triggerGoogleTranslateSelect('');
+      
+      // Force a clean reload after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } else {
+      // Set translation cookie for the target language
+      document.cookie = `googtrans=/auto/${lang}; path=/; domain=${window.location.hostname}`;
+      triggerGoogleTranslateSelect(lang);
+      
+      // Give some time for translation to apply, then reload if needed
+      setTimeout(() => {
+        const isTranslated = document.body.classList.contains('translated-ltr') || 
+                            document.querySelector('font[style*="background-color"]');
+        
+        if (!isTranslated) {
+          window.location.reload();
+        }
+      }, 1000);
+    }
+  };
 
   // Location functionality
   const getLocationName = async (latitude, longitude) => {

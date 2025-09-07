@@ -9,9 +9,9 @@ const HeatMap = ({
 }) => {
   const baseMaps = {
     exposure_index: "/exposure_index_satellite.html",
-    vulnerability_index: "/vulnerability_index_satellite.html",
+    vulnerability_index: "/new_vulnerability_index_base.html",
     sensitivity_index: "/sensitivity_index_satellite.html",
-    adaptive_capacity_index: "/adaptive_capacity_satellite.html",
+    adaptive_capacity_index: "/new_adaptive_capacity_base.html",
   };
 
   const roadsMaps = {
