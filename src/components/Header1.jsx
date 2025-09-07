@@ -147,24 +147,50 @@ const Header1 = () => {
   };
 
   // Handle language change without URL manipulation
-  const handleLanguageChange = (lang) => {
-    setSelectedLang(lang);
+// Handle language change - fixed version for Hindi to English switching
+const handleLanguageChange = (lang) => {
+  setSelectedLang(lang);
+  
+  if (lang === 'en') {
+    // More aggressive approach to reset to English
     
-    if (lang === 'en') {
-      // Clear translation - reset to original language
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-      triggerGoogleTranslateSelect('');
+    // Clear all possible Google Translate cookies
+    const cookiesToClear = [
+      'googtrans=/auto/hi',
+      'googtrans=/en/hi', 
+      'googtrans=/hi/hi',
+      'googtrans',
+      'googtrans='
+    ];
+    
+    cookiesToClear.forEach(cookie => {
+      // Clear for current domain
+      document.cookie = `${cookie}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+      // Clear for subdomain
+      document.cookie = `${cookie}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${window.location.hostname}`;
+      // Clear without domain
+      document.cookie = `${cookie}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+    });
+    
+    // Set English explicitly
+    document.cookie = `googtrans=/auto/en; path=/; domain=${window.location.hostname}`;
+    
+    // Force immediate reload to English
+    window.location.reload();
+    
+  } else {
+    // For Hindi translation
+    document.cookie = `googtrans=/auto/${lang}; path=/; domain=${window.location.hostname}`;
+    
+    // Try to trigger translation immediately
+    setTimeout(() => {
+      const selectElement = document.querySelector('.goog-te-combo');
+      if (selectElement) {
+        selectElement.value = lang;
+        selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+      }
       
-      // Force a clean reload after a short delay
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-    } else {
-      // Set translation cookie for the target language
-      document.cookie = `googtrans=/auto/${lang}; path=/; domain=${window.location.hostname}`;
-      triggerGoogleTranslateSelect(lang);
-      
-      // Give some time for translation to apply, then reload if needed
+      // If translation doesn't work, reload
       setTimeout(() => {
         const isTranslated = document.body.classList.contains('translated-ltr') || 
                             document.querySelector('font[style*="background-color"]');
@@ -172,9 +198,11 @@ const Header1 = () => {
         if (!isTranslated) {
           window.location.reload();
         }
-      }, 1000);
-    }
-  };
+      }, 1500);
+    }, 200);
+  }
+};
+
 
   // Location functionality
   const getLocationName = async (latitude, longitude) => {
