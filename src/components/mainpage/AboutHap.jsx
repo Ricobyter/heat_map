@@ -35,7 +35,7 @@ export default function AboutHap() {
       <div className='max-w-4xl border-20 border-[#004275] rounded-md mx-auto'>
         {/* <img src={HAP_Image} alt="HAP Screenshot" className="bg-cover" /> */}
                 <iframe 
-          src="/analytics" // Replace with your page route
+          src="/analyticsdemo" // Replace with your page route
           className="w-full h-150 rounded-md" // Control height here (h-96 = 24rem = 384px)
           title="HAP Interactive Page"
           frameBorder="0"
