@@ -75,6 +75,38 @@ const utilitiesAndInfrastructureMaps = {
   // adaptive_capacity_index: "/adaptive_capacity_index_utilities_and_infrastructure.html",
 };
 
+// Planning maps
+const planningMaps = {
+  exposure_index: "/exposure_index_planning.html",
+  // vulnerability_index: "/vulnerability_index_planning.html", 
+  // sensitivity_index: "/sensitivity_index_planning.html",
+  // adaptive_capacity_index: "/adaptive_capacity_index_planning.html",
+};
+
+// Agriculture maps
+const agricultureMaps = {
+  exposure_index: "/exposure_index_agriculture.html",
+  // vulnerability_index: "/vulnerability_index_agriculture.html",
+  // sensitivity_index: "/sensitivity_index_agriculture.html", 
+  // adaptive_capacity_index: "/adaptive_capacity_index_agriculture.html",
+};
+
+// Nature maps
+const natureMaps = {
+  exposure_index: "/exposure_index_nature.html",
+  // vulnerability_index: "/vulnerability_index_nature.html",
+  // sensitivity_index: "/sensitivity_index_nature.html",
+  // adaptive_capacity_index: "/adaptive_capacity_index_nature.html",
+};
+
+// Waste Management maps
+const wasteManagementMaps = {
+  exposure_index: "/exposure_index_waste_management_fixed.html",
+  // vulnerability_index: "/vulnerability_index_waste_management.html",
+  // sensitivity_index: "/sensitivity_index_waste_management.html",
+  // adaptive_capacity_index: "/adaptive_capacity_index_waste_management.html",
+};
+
   const HRIIndex2030 = "/vulnerability_index_v2_satellite.html";
   const HRIIndex2035 = "/vulnerability_index_2035_satellite.html";
   const HRIIndex2040 = "/vulnerability_index_2040_satellite.html";
@@ -196,6 +228,35 @@ const utilitiesAndInfrastructureMaps = {
       title: (mapName[type] || "Heat Map"),
     };
   }
+
+  if (selectedLayer === "Planning") {
+  return {
+    src: planningMaps[type] || baseMaps[type],
+    title: (mapName[type] || "Heat Map"),
+  };
+}
+
+if (selectedLayer === "BMA Agriculture") {
+  return {
+    src: agricultureMaps[type] || baseMaps[type],
+    title: (mapName[type] || "Heat Map"),
+  };
+}
+
+if (selectedLayer === "Nature") {
+  return {
+    src: natureMaps[type] || baseMaps[type],
+    title: (mapName[type] || "Heat Map"),
+  };
+}
+
+if (selectedLayer === "Waste Management") {
+  return {
+    src: wasteManagementMaps[type] || baseMaps[type],
+    title: (mapName[type] || "Heat Map"),
+  };
+}
+  
 
       if (forceBaseMapForProjection) {
     return {

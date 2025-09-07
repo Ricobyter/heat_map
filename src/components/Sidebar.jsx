@@ -316,14 +316,18 @@ const Sidebar = ({
     "None","Roads","Water and Sewer Infrastructure","Health Facilities",
     "Settlements and Buildings","Facilities","Residential Densities",
     "Utilities and Infrastructure",
+    "BMA Agriculture",
+    "Planning",
+    "Nature",
+    "Waste Management",
+    
     "Point of Interest",
     "Solid Waste",
-    "BMA Buildup Area",
     "BMA Soil Type",
-    "BMA Agriculture",
     "Transportation",
-    "Planning",
-    "Nature","Waste Management","Elderly","Children","Pregnant Women","Outdoor Workers","Slum Dwellers",
+    "BMA Buildup Area",
+    
+    "Elderly","Children","Pregnant Women","Outdoor Workers","Slum Dwellers",
   ];
 
   const heatRiskIcons = {
