@@ -313,7 +313,8 @@ const Sidebar = ({
   ];
 
   const layers = [
-    "None","Roads","Water and Sewer Infrastructure","Health Facilities",
+    "None","Roads","Water and Sewer Infrastructure",
+    
     "Settlements and Buildings","Facilities","Residential Densities",
     "Utilities and Infrastructure",
     "BMA Agriculture",
@@ -322,7 +323,7 @@ const Sidebar = ({
     "Waste Management",
     
     "Point of Interest",
-    "Solid Waste",
+   
     "BMA Soil Type",
     "Transportation",
     "BMA Buildup Area",
