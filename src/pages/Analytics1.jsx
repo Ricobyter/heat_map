@@ -5,6 +5,7 @@ import Header1 from "../components/Header1";
 import Footer1 from "../components/Footer1";
 import Sidebar1 from "../components/Sidebar1";
 import Dashboard1 from "../components/Dashboard1";
+import Header2 from "../components/Header2";
 
 const AnalyticsDemo = () => {
   const [mapType, setMap] = useState("vulnerability_index"); 
@@ -13,7 +14,7 @@ const AnalyticsDemo = () => {
   return (
     <div className="min-h-screen bg-gray-100 pb-10">
       {/* <Header /> */}
-      <Header1 />
+      <Header2 />
       {/* <NavBar /> */}
 
 
