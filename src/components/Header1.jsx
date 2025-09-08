@@ -1,10 +1,9 @@
-// Header1.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { HiMenu } from "react-icons/hi";
 import { FiGlobe } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
-import { FiExternalLink, FiDownload } from "react-icons/fi";
+import { FiExternalLink } from "react-icons/fi";
 import { FaChevronDown } from "react-icons/fa";
 
 const Header1 = () => {
@@ -26,22 +25,6 @@ const Header1 = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Handle PDF download
-  const handlePdfDownload = () => {
-    const pdfWindow = window.open('/get_prepared.pdf', '_blank');
-    
-    if (!pdfWindow) {
-      const link = document.createElement('a');
-      link.href = '/get_prepared.pdf';
-      link.download = 'Heat-Action-Plan-Preparedness-Guide.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    
-    setIsPreparedDropdownOpen(false);
-  };
-
   const linkClasses = ({ isActive }) =>
     [
       "pb-1 border-b-2",
@@ -49,101 +32,47 @@ const Header1 = () => {
       isActive ? "text-red-600 font-semibold border-red-600" : "border-transparent",
     ].join(" ");
 
-  // Handle navigation clicks - reset to English before navigating
   const handleNavClick = () => {
-    if (selectedLang !== 'en') {
-      // Reset to English before navigation
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-      document.cookie = 'googtrans=/auto/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-      
-      // Clean URL hash
-      if (window.location.hash.includes('googtrans')) {
-        const cleanUrl = window.location.pathname + window.location.search;
-        window.history.replaceState(null, null, cleanUrl);
-      }
-      
-      setSelectedLang('en');
-    }
     setIsMenuOpen(false);
-  };
-
-  // Prevent hash changes from affecting React Router
-  useEffect(() => {
-    const handleHashChange = (e) => {
-      if (window.location.hash.includes('googtrans')) {
-        setTimeout(() => {
-          const cleanUrl = window.location.pathname + window.location.search;
-          window.history.replaceState(null, null, cleanUrl);
-        }, 100);
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  // Simplified function to reset to English
-  const resetToEnglish = () => {
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-    document.cookie = 'googtrans=/auto/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-    
-    if (window.location.hash) {
-      window.history.replaceState("", document.title, window.location.pathname + window.location.search);
-    }
-    
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
-
-  // Simplified function to translate to Hindi
-  const translateToHindi = () => {
-    document.cookie = 'googtrans=/auto/hi; path=/; domain=' + window.location.hostname;
-    window.location.hash = '#googtrans(auto|hi)';
-    
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
-
-  // Trigger translation programmatically using the dropdown
-  const triggerGoogleTranslate = (targetLang) => {
-    const selectElement = document.querySelector('.goog-te-combo');
-    if (selectElement) {
-      selectElement.value = targetLang;
-      const event = new Event('change', { bubbles: true });
-      selectElement.dispatchEvent(event);
-      
-      const clickEvent = new MouseEvent('click', { bubbles: true });
-      selectElement.dispatchEvent(clickEvent);
-    }
   };
 
   // Handle language change
   const handleLanguageChange = (lang) => {
+    if (lang === selectedLang) return;
+
     setSelectedLang(lang);
     
     if (lang === 'en') {
-      resetToEnglish();
+      // Reset to English by reloading page
+      // Clear Google Translate cookies
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      
+      // Clear hash
+      if (window.location.hash.includes('googtrans')) {
+        window.history.replaceState("", document.title, window.location.pathname + window.location.search);
+      }
+      
+      // Reload to get clean English version
+      window.location.reload();
+      
     } else if (lang === 'hi') {
-      setTimeout(() => {
-        triggerGoogleTranslate('hi');
-        
-        setTimeout(() => {
-          const isTranslated = document.body.classList.contains('translated-ltr') || 
-                              document.querySelector('font[style*="background-color"]');
-          
-          if (!isTranslated) {
-            translateToHindi();
-          }
-        }, 1000);
-      }, 500);
+      // Set the cookie directly for Hindi translation
+      document.cookie = 'googtrans=/en/hi; path=/; domain=' + window.location.hostname;
+      
+      // Set the hash
+      window.location.hash = '#googtrans(en|hi)';
+      
+      // Reload to apply translation
+      window.location.reload();
     }
   };
 
   // Initialize Google Translate
   useEffect(() => {
-    const addGoogleTranslateScript = () => {
+    // Add Google Translate script
+    const addScript = () => {
+      // Remove existing script if any
       const existingScript = document.querySelector('script[src*="translate.google.com"]');
       if (existingScript) {
         existingScript.remove();
@@ -155,42 +84,31 @@ const Header1 = () => {
       
       window.googleTranslateElementInit = () => {
         new window.google.translate.TranslateElement({
-          pageLanguage: 'auto',
+          pageLanguage: 'en',
           includedLanguages: 'en,hi',
           layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false,
-          multilanguagePage: true
+          autoDisplay: false
         }, 'google_translate_element');
       };
 
       document.head.appendChild(script);
     };
 
-    if (!window.google || !window.google.translate) {
-      addGoogleTranslateScript();
-    } else {
-      window.googleTranslateElementInit();
-    }
+    addScript();
 
-    const checkCurrentLanguage = () => {
+    // Check current translation state
+    setTimeout(() => {
       const hash = window.location.hash;
       const cookie = document.cookie;
       
-      if (hash && hash.includes('googtrans')) {
-        const cleanUrl = window.location.pathname + window.location.search;
-        window.history.replaceState(null, null, cleanUrl);
-      }
-      
-      if (cookie.includes('googtrans=/auto/hi') || cookie.includes('googtrans=/en/hi') ||
-          document.body.classList.contains('translated-ltr') ||
-          document.querySelector('font[style*="background-color"]')) {
+      if (hash.includes('googtrans') && hash.includes('hi') ||
+          cookie.includes('googtrans=/en/hi') ||
+          document.body.classList.contains('translated-ltr')) {
         setSelectedLang('hi');
       } else {
         setSelectedLang('en');
       }
-    };
-
-    setTimeout(checkCurrentLanguage, 1000);
+    }, 1000);
   }, []);
 
   // Location functionality
@@ -261,7 +179,7 @@ const Header1 = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3" translate="no">
               <img src="logo_new.jpg" alt="Logo" className="w-21 h-21 rounded-full object-cover" />
-              <div className="flex flex-col font-staatliches  tracking-wide leading-tight">
+              <div className="flex flex-col font-staatliches tracking-wide leading-tight">
                 <div className="text-[20px]">
                   <span className="text-[#004275]">MODEL </span>
                   <span className="text-red-600">HEAT</span>
@@ -391,8 +309,12 @@ const Header1 = () => {
       <div id="google_translate_element" style={{ display: 'none' }}></div>
 
       <style jsx global>{`
-        #google_translate_element {
+        .goog-te-banner-frame {
           display: none !important;
+        }
+        
+        body {
+          top: 0px !important;
         }
         
         .skiptranslate > iframe {
@@ -403,21 +325,19 @@ const Header1 = () => {
           display: none !important;
         }
         
-        .goog-te-banner-frame {
+        #google_translate_element {
           display: none !important;
         }
         
-        body {
-          top: 0px !important;
-        }
-        
+        /* This allows the combo to work but keeps it hidden */
         .goog-te-combo {
           position: absolute !important;
           left: -9999px !important;
           opacity: 0 !important;
-          pointer-events: none !important;
+          visibility: hidden !important;
         }
         
+        /* Hide the Google Translate styling but don't disable functionality */
         font[style*="background-color: rgba(0, 0, 0, 0.1)"] {
           background-color: transparent !important;
           background: none !important;
