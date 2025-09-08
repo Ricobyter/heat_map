@@ -855,7 +855,6 @@
                 layer_control_8c4f6d4d1401cdb97eeb9b5c8ee1f487_layers.overlays,
                 {
   "position": "topright",
-  "collapsed": false,
   "autoZIndex": true,
 }
             ).addTo(map_c5f5fb07b2b0287d35588fc353caa361);
@@ -893,7 +892,6 @@
       if(layer&&layer.feature&&layer.feature.properties){
         var nm = layer.feature.properties["Block Name"] || layer.feature.properties["name"];
         if(nm && typeof layer.getBounds==='function'){
-          var b = layer.getBounds();
           if(b && b.isValid && b.isValid()){
             var key=norm(nm);
             if(!blockIndex[key]){ blockIndex[key]={bounds:b,layer:layer,origStyle:captureOrigStyle(layer)}; }
@@ -938,9 +936,6 @@
             
     
                 marker_dc130515aaf3f47aeafd7432e2d7be0e.setIcon(div_icon_38b6de9e0f6b62ed4a70af3e7bc9ab39);
-            
-    
-                marker_14750c75345d67161a8426aa40b7cd94.setIcon(div_icon_296185c952403d7d15e0bb6aed8f2644);
             
     
                 marker_0b358f7538a4e77c30e260205c290753.setIcon(div_icon_96953653aa719637685d7196aeb26177);

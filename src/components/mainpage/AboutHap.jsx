@@ -2,6 +2,7 @@
 import HAP_Image from '../../assets/HAP_Screen.png'
 
 export default function AboutHap() {
+
   return (
     <section className="relative bg-gradient-to-tr from-indigo-50/70 via-white to-pink-50/70 font-montserrat">
       <div className="mx-auto max-w-4xl  py-16 sm:py-20 text-gray-800">
@@ -34,12 +35,14 @@ export default function AboutHap() {
 
       <div className='max-w-4xl border-20 border-[#004275] rounded-md mx-auto'>
         {/* <img src={HAP_Image} alt="HAP Screenshot" className="bg-cover" /> */}
-                <iframe 
-          src='https://heat-map-three.vercel.app/analyticsdemo' // Replace with your page route
-          className="w-full h-150 rounded-md" // Control height here (h-96 = 24rem = 384px)
-          title="HAP Interactive Page"
-          frameBorder="0"
-        />
+<iframe 
+  src='https://heat-map-three.vercel.app/analyticsdemo'
+  className="w-full h-150 rounded-md"
+  title="HAP Interactive Page"
+  sandbox="allow-same-origin allow-scripts allow-forms allow-top-navigation allow-top-navigation-by-user-activation allow-popups"
+  frameBorder="0"
+  id="heatMapIframe"
+/> 
       </div>
     </section>
   );

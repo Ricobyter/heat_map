@@ -1,8 +1,6 @@
 import Dashboard from "../components/Dashboard";
 import { useState } from "react";
 import NavBar from "../components/Navbar";
-import Header1 from "../components/Header1";
-import Footer1 from "../components/Footer1";
 import Sidebar1 from "../components/Sidebar1";
 import Dashboard1 from "../components/Dashboard1";
 import Header2 from "../components/Header2";

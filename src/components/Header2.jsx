@@ -1,10 +1,9 @@
-// Header1.jsx
+// Header2.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { HiMenu } from "react-icons/hi";
 import { FiGlobe } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
-import { FiExternalLink, FiDownload } from "react-icons/fi";
+import { FiExternalLink } from "react-icons/fi";
 import { FaChevronDown } from "react-icons/fa";
 
 const Header2 = () => {
@@ -42,14 +41,7 @@ const Header2 = () => {
     setIsPreparedDropdownOpen(false);
   };
 
-  const linkClasses = ({ isActive }) =>
-    [
-      "pb-1 border-b-2",
-      "text-gray-700 font-medium hover:text-red-600",
-      isActive ? "text-red-600 font-semibold border-red-600" : "border-transparent",
-    ].join(" ");
-
-  // Handle navigation clicks
+  // Handle navigation clicks - close mobile menu only
   const handleNavClick = () => {
     setIsMenuOpen(false);
   };
@@ -58,13 +50,11 @@ const Header2 = () => {
   useEffect(() => {
     const preventHashChange = (e) => {
       if (window.location.hash.includes('googtrans')) {
-        // Clean the URL without triggering navigation
         const cleanUrl = window.location.pathname + window.location.search;
         window.history.replaceState(null, null, cleanUrl);
       }
     };
 
-    // Monitor and clean hash changes
     const hashMonitor = setInterval(() => {
       if (window.location.hash.includes('googtrans')) {
         const cleanUrl = window.location.pathname + window.location.search;
@@ -83,7 +73,6 @@ const Header2 = () => {
   // Initialize Google Translate
   useEffect(() => {
     const initializeTranslate = () => {
-      // Remove existing script if present
       const existingScript = document.querySelector('script[src*="translate.google.com"]');
       if (existingScript) {
         existingScript.remove();
@@ -102,7 +91,6 @@ const Header2 = () => {
           multilanguagePage: true
         }, 'google_translate_element');
         
-        // Check current language from cookie after initialization
         setTimeout(checkCurrentLanguage, 500);
       };
 
@@ -138,7 +126,6 @@ const Header2 = () => {
         selectElement.value = langCode;
         selectElement.dispatchEvent(new Event('change', { bubbles: true }));
       } else {
-        // Retry if Google Translate isn't ready yet
         setTimeout(checkAndTrigger, 100);
       }
     };
@@ -151,20 +138,16 @@ const Header2 = () => {
     setSelectedLang(lang);
     
     if (lang === 'en') {
-      // Clear translation - reset to original language
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
       triggerGoogleTranslateSelect('');
       
-      // Force a clean reload after a short delay
       setTimeout(() => {
         window.location.reload();
       }, 100);
     } else {
-      // Set translation cookie for the target language
       document.cookie = `googtrans=/auto/${lang}; path=/; domain=${window.location.hostname}`;
       triggerGoogleTranslateSelect(lang);
       
-      // Give some time for translation to apply, then reload if needed
       setTimeout(() => {
         const isTranslated = document.body.classList.contains('translated-ltr') || 
                             document.querySelector('font[style*="background-color"]');
@@ -254,17 +237,17 @@ const Header2 = () => {
               </div>
             </div>
 
-            {/* Desktop Nav */}
+            {/* Desktop Nav - COMPLETELY DISABLED */}
             <nav className="hidden md:flex items-center space-x-8">
-              <NavLink to="/" end className={linkClasses} onClick={handleNavClick}>
+              {/* <span className="pb-1 border-b-2 border-transparent text-gray-400 font-medium cursor-default">
                 Home
-              </NavLink>
-              <NavLink to="/analytics" className={linkClasses} onClick={handleNavClick}>
+              </span>
+              <span className="pb-1 border-b-2 border-transparent text-gray-400 font-medium cursor-default">
                 Analytics
-              </NavLink>
-              <NavLink to="/about" className={linkClasses} onClick={handleNavClick}>
+              </span>
+              <span className="pb-1 border-b-2 border-transparent text-gray-400 font-medium cursor-default">
                 About us
-              </NavLink>
+              </span> */}
               
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -302,7 +285,7 @@ const Header2 = () => {
 
             {/* Right */}
             <div className="flex items-center space-x-4">
-              {/* Language Dropdown */}
+              {/* Language Dropdown - COMMENTED OUT */}
               {/* <div className="flex items-center space-x-2" translate="no">
                 <FiGlobe className="w-4 h-4 text-gray-600" />
                 <select 
@@ -333,19 +316,19 @@ const Header2 = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu - COMPLETELY DISABLED */}
           {isMenuOpen && (
             <div className="md:hidden border-t border-gray-200 py-3">
               <nav className="flex flex-col space-y-3">
-                <NavLink to="/" end className={linkClasses} onClick={handleNavClick}>
+                {/* <span className="text-left pb-1 border-b-2 border-transparent text-gray-400 font-medium cursor-default px-2">
                   Home
-                </NavLink>
-                <NavLink to="/analytics" className={linkClasses} onClick={handleNavClick}>
+                </span>
+                <span className="text-left pb-1 border-b-2 border-transparent text-gray-400 font-medium cursor-default px-2">
                   Analytics
-                </NavLink>
-                <NavLink to="/about" className={linkClasses} onClick={handleNavClick}>
+                </span>
+                <span className="text-left pb-1 border-b-2 border-transparent text-gray-400 font-medium cursor-default px-2">
                   About us
-                </NavLink>
+                </span> */}
 
                 {/* Mobile Language Dropdown */}
                 <div className="flex items-center space-x-2 px-2" translate="no">
@@ -411,3 +394,4 @@ const Header2 = () => {
 };
 
 export default Header2;
+                                                                                                                                                                                                                                               

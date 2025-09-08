@@ -322,13 +322,7 @@ const Sidebar = ({
     "Nature",
     "Waste Management",
     
-    "Point of Interest",
-   
-    "BMA Soil Type",
-    "Transportation",
-    "BMA Buildup Area",
-    
-    "Elderly","Children","Pregnant Women","Outdoor Workers","Slum Dwellers",
+
   ];
 
   const heatRiskIcons = {
