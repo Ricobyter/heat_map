@@ -1,20 +1,62 @@
 import React, { useState } from 'react';
 
 const districtData = {
-  Low: ['Maner', 'Khusrupur', 'Ghoswari', 'Bakhtiyarpur'],
+  Low: [
+    "Khusrupur",
+    "Danapur",
+    "Maner"
+  ],
   Medium: [
-    'Naubatpur', 'Barh', 'Athmalgola', 'Belchhi', 'Pandarak', 'Fatwah', 'Paliganj',
-    'Mokama', 'Patna Sadar', 'Daniyawan', 'Danapur', 'Phulwari Sharif'
+    "Patna Sadar",
+    "Phulwari Sharif",
+    "Fatwah",
+    "Daniyawan",
+    "Athmalgola",
+    "Mokama",
+    "Belchhi",
+    "Ghoswari",
+    "Bakhtiyarpur",
+    "Barh",
+    "Punpun",
+    "Dhanarua",
+    "Naubatpur",
+    "Paliganj"
   ],
   High: [
-    'Dhanarua', 'Masaurhi', 'Bihta', 'Sampatchak', 'Punpun', 'Bikram', 'Dulhin Bazar'
+    "Sampatchak",
+    "Pandarak",
+    "Masaurhi",
+    "Bihta",
+    "Dulhin Bazar",
+    "Bikram"
   ]
 };
 
 const data = [
-  { label: 'Low', value: 21.7, color: '#46b1e1', blocks: 5 },
-  { label: 'Medium', value: 52.2, color: '#465f91', blocks: 12 },
-  { label: 'High', value: 26.1, color: '#7d50c7', blocks: 6 }
+  { 
+    label: 'Low', 
+    value: 13.0, 
+    color: '#46b1e1', 
+    blocks: 3,
+    gradientFrom: '#b6eaff',
+    gradientTo: '#00bfff'
+  },
+  { 
+    label: 'Medium', 
+    value: 60.9, 
+    color: '#465f91', 
+    blocks: 14,
+    gradientFrom: '#a9bcec',
+    gradientTo: '#465f91'
+  },
+  { 
+    label: 'High', 
+    value: 26.1, 
+    color: '#7d50c7', 
+    blocks: 6,
+    gradientFrom: '#d5c7f6',
+    gradientTo: '#7d50c7'
+  }
 ];
 
 export default function AdaptiveCapacityBlocksChart() {
@@ -34,10 +76,11 @@ export default function AdaptiveCapacityBlocksChart() {
         Category wise Block<br />Adaptive capacity (in %)
       </h2>
       <div className="space-y-4">
-        {data.map(({ label, value, color, blocks }) => {
+        {data.map(({ label, value, color, blocks, gradientFrom, gradientTo }) => {
           const lightColor = color + '30';
           const isHovered = hoveredCategory === label;
           const districts = districtData[label] || [];
+          const gradientId = `gradient-${label}-adaptive-capacity`;
           
           return (
             <div key={label} className="relative">
@@ -56,26 +99,39 @@ export default function AdaptiveCapacityBlocksChart() {
                       borderRadius: "12px",
                     }}
                   >
-                    {/* Colored bar */}
-                    <div
-                      className="h-full rounded relative"
-                      style={{
-                        width: `${value}%`,
-                        backgroundColor: color,
-                        borderRadius: "12px",
-                      }}
-                    />
+                    {/* SVG for gradient bar */}
+                    <svg 
+                      width="100%" 
+                      height="100%" 
+                      className="absolute top-0 left-0"
+                      style={{ borderRadius: "12px" }}
+                    >
+                      <defs>
+                        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor={gradientFrom} />
+                          <stop offset="100%" stopColor={gradientTo} />
+                        </linearGradient>
+                      </defs>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={`${value}%`}
+                        height="100%"
+                        fill={`url(#${gradientId})`}
+                        rx="12"
+                      />
+                    </svg>
                     
                     {/* Percentage text positioned at the end of the bar */}
                     <span 
-                      className="absolute top-0 h-full flex items-center text-xs font-semibold bg-white px-2 py-0.5 rounded-lg"
+                      className="absolute top-0 h-full flex items-center text-xs font-semibold bg-white px-2 py-0.5 rounded-lg shadow-sm"
                       style={{
                         left: `${value}%`,
                         marginLeft: '8px',
                         color: color
                       }}
                     >
-                      {value}
+                      {value}%
                     </span>
                   </div>
                 </div>

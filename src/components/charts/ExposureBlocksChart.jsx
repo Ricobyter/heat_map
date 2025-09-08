@@ -7,9 +7,27 @@ const districtData = {
 };
 
 const data = [
-  { label: "Low", value: 17.4, color: "#46b1e1" },
-  { label: "Medium", value: 39.1, color: "#465f91" },
-  { label: "High", value: 43.5, color: "#7d50c7" },
+  { 
+    label: "Low", 
+    value: 17.4, 
+    color: "#46b1e1",
+    gradientFrom: "#b6eaff",
+    gradientTo: "#00bfff"
+  },
+  { 
+    label: "Medium", 
+    value: 39.1, 
+    color: "#465f91",
+    gradientFrom: "#a9bcec",
+    gradientTo: "#465f91"
+  },
+  { 
+    label: "High", 
+    value: 43.5, 
+    color: "#7d50c7",
+    gradientFrom: "#d5c7f6",
+    gradientTo: "#7d50c7"
+  },
 ];
 
 export default function ExposureBlocksChart() {
@@ -20,15 +38,16 @@ export default function ExposureBlocksChart() {
 
   return (
     <div className="max-w-[280px] mx-auto my-8">
-      <h2 className="text-center text-xs font-semibold mb-6 text-gray-700">
+      <h2 className="text-center text-sm font-semibold mb-6 text-gray-700">
         Category wise Block<br />Exposure (in %)
       </h2>
       <div className="space-y-4">
-        {data.map(({ label, value, color }) => {
+        {data.map(({ label, value, color, gradientFrom, gradientTo }) => {
           const percent = value.toFixed(1);
           const lightColor = color + "30";
           const isHovered = hovered === label;
           const districts = districtData[label] || [];
+          const gradientId = `gradient-${label}-horizontal`;
 
           return (
             <div key={label} className="relative">
@@ -45,19 +64,32 @@ export default function ExposureBlocksChart() {
                     borderRadius: "12px",
                   }}
                 >
-                  {/* Filled bar */}
-                  <div
-                    className="h-full rounded-lg"
-                    style={{
-                      width: `${percent}%`,
-                      backgroundColor: color,
-                      borderRadius: "12px",
-                    }}
-                  />
+                  {/* SVG for gradient bar */}
+                  <svg 
+                    width="100%" 
+                    height="100%" 
+                    className="absolute top-0 left-0"
+                    style={{ borderRadius: "12px" }}
+                  >
+                    <defs>
+                      <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor={gradientFrom} />
+                        <stop offset="100%" stopColor={gradientTo} />
+                      </linearGradient>
+                    </defs>
+                    <rect
+                      x="0"
+                      y="0"
+                      width={`${percent}%`}
+                      height="100%"
+                      fill={`url(#${gradientId})`}
+                      rx="12"
+                    />
+                  </svg>
 
                   {/* Percentage label just past bar end */}
                   <span
-                    className="absolute top-0 h-full flex items-center text-xs font-semibold px-2 py-0.5 bg-white rounded-lg"
+                    className="absolute top-0 h-full flex items-center text-xs font-semibold px-2 py-0.5 bg-white rounded-lg shadow-sm"
                     style={{
                       left: `${percent}%`,
                       marginLeft: "8px",

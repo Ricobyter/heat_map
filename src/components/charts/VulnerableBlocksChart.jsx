@@ -1,30 +1,62 @@
 import React, { useState } from "react";
 
 const districtData = {
-  Low: ["Masaurhi", "Pandarak", "Sampatchak", "Bikram", "Dulhin Bazar"],
-  Medium: ["Dhanarua", "Fatwah", "Bihta", "Punpun"],
-  High: [
-    "Naubatpur",
-    "Maner",
-    "Barh",
-    "Athmalgola",
-    "Belchhi",
-    "Khusrupur",
+  Low: [
+    "Sampatchak",
     "Ghoswari",
-    "Paliganj",
-    "Bakhtiyarpur",
-    "Mokama",
-    "Patna Sadar",
-    "Daniyawan",
-    "Danapur",
-    "Phulwari Sharif",
+    "Pandarak",
+    "Masaurhi",
+    "Dulhin Bazar",
+    "Bikram"
   ],
+  Medium: [
+    "Fatwah",
+    "Punpun",
+    "Bihta"
+  ],
+  High: [
+    "Patna Sadar",
+    "Phulwari Sharif",
+    "Daniyawan",
+    "Khusrupur",
+    "Athmalgola",
+    "Mokama",
+    "Belchhi",
+    "Bakhtiyarpur",
+    "Barh",
+    "Dhanarua",
+    "Danapur",
+    "Maner",
+    "Naubatpur",
+    "Paliganj"
+  ]
 };
 
 const data = [
-  { label: "Low", value: 5, color: "#46b1e1", blocks: 5 },
-  { label: "Medium", value: 4, color: "#465f91", blocks: 4 },
-  { label: "High", value: 14, color: "#7d50c7", blocks: 14 },
+  { 
+    label: "Low", 
+    value: 26.1, 
+    color: "#46b1e1", 
+    blocks: 6,
+    gradientFrom: "#b6eaff",
+    gradientTo: "#00bfff"
+  },
+  { 
+    label: "Medium", 
+    value: 13.0, 
+    color: "#465f91", 
+    blocks: 3,
+    gradientFrom: "#a9bcec",
+    gradientTo: "#465f91"
+  },
+  { 
+    label: "High", 
+    value: 60.9, 
+    color: "#7d50c7", 
+    blocks: 14,
+    gradientFrom: "#d5c7f6",
+    gradientTo: "#7d50c7"
+  },
 ];
 
 const total = data.reduce((sum, d) => sum + d.value, 0);
@@ -37,15 +69,16 @@ export default function VulnerableBlocksChart() {
 
   return (
     <div className="max-w-[280px] mx-auto my-8">
-      <h2 className="text-center text-xs font-semibold mb-6 text-gray-700">
+      <h2 className="text-center text-sm font-semibold mb-4">
         Category Wise Block<br />Vulnerability (in %)
       </h2>
       <div className="space-y-4">
-        {data.map(({ label, value, color }) => {
+        {data.map(({ label, value, color, gradientFrom, gradientTo }) => {
           const percent = ((value / total) * 100).toFixed(1);
           const lightColor = color + "30";
           const isHovered = hovered === label;
           const districts = districtData[label] || [];
+          const gradientId = `gradient-${label}-vulnerability`;
 
           return (
             <div key={label} className="relative">
@@ -62,19 +95,32 @@ export default function VulnerableBlocksChart() {
                     borderRadius: "12px",
                   }}
                 >
-                  {/* Filled bar */}
-                  <div
-                    className="h-full rounded-lg"
-                    style={{
-                      width: `${percent}%`,
-                      backgroundColor: color,
-                      borderRadius: "12px",
-                    }}
-                  />
+                  {/* SVG for gradient bar */}
+                  <svg 
+                    width="100%" 
+                    height="100%" 
+                    className="absolute top-0 left-0"
+                    style={{ borderRadius: "12px" }}
+                  >
+                    <defs>
+                      <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor={gradientFrom} />
+                        <stop offset="100%" stopColor={gradientTo} />
+                      </linearGradient>
+                    </defs>
+                    <rect
+                      x="0"
+                      y="0"
+                      width={`${percent}%`}
+                      height="100%"
+                      fill={`url(#${gradientId})`}
+                      rx="12"
+                    />
+                  </svg>
 
                   {/* Percentage label at bar end */}
                   <span
-                    className="absolute top-0 h-full flex items-center text-semibold text-xs px-2 py-0.5 font-semibold bg-white rounded-lg"
+                    className="absolute top-0 h-full flex items-center text-xs px-2 py-0.5 font-semibold bg-white rounded-lg shadow-sm"
                     style={{
                       left: `${percent}%`,
                       marginLeft: "8px",

@@ -261,7 +261,7 @@ const Header1 = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3" translate="no">
               <img src="logo_new.jpg" alt="Logo" className="w-21 h-21 rounded-full object-cover" />
-              <div className="flex flex-col font-staatliches font-semibold tracking-wide leading-tight">
+              <div className="flex flex-col font-staatliches  tracking-wide leading-tight">
                 <div className="text-[20px]">
                   <span className="text-[#004275]">MODEL </span>
                   <span className="text-red-600">HEAT</span>
