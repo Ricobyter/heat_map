@@ -7,22 +7,24 @@ const TermsAndConditions = () => {
     <div>
         <Header1 />
       <div className="max-w-5xl mx-auto p-6 text-gray-800 mb-8 font-montserrat">
-      <h1 className="text-3xl font-bold mb-10 mt-6 text-center">Privacy Policy for Heat Action Plan(HAP) Patna</h1>
+      <h1 className="text-3xl font-bold mb-10 mt-6 text-center">Privacy Policy for Heat Action Plan(HAP) Patna District</h1>
 
       <section className="mb-6">
         <p>
-          IPE Global Limited (“we”, “us”, “our”, IPE Global) is committed to protecting the privacy and personal data of users interacting with the HAP Patna Dashboard.
+         IPE Global Limited (“we”, “us”, “our”, IPE Global) is committed to protecting the privacy and personal data of users interacting with the Model Heat Action Plan Portal. This Privacy Policy outlines how we collect, use, store, and protect any data that users may share while using the Model Heat Action Plan for Patna’s digital portal.
         </p>
       </section>
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">1. Background</h2>
         <p>
-          The Heat Action Plan (HAP) is a comprehensive framework designed to address the challenges posed by extreme heat events in urban areas. It aims to enhance the resilience of cities to heat waves and protect vulnerable populations from heat-related health risks.
+         The Model Heat Action Plan (HAP) for Patna District is a dynamic, data-driven, locally customised, and hyper-granular Heat Action Plan to reduce vulnerability, protect lives and livelihoods, and enhance resilience against extreme heat events in the Patna district. At its core, the focus is on integrating scientific modelling with community-level preparedness to address the growing risks of climate-induced heat stress. 
         </p>
         <p className="mt-2">
-          The HAP focuses on key strategies such as early warning systems, public awareness campaigns, and the implementation of heat-resilient infrastructure. It enables data-driven interventions to mitigate the impacts of heat waves on urban communities.
+          The Model Heat Action Plan (HAP) for Patna District is a dynamic, data-driven, locally customised, and hyper-granular Heat Action Plan to reduce vulnerability, protect lives and livelihoods, and enhance resilience against extreme heat events in the Patna district. At its core, the focus is on integrating scientific modelling with community-level preparedness to address the growing risks of climate-induced heat stress. 
         </p>
+
+
       </section>
 
       <section className="mb-6">
@@ -102,7 +104,7 @@ const TermsAndConditions = () => {
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">9. Policy Updates</h2>
         <p>
-          This policy may be revised periodically. Users are encouraged to review the policy on the Dashboard or its hosting site.
+          This policy may be revised periodically. Users are encouraged to review the policy on the Portal or its hosting site.
         </p>
       </section>
 
