@@ -46,64 +46,64 @@ const HeatMap = ({
 
 const settlementsAndBuildingsMaps = {
   exposure_index: "/exposure_index_settlements_buildings.html",
-  // vulnerability_index: "/vulnerability_index_settlements_buildings.html",
-  // sensitivity_index: "/sensitivity_index_settlements_buildings.html", 
+  vulnerability_index: "/vulnerability_index_settlements_buildings.html",
+  sensitivity_index: "/sensitivity_index_settlements_buildings.html", 
   adaptive_capacity_index: "/adaptive_capacity_index_settlements_buildings.html",
 };
 
 // Facilities maps
 const facilitiesMaps = {
   exposure_index: "/exposure_index_facilities.html",
-  // vulnerability_index: "/vulnerability_index_facilities.html",
-  // sensitivity_index: "/sensitivity_index_facilities.html",
+  vulnerability_index: "/vulnerability_index_facilities.html",
+  sensitivity_index: "/sensitivity_index_facilities.html",
   adaptive_capacity_index: "/adaptive_capacity_facilities.html",
 };
 
 // Residential Densities maps
 const residentialDensityMaps = {
   exposure_index: "/exposure_index_residential_densities.html",
-  // vulnerability_index: "/vulnerability_index_residential_densities.html",
-  // sensitivity_index: "/sensitivity_index_residential_densities.html",
+  vulnerability_index: "/vulnerability_residential_densities_choropleth.html",
+  sensitivity_index: "/sensitivity_index_residential_densities.html",
   adaptive_capacity_index: "/adaptive_capacity_residential_densities_choropleth.html",
 };
 
 // Utilities and Infrastructure maps
 const utilitiesAndInfrastructureMaps = {
   exposure_index: "/exposure_index_utilities_infrastructure.html",
-  // vulnerability_index: "/vulnerability_index_utilities_and_infrastructure.html",
-  // sensitivity_index: "/sensitivity_index_utilities_and_infrastructure.html",
+  vulnerability_index: "/vulnerability_utilities_infrastructure.html",
+  sensitivity_index: "/sensitivity_index_utilities_infrastructure.html",
   adaptive_capacity_index: "/adaptive_capacity_utilities_infrastructure.html",
 };
 
 // Planning maps
 const planningMaps = {
   exposure_index: "/exposure_index_planning.html",
-  // vulnerability_index: "/vulnerability_index_planning.html", 
-  // sensitivity_index: "/sensitivity_index_planning.html",
+  vulnerability_index: "/vulnerability_planning.html", 
+  sensitivity_index: "/sensitivity_index_planning.html",
   adaptive_capacity_index: "/adaptive_index_planning.html",
 };
 
 // Agriculture maps
 const agricultureMaps = {
   exposure_index: "/exposure_index_agriculture.html",
-  // vulnerability_index: "/vulnerability_index_agriculture.html",
-  // sensitivity_index: "/sensitivity_index_agriculture.html", 
+  vulnerability_index: "/vulnerability_agriculture.html",
+  sensitivity_index: "/sensitivity_agriculture.html", 
   adaptive_capacity_index: "/adaptive_capacity_agriculture.html",
 };
 
 // Nature maps
 const natureMaps = {
   exposure_index: "/exposure_index_nature.html",
-  // vulnerability_index: "/vulnerability_index_nature.html",
-  // sensitivity_index: "/sensitivity_index_nature.html",
+  vulnerability_index: "/vulnerability_nature_fixed.html",
+  sensitivity_index: "/sensitivity_index_nature.html",
   adaptive_capacity_index: "/adaptive_capacity_nature.html",
 };
 
 // Waste Management maps
 const wasteManagementMaps = {
   exposure_index: "/exposure_index_waste_management_fixed.html",
-  // vulnerability_index: "/vulnerability_index_waste_management.html",
-  // sensitivity_index: "/sensitivity_index_waste_management.html",
+  vulnerability_index: "/vulnerability_waste_management.html",
+  sensitivity_index: "/sensitivity_index_waste_management_fixed.html",
   adaptive_capacity_index: "/adaptive_capacity_waste_management.html",
 };
 

@@ -1,0 +1,255 @@
+import React, { useState } from "react";
+
+const districtData = {
+  Moderate: [
+    "Athmalgola",
+    "Belchhi", 
+    "Ghoswari",
+    "Pandarak",
+    "Dhanarua",
+    "Paliganj",
+    "Dulhin Bazar"
+  ],
+  High: [
+    "Sampatchak",
+    "Fatwah",
+    "Daniyawan", 
+    "Khusrupur",
+    "Barh",
+    "Mokama",
+    "Bakhtiyarpur",
+    "Bikram",
+    "Masaurhi",
+    "Punpun",
+    "Maner",
+    "Naubatpur"
+  ],
+  "Very High": [
+    "Patna Sadar",
+    "Phulwari Sharif",
+    "Bihta",
+    "Danapur"
+  ]
+};
+
+const areaMap = {
+  Dhanarua: 183.40,
+  Naubatpur: 168.03,
+  Masaurhi: 202.26,
+  Maner: 171.96,
+  Pandarak: 205.75,
+  Barh: 120.19,
+  Athmalgola: 50.41,
+  Belchhi: 69.65,
+  Khusrupur: 63.10,
+  Fatwah: 125.98,
+  Ghoswari: 138.61,
+  Bihta: 198.16,
+  Sampatchak: 63.81,
+  Punpun: 130.78,
+  Paliganj: 238.78,
+  Bikram: 152.79,
+  "Dulhin Bazar": 108.43,
+  Bakhtiyarpur: 171.16,
+  Mokama: 194.23,
+  "Patna Sadar": 148.91,
+  Daniyawan: 65.37,
+  Danapur: 128.18,
+  "Phulwari Sharif": 110.20,
+};
+
+export default function HRI2030AreaChart() {
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  // Calculate area percentages dynamically
+  const calculateAreaPercentages = () => {
+    const totalArea = Object.values(areaMap).reduce((sum, area) => sum + area, 0);
+    
+    const categoryAreas = {};
+    Object.keys(districtData).forEach(category => {
+      categoryAreas[category] = districtData[category].reduce((sum, block) => {
+        return sum + (areaMap[block] || 0);
+      }, 0);
+    });
+    
+    return Object.keys(categoryAreas).map(category => ({
+      category,
+      percentage: parseFloat(((categoryAreas[category] / totalArea) * 100).toFixed(1))
+    }));
+  };
+
+  const hriData = [
+    {
+      label: "Moderate",
+      value: calculateAreaPercentages().find(item => item.category === 'Moderate')?.percentage || 0,
+      gradientId: "moderateHRI2030Gradient",
+      gradientFrom: "#b6eaff",
+      gradientTo: "#00bfff",
+      color: "#46b1e1",
+    },
+    {
+      label: "High",
+      value: calculateAreaPercentages().find(item => item.category === 'High')?.percentage || 0,
+      gradientId: "highHRI2030Gradient",
+      gradientFrom: "#a9bcec",
+      gradientTo: "#465f91",
+      color: "#465f91",
+    },
+    {
+      label: "Very High",
+      value: calculateAreaPercentages().find(item => item.category === 'Very High')?.percentage || 0,
+      gradientId: "veryHighHRI2030Gradient",
+      gradientFrom: "#d5c7f6",
+      gradientTo: "#7d50c7",
+      color: "#7d50c7",
+    },
+  ];
+
+  const handleMouseEnter = (category) => {
+    setHoveredCategory(category);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCategory(null);
+  };
+
+  const handleDistrictClick = (district) => {
+    console.log("District selected:", district);
+  };
+
+  return (
+    <div className="max-w-xs mx-auto my-0 relative">
+      <h2 className="text-center text-sm font-semibold mb-4">
+        Category Wise Area Coverage <br /> in HRI Baseline 2030 (in %)
+      </h2>
+      <div className="flex justify-center items-end h-45 gap-2">
+        {hriData.map(({ label, value, gradientId, gradientFrom, gradientTo, color }) => {
+          const svgHeight = 130;
+          const svgWidth = 40;
+          const barHeight = (value * svgHeight) / 100;
+          const isHovered = hoveredCategory === label;
+          const districts = districtData[label] || [];
+          const lightColor = color + "30";
+          
+          return (
+            <div 
+              key={label} 
+              className="relative flex flex-col items-center cursor-pointer"
+              onMouseEnter={() => handleMouseEnter(label)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <svg width={svgWidth} height={svgHeight} className="block">
+                <defs>
+                  <linearGradient id={gradientId} x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stopColor={gradientFrom} />
+                    <stop offset="100%" stopColor={gradientTo} />
+                  </linearGradient>
+                  <pattern 
+                    id={`lines-${label}-hri2030`} 
+                    patternUnits="userSpaceOnUse" 
+                    width="4" 
+                    height="4"
+                  >
+                    <rect x="0" y="0" width="2" height="4" fill={lightColor} />
+                  </pattern>
+                </defs>
+                {/* Background with striped lines */}
+                <rect
+                  x="0"
+                  y="0"
+                  width={svgWidth}
+                  height={svgHeight}
+                  fill={`url(#lines-${label}-hri2030)`}
+                  rx="12"
+                />
+                {/* Colored Value Bar */}
+                <rect
+                  x="0"
+                  y={svgHeight - barHeight}
+                  width={svgWidth}
+                  height={barHeight}
+                  fill={`url(#${gradientId})`}
+                  rx="12"
+                />
+              </svg>
+              {/* Value Label */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: `${svgHeight - barHeight - 28}px`,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: 'white',
+                  color: '#5e6acc',
+                  fontWeight: 600,
+                  borderRadius: '14px',
+                  minWidth: '52px',
+                  textAlign: 'center',
+                  boxShadow: '0 2px 6px rgba(60,60,120,0.1)',
+                  padding: '2px 10px',
+                  fontSize: '1rem'
+                }}
+              >
+                {value}%
+              </div>
+              {/* Category Label */}
+              <span className="mt-4 text-sm font-medium text-gray-700">
+                {label}
+              </span>
+              
+              {/* Tooltip */}
+              {isHovered && (
+                <div
+                  className="absolute z-50 mt-2 p-3 bg-white rounded-lg shadow-lg border animate-fade-in"
+                  style={{
+                    left: "20px",
+                    minWidth: "240px",
+                    borderTop: `3px solid ${color}`,
+                    top: "140px"
+                  }}
+                >
+                  <div className="text-xs font-semibold text-gray-700 mb-2">
+                    {label} HRI 2030 Blocks ({districts.length})
+                  </div>
+                  {districts.length > 0 ? (
+                    <div className="grid grid-cols-3 gap-1">
+                      {districts.map((d, i) => (
+                        <div
+                          key={i}
+                          className="text-xs text-gray-600 px-2 py-1 bg-gray-50 rounded hover:bg-blue-50 transition-colors cursor-pointer"
+                          onClick={() => handleDistrictClick(d)}
+                        >
+                          {d}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-xs text-gray-500 italic">
+                      No blocks in this category
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.2s ease-out;
+        }
+      `}</style>
+    </div>
+  );
+}

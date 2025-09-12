@@ -22,7 +22,7 @@ const Footer1 = () => {
             </span>
             <span>Helpline : 0612-2547232</span>
             <br />
-            <span className='text-xs text-gray-600 text-center sm:text-left'> <Link to="/termsandconditions">Terms and Conditions</Link></span>
+            <span className='text-xs font-medium text-gray-600 text-center sm:text-left'> <Link to="/termsandconditions">Terms and Conditions</Link></span>
           </div>
 
           {/* Organization Logos */}
