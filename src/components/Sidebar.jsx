@@ -114,6 +114,7 @@ const Sidebar = ({
     if (typeof setMap === "function") {
       setMap(""); // or setMap("") - whatever represents "no selection"
     }
+    setBlock("")
   };
 
   // Handle Heat Risk Assessment radio click - clears Heat Risk Scenario
@@ -122,7 +123,8 @@ const Sidebar = ({
       setMap(assessmentKey);
     }
     // Clear Heat Risk Scenario selection - reset to default/initial state
-    setYear(""); // or whatever your default/initial year should be
+    setYear("");
+    setBlock("") // or whatever your default/initial year should be
   };
 
   return (
@@ -151,7 +153,10 @@ const Sidebar = ({
           <select
             className="w-full p-3 border border-gray-300 rounded text-gray-600 text-sm bg-white focus:border-green-500 focus:ring-1 focus:ring-green-500"
             value={selectedLayer}
-            onChange={(e) => setSelectedLayer(e.target.value)}
+              onChange={(e) => {
+    setSelectedLayer(e.target.value);
+    setBlock("");
+  }}
           >
             {layers.map((layer) => (
               <option key={layer} value={layer}>

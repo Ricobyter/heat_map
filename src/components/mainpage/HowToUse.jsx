@@ -41,7 +41,7 @@ export default function HowToUse() {
           How to use model heat action plan?
         </h2>
         <p className="mx-auto mt-3 max-w-3xl text-center text-slate-600 text-sm sm:text-base">
-          The Model HAP Portal is an interactive decision‑support platform that lets users explore heat risks, simulate scenarios, and access targeted advisories for the district.
+          The Model HAP DSS is an interactive decision‑support platform that lets users explore heat risks, simulate scenarios, and access targeted advisories for the district.
         </p>
 
         {/* Cards */}

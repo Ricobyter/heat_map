@@ -26,7 +26,7 @@ export default function KeyObjectives() {
             </h2>
             <p className="mt-3 text-slate-600">
               The Model Heat Action Plan for Patna has three core objectives
-              realized through this digital portal.
+              realized through this DSS.
             </p>
 
             <div className="mt-6 space-y-4">
