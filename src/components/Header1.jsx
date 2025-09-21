@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { HiMenu } from "react-icons/hi";
 import { FiGlobe } from "react-icons/fi";
@@ -197,9 +198,9 @@ const Header1 = () => {
               <NavLink to="/analytics" className={linkClasses} onClick={handleNavClick}>
                 Analytics
               </NavLink>
-              <NavLink to="/about" className={linkClasses} onClick={handleNavClick}>
-                About us
-              </NavLink>
+<Link to="/#about" className='text-gray-700 font-medium hover:text-red-600 pb-1' onClick={handleNavClick}>
+  About us
+</Link>
               
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -278,9 +279,9 @@ const Header1 = () => {
                 <NavLink to="/analytics" className={linkClasses} onClick={handleNavClick}>
                   Analytics
                 </NavLink>
-                <NavLink to="/about" className={linkClasses} onClick={handleNavClick}>
+                <Link to="/about" className="font-medium" onClick={handleNavClick}>
                   About us
-                </NavLink>
+                </Link>
 
                 {/* Mobile Language Dropdown */}
                 <div className="flex items-center space-x-2 px-2" translate="no">

@@ -1,12 +1,111 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 // import compass from "../assets/compass2.png";
+import Preparedness from '../components/Preparedness';
+import Response from '../components/Response';
+import Recovery from '../components/Recovery';
+
+const Modal = ({ isOpen, onClose, title, children }) => {
+  // Disable body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      
+      // Apply styles to prevent scrolling
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+      
+      return () => {
+        // Restore scroll when modal closes
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[9999] p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full h-[90vh] overflow-hidden">
+        {/* Modal Header */}
+        <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-white sticky top-0 z-10">
+          <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 text-3xl font-light hover:bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+          >
+            ×
+          </button>
+        </div>
+        
+        {/* Modal Content */}
+        <div className="overflow-y-auto h-[calc(90vh-88px)] bg-gray-50">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const HeatMap = ({
   mapType = "vulnerability_index",
   selectedLayer = "None",
   selectedYear,
 }) => {
+
+ const [modalState, setModalState] = useState({
+    isOpen: false,
+    type: null
+  });
+
+  // Modal handlers
+  const openModal = (type) => {
+    setModalState({ isOpen: true, type });
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, type: null });
+  };
+
+  // Render modal content based on type
+  const renderModalContent = () => {
+    switch (modalState.type) {
+      case 'preparedness':
+        return <Preparedness />;
+      case 'response':
+        return <Response />;
+      case 'recovery':
+        return <Recovery />;
+      default:
+        return null;
+    }
+  };
+
+  const getModalTitle = () => {
+    switch (modalState.type) {
+      case 'preparedness':
+        return 'Preparedness Recommendations';
+      case 'response':
+        return 'Response Recommendations';
+      case 'recovery':
+        return 'Recovery Recommendations';
+      default:
+        return '';
+    }
+  };
+
+
   const baseMaps = {
     exposure_index: "/exposure_index_satellite.html",
     vulnerability_index: "/new_vulnerability_index_base.html",
@@ -285,6 +384,7 @@ if (selectedLayer === "Waste Management") {
     const shouldHidePopulationDensity = HIDE_DENSITY_YEARS.has(selectedYear);
 
   return (
+    <>
     <div className="bg-#F9F6EE pt-0 rounded-lg shadow-md shadow-gray-400 h-full w-full font-roboto">
       <div className="relative h-120 rounded-lg overflow-hidden border border-gray-200">
         <iframe
@@ -416,25 +516,43 @@ if (selectedLayer === "Waste Management") {
           </div>
 
           {/* Right Sidebar (Recommendations) */}
-          <div className=" bg-white hover:bg-[#E2ECF4] duration-100 rounded-lg shadow-sm p-4 min-w-[280px]">
-            <h3 className="text-lg font-semibold text-gray-800 text-center mb-4">
-              Recommendations
-            </h3>
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              <button className="bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
-                Preparedness
-              </button>
-              <button className="bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
-                Response
+            <div className="bg-white hover:bg-[#E2ECF4] duration-100 rounded-lg shadow-sm p-4 min-w-[280px]">
+              <h3 className="text-lg font-semibold text-gray-800 text-center mb-4">
+                Recommendations
+              </h3>
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <button 
+                  onClick={() => openModal('preparedness')}
+                  className="bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors"
+                >
+                  Preparedness
+                </button>
+                <button 
+                  onClick={() => openModal('response')}
+                  className="bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors"
+                >
+                  Response
+                </button>
+              </div>
+              <button 
+                onClick={() => openModal('recovery')}
+                className="w-full bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors"
+              >
+                Recovery
               </button>
             </div>
-            <button className="w-full bg-white hover:bg-gray-200 shadow-sm shadow-gray-600 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium transition-colors">
-              Recovery
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>
+          <Modal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        title={getModalTitle()}
+      >
+        {renderModalContent()}
+      </Modal>
+    </>
   );
 };
 
