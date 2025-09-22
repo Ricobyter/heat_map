@@ -4,7 +4,7 @@ const steps = [
     n: "01",
     title: "Navigate block-level",
     body:
-      "maps to visualize exposure, sensitivity, adaptive capacity, and overall heat vulnerability across Patna.",
+      "maps to visualise exposure, sensitivity, adaptive capacity, and overall heat vulnerability across Patna.",
   },
   {
     n: "02",

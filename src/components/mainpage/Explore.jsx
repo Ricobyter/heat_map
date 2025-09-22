@@ -7,7 +7,7 @@ export default function Explore() {
       <div className="mx-auto max-w-5xl px-6 py-10 sm:py-16">
         <div className="flex flex-col items-center text-center gap-5">
           <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
-            Ready to Explore The Heat Action Plan for Patna?
+            Ready to Explore The Model Heat Action Plan for Patna?
           </h2>
 
           <p className="text-white/80 text-sm sm:text-base">

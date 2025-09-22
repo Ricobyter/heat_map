@@ -219,7 +219,7 @@ const Header1 = () => {
                 {isPreparedDropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
                     <a
-                      href="http://www.bsdma.org/GetPrepared.aspx?id=1"
+                      href="http://www.bsdma.org/Know-Your-Risk.aspx?id=6"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors"

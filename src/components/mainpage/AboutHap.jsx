@@ -1,6 +1,3 @@
-// AboutHap.jsx
-import HAP_Image from '../../assets/HAP_Screen.png'
-
 export default function AboutHap() {
 
   return (

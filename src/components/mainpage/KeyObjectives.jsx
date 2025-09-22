@@ -26,7 +26,7 @@ export default function KeyObjectives() {
             </h2>
             <p className="mt-3 text-slate-600">
               The Model Heat Action Plan for Patna has three core objectives
-              realized through this DSS.
+              realised through this DSS.
             </p>
 
             <div className="mt-6 space-y-4">
@@ -65,7 +65,7 @@ export default function KeyObjectives() {
                       Patna‑specific Heat Action Plan
                     </h3>
                     <p className="mt-1 text-sm text-slate-600">
-                      Provide customized insights based on local
+                      Provide customised insights based on local
                       vulnerabilities, enabling action on evidence.
                     </p>
                   </div>
