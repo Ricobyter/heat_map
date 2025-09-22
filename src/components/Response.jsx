@@ -122,6 +122,8 @@ const Response = () => {
         </table>
       </div>
 
+
+
       {/* Mobile Responsive Cards */}
       <div className="block md:hidden space-y-4">
         {responseData.map((item, index) => (
@@ -152,6 +154,34 @@ const Response = () => {
           </div>
         ))}
       </div>
+
+      <div className="  p-4 sm:p-5 mt-4">
+  <h3 className="text-base font-semibold text-slate-800 mb-3">Notes</h3>
+
+  <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 marker:text-slate-300">
+    <li>
+      <span className="font-medium text-slate-900">Short Term:</span>
+      {" "}
+      Actions implementable in the next 0–1 year using current resources and schemes.
+    </li>
+    <li>
+      <span className="font-medium text-slate-900">Medium Term:</span>
+      {" "}
+      1–3 years, requiring interdepartmental collaboration and modest infrastructural investment.
+    </li>
+    <li>
+      <span className="font-medium text-slate-900">Long Term:</span>
+      {" "}
+      3+ years, capital/technology intensive or requiring major bylaw/policy shifts.
+    </li>
+    <li>
+      <span className="font-medium text-slate-900">Feasibility:</span>
+      {" "}
+      High = low‑cost and scalable; Moderate = requires some coordination or new outlay; Low = depends on new policy, technology, or large funds.
+    </li>
+  </ul>
+</div>
+
     </div>
   );
 };
