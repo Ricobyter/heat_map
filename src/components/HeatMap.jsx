@@ -170,10 +170,26 @@ export default function HeatMap({
     adaptive_capacity_index: "/adaptive_capacity_waste_management.html",
   };
 
-  const HRIIndex2030 = "/vulnerability_index_v2_satellite.html";
+  const HRIIndex2030 = "/vulnerability_2030_base.html";
   const HRIIndex2035 = "/vulnerability_index_2035_satellite.html";
   const HRIIndex2040 = "/vulnerability_index_2040_satellite.html";
   const HRIIndex2050 = "/vulnerability_index_2050_satellite.html";
+
+  const maps2030 = {
+  "Roads": "/vulnerability_2030_road-satelllite.html",
+  "Water and Sewer Infrastructure": "/vulnerability_2030_water-sewer-infrastructure_map.html",
+  "Health Facilities": "/2030_health_facilities.html",
+  "Point Of Interest": "/vulnerability_2030_point_of_interest.html",
+  "Settlements and Buildings": "/vulnerability_2030_settlements_buildings.html",
+  "Facilities": "/vulnerabilities_2030_facilities_hri.html",
+  "Residential Densities": "/2030_residential_densities_choropleth_hri.html",
+  "Utilities and Infrastructure": "/vulnerability_2030_utilities_infra_hri.html",
+  "Planning": "/2030_planning_simple_hri.html",
+  "BMA Agriculture": "/2030_agriculture_hri.html",
+  "Nature": "/2030_nature_hri.html",
+  "Waste Management": "/2030_waste_management_hri.html",
+  "None": "/vulnerability_2030_base.html" // fallback/default
+};
 
   const mapName = {
     exposure_index: "Heat Exposure Map",
@@ -185,7 +201,10 @@ export default function HeatMap({
   const { src, title } = useMemo(() => {
     const type = mapType in baseMaps ? mapType : "vulnerability_index";
 
-    if (selectedYear === "2030") return { src: HRIIndex2030, title: "HRI for 2030 Scenario" };
+      if (selectedYear === "2030") {
+    const src = maps2030[selectedLayer] || maps2030["None"];
+    return { src, title: "HRI for 2035 Scenario" };
+  }
     if (selectedYear === "2035") return { src: HRIIndex2035, title: "HRI for 2035 Scenario" };
     if (selectedYear == "2040") return { src: HRIIndex2040, title: "HRI for 2040 Scenario" };
     if (selectedYear == "2050") return { src: HRIIndex2050, title: "HRI for 2050 Scenario" };
