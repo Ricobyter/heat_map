@@ -228,7 +228,7 @@ const Sidebar = ({
         </div>
 
         <div className="mt-8">
-        <h3 className="text-lg font-semibold mb-4 text-gray-800">Heat Wave Related Patient Data</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-800">Reports on Heat Wave</h3>
         <div className="grid grid-cols-2 gap-2">
           <button
             className={`py-2 px-5 rounded-md font-medium transition-colors ${
