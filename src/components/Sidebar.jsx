@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdPublic, MdTrendingUp, MdWarning } from "react-icons/md";
 import { GrVulnerability } from "react-icons/gr";
+import HeatwaveData from "./HeatwaveData";
 
 const Sidebar = ({
   mapType,
@@ -46,6 +47,9 @@ const Sidebar = ({
   const heatYear = heatDeathYear ?? internalHeatDeathYearState[0];
   const setHeatYear = typeof setHeatDeathYear === "function" ? setHeatDeathYear : internalHeatDeathYearState[1];
 
+  // Modal state for Heatwave Data
+  const [isHeatwaveDataModalOpen, setIsHeatwaveDataModalOpen] = useState(false);
+
   const years = [["2030", "2035", "2040", "2050"]];
 
   const subdistricts = [
@@ -72,6 +76,46 @@ const Sidebar = ({
     sensitivity_index: <GrVulnerability className="w-5 h-5 text-gray-500 mr-2" />,
     adaptive_capacity_index: <MdTrendingUp className="w-5 h-5 text-gray-500 mr-2" />,
     vulnerability_index: <MdWarning className="w-5 h-5 text-gray-500 mr-2" />,
+  };
+
+  // Modal component for Heatwave Data
+  const Modal = ({ isOpen, onClose, title, children }) => {
+    useEffect(() => {
+      if (!isOpen) return;
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.overflow = "";
+        window.scrollTo(0, scrollY);
+      };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    return (
+      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[9999] p-4">
+        <div className="bg-white rounded-lg shadow-xl max-w-7xl w-full h-[90vh] overflow-hidden">
+          <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-white sticky top-0 z-10">
+            <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
+            <button
+              onClick={onClose}
+              className="text-gray-500 cursor-pointer hover:text-gray-700 text-3xl font-light hover:bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+            >
+              ×
+            </button>
+          </div>
+          <div className="overflow-y-auto h-[calc(90vh-88px)] bg-gray-50">{children}</div>
+        </div>
+      </div>
+    );
   };
 
   const handleBlockChange = (selectedBlockName) => {
@@ -228,7 +272,7 @@ const Sidebar = ({
         </div>
 
         <div className="mt-8">
-        <h3 className="text-lg font-semibold mb-4 text-gray-800">Reports on Heat Wave</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-800">Heat Deaths</h3>
         <div className="grid grid-cols-2 gap-2">
           <button
             className={`py-2 px-5 rounded-md font-medium transition-colors ${
@@ -269,11 +313,29 @@ const Sidebar = ({
             2025
           </button>
         </div>
+
+        {/* Heatwave Data Button */}
+        <div className="mt-8 pt-4 border-t border-gray-200">
+          <button
+            onClick={() => setIsHeatwaveDataModalOpen(true)}
+            className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
+          >
+            Heatwave Data
+          </button>
+        </div>
        
   
       </div>
       </div>
 
+      {/* Heatwave Data Modal */}
+      <Modal
+        isOpen={isHeatwaveDataModalOpen}
+        onClose={() => setIsHeatwaveDataModalOpen(false)}
+        title="Heat Wave Prevention Action Plan - Patna District 2025"
+      >
+        <HeatwaveData />
+      </Modal>
 
     </div>
   );
