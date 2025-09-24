@@ -208,7 +208,7 @@ export default function HeatMap({
 
       if (selectedYear === "2030") {
     const src = maps2030[selectedLayer] || maps2030["None"];
-    return { src, title: "HRI for 2035 Scenario" };
+    return { src, title: "HRI for 2030 Scenario" };
   }
     if (selectedYear === "2035") return { src: HRIIndex2035, title: "HRI for 2035 Scenario" };
     if (selectedYear == "2040") return { src: HRIIndex2040, title: "HRI for 2040 Scenario" };
@@ -261,6 +261,8 @@ export default function HeatMap({
   }, [mapType, selectedLayer, selectedYear, heatDeathYear]);
 
   const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(String(selectedYear));
+  const isHeatDataYear = ["2023", "2024", "2025"].includes(String(heatDeathYear));
+
   const legendLabels = isProjectionYear
     ? { high: "Very High, Urban", mid: "High, Peri-Urban", low: "Moderate, Rural" }
     : { high: "High", mid: "Medium", low: "Low" };
@@ -282,7 +284,10 @@ export default function HeatMap({
                 <div className="flex items-center justify-between mb-2">
                   <h1 className="text-2xl font-bold text-gray-800">{title}</h1>
 
-                  {/* Legend */}
+
+{
+
+  !isHeatDataYear && (
                   <div className="flex flex-row text-xs space-x-2 px-2">
                     <div className="flex flex-col items-center space-y-1">
                       <span className="font-medium">{legendLabels.high}</span>
@@ -307,9 +312,13 @@ export default function HeatMap({
                       />
                     </div>
                   </div>
+  )
+}
+                  {/* Legend */}
+
                 </div>
 
-                {!shouldHidePopulationDensity && (
+                {!shouldHidePopulationDensity && !isHeatDataYear && (
                   <div className="mb-6">
                     <p className="text-gray-600 text-sm mb-2">Population Density (2025) / km²:</p>
                     <div className="flex items-center gap-6">

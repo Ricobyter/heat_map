@@ -543,7 +543,7 @@ export default function Dashboard({
               </div>
               
               {/* Blocks Chart */}
-              <div className="bg-white p-3 rounded-lg shadow-md shadow-gray-400">
+              <div className="bg-white p-0 rounded-lg shadow-md shadow-gray-400">
                 <div>
                   {SelectedBlocksChart ? <SelectedBlocksChart /> : null}
                 </div>
