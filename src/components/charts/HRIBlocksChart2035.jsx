@@ -16,7 +16,7 @@ export default function HRIBlocksChart2035() {
   const [hovered, setHovered] = useState(null);
 
   return (
-    <div className="max-w-[280px] mx-auto my-8">
+    <div className="max-w-[280px] mx-auto my-3">
       <h2 className="text-center text-sm font-semibold mb-6 text-gray-700">
         Category Wise Block<br />HRI Baseline 2035 (in %)
       </h2>

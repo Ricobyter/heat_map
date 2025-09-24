@@ -66,7 +66,7 @@ export default function HRI2040AreaChart() {
 
   const handleDistrictClick = (d) => console.log("District selected:", d);
 
-  const H = 130; // px height
+  const H = 110; // px height
   const W = 40;  // px width
 
   return (

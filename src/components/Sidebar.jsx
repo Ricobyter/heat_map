@@ -14,6 +14,8 @@ const Sidebar = ({
   selectedBlock,
   setSelectedBlock,
   onBlockSelect,
+  heatDeathYear,
+  setHeatDeathYear,
 }) => {
   // Local fallback state (only used if parent doesn't control these)
   const internalVulnerableGroups = useState({
@@ -39,6 +41,10 @@ const Sidebar = ({
     typeof selectedBlock === "string" ? selectedBlock : fallbackBlock;
   const setBlock =
     typeof setSelectedBlock === "function" ? setSelectedBlock : setFallbackBlock;
+
+      const internalHeatDeathYearState = useState("");
+  const heatYear = heatDeathYear ?? internalHeatDeathYearState[0];
+  const setHeatYear = typeof setHeatDeathYear === "function" ? setHeatDeathYear : internalHeatDeathYearState[1];
 
   const years = [["2030", "2035", "2040", "2050"]];
 
@@ -115,6 +121,7 @@ const Sidebar = ({
       setMap(""); // or setMap("") - whatever represents "no selection"
     }
     setBlock("")
+    setHeatDeathYear("") 
   };
 
   // Handle Heat Risk Assessment radio click - clears Heat Risk Scenario
@@ -124,8 +131,11 @@ const Sidebar = ({
     }
     // Clear Heat Risk Scenario selection - reset to default/initial state
     setYear("");
-    setBlock("") // or whatever your default/initial year should be
+    setBlock("")
+    setHeatDeathYear("") // or whatever your default/initial year should be
   };
+
+
 
   return (
     <div className="w-[25vw] min-h-screen shadow-md shadow-gray-400 font-noto-sans rounded-lg flex flex-col" style={{ backgroundColor: "#FFFF" }}>
@@ -216,14 +226,55 @@ const Sidebar = ({
             ))}
           </div>
         </div>
+
+        <div className="mt-8">
+        <h3 className="text-lg font-semibold mb-4 text-gray-800">Heat Deaths</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            className={`py-2 px-5 rounded-md font-medium transition-colors ${
+              heatDeathYear === "2023" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+            onClick={() => {setHeatYear("2023");
+        setBlock("");
+        setMap("");
+        setYear("");
+        setSelectedLayer("None");}}
+          >
+            2023
+          </button>
+          <button
+            className={`py-2 px-5 rounded-md font-medium transition-colors ${
+              heatDeathYear === "2024" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+            onClick={() => {setHeatYear("2024");
+        setBlock("");
+        setMap("");
+        setYear("");
+        setSelectedLayer("None");
+      }}
+          >
+            2024
+          </button>
+          <button
+            className={`py-2 px-5 rounded-md font-medium transition-colors ${
+              heatDeathYear === "2025" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+            onClick={() => {setHeatYear("2025");
+        setBlock("");
+        setMap("");
+        setYear("");
+        setSelectedLayer("None");
+      }}
+          >
+            2025
+          </button>
+        </div>
+       
+  
+      </div>
       </div>
 
-      {/* Run Simulation Button at the bottom */}
-      {/* <div className="p-4">
-        <button className="w-full bg-[#E2ECF4] border border-[#007CDB] py-3 px-4 rounded text-[#007CDB] font-semibold hover:bg-blue-300 transition-colors cursor-pointer">
-          Run Simulation
-        </button>
-      </div> */}
+
     </div>
   );
 };

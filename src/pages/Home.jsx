@@ -10,6 +10,9 @@ const Home = () => {
   const [mapType, setMap] = useState("vulnerability_index"); 
   const [selectedLayer, setSelectedLayer] = useState("None");
   const [selectedYear, setSelectedYear] = useState("");
+  const [heatDeathYear, setHeatDeathYear] = useState("");
+
+  
   return (
     <div className="min-h-screen bg-gray-100 pb-10">
       {/* <Header /> */}
@@ -19,9 +22,9 @@ const Home = () => {
 
       <div className="flex px-4 mt-4 gap-4">
         <Sidebar mapType={mapType} setMap={setMap} selectedLayer={selectedLayer}
-      setSelectedLayer={setSelectedLayer} selectedYear={selectedYear} setSelectedYear={setSelectedYear}/>
+      setSelectedLayer={setSelectedLayer} selectedYear={selectedYear} setSelectedYear={setSelectedYear} heatDeathYear={heatDeathYear} setHeatDeathYear={setHeatDeathYear} />
       
-        <Dashboard mapType={mapType} selectedLayer={selectedLayer} selectedYear={selectedYear}/>
+        <Dashboard mapType={mapType} selectedLayer={selectedLayer} selectedYear={selectedYear} heatDeathYear={heatDeathYear} />
       </div>
 
     

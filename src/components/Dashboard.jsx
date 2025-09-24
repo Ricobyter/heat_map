@@ -281,6 +281,7 @@ import HRIBlocksChart2030 from "./charts/HRIBlocksChart2030";
 import HRIBlocksChart2035 from "./charts/HRIBlocksChart2035";
 import HRIBlocksChart2040 from "./charts/HRIBlocksChart2040";
 import HRIBlocksChart2050 from "./charts/HRIBlocksChart2050";
+import HRIPopulationChart from "./charts/HRIPopulationChart";
 
 const donutChartMap = {
   vulnerability_index: VulnerabilityDonutChart,
@@ -324,6 +325,7 @@ export default function Dashboard({
   mapType = "vulnerability_index",
   selectedLayer,
   selectedYear,
+  heatDeathYear,
 }) {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
@@ -494,26 +496,32 @@ export default function Dashboard({
               mapType={mapType}
               selectedLayer={selectedLayer}
               selectedYear={selectedYear}
+              heatDeathYear={heatDeathYear}
             />
           </div>
         </div>
 
         {/* SIDEBAR COLUMN */}
-        <div className="col-span-3 flex flex-col justify-around">
+        <div className="col-span-3 flex flex-col justify-between">
           {/* Conditional rendering based on selected year */}
           {isHRIYear ? (
             <>
               {/* HRI Area Chart */}
-              <div className="bg-white p-3 rounded-lg shadow-md shadow-gray-400">
+              <div className="bg-white rounded-lg shadow-md p-0 shadow-gray-400">
                 <div className="flex justify-center">
                   {SelectedHRIAreaChart ? <SelectedHRIAreaChart /> : null}
                 </div>
               </div>
               
               {/* HRI Blocks Chart */}
-              <div className="bg-white p-3 rounded-lg shadow-md shadow-gray-400">
+              <div className="bg-white rounded-lg shadow-md p-3 shadow-gray-400">
                 <div>
                   {SelectedHRIBlocksChart ? <SelectedHRIBlocksChart /> : null}
+                </div>
+              </div>
+              <div className="bg-white  rounded-lg shadow-md p-3 shadow-gray-400">
+                <div>
+                  <HRIPopulationChart />
                 </div>
               </div>
             </>

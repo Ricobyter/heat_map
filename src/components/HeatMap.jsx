@@ -51,6 +51,7 @@ export default function HeatMap({
   mapType = "vulnerability_index",
   selectedLayer = "None",
   selectedYear,
+  heatDeathYear,
 }) {
   // One modal, multiple types
   const [modal, setModal] = useState({ open: false, type: null });
@@ -175,6 +176,10 @@ export default function HeatMap({
   const HRIIndex2040 = "/vulnerability_index_2040_satellite.html";
   const HRIIndex2050 = "/vulnerability_index_2050_satellite.html";
 
+  const heatDeathYear2023 = "/death_blocks_2023_hospitals.html"
+  const heatDeathYear2024 = "/death_blocks_2024_hospitals.html"
+  const heatDeathYear2025 = "/death_blocks_2025_hospitals.html"
+
   const maps2030 = {
   "Roads": "/vulnerability_2030_road-satelllite.html",
   "Water and Sewer Infrastructure": "/vulnerability_2030_water-sewer-infrastructure_map.html",
@@ -209,6 +214,19 @@ export default function HeatMap({
     if (selectedYear == "2040") return { src: HRIIndex2040, title: "HRI for 2040 Scenario" };
     if (selectedYear == "2050") return { src: HRIIndex2050, title: "HRI for 2050 Scenario" };
 
+  if(heatDeathYear === "2023") {
+    console.log("Loading 2023 map");
+    return { src: heatDeathYear2023, title: "Heat-Related Patient Data 2023" };
+  }
+  if(heatDeathYear === "2024") {
+    console.log("Loading 2024 map");
+    return { src: heatDeathYear2024, title: "Heat-Related Patient Data 2024" };
+  }
+  if(heatDeathYear === "2025") {
+    console.log("Loading 2025 map");
+    return { src: heatDeathYear2025, title: "Heat-Related Patient Data 2025" };
+  }
+
     const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(String(selectedYear));
     const forceBaseMapForProjection =
       isProjectionYear && ["exposure_index", "sensitivity_index", "adaptive_capacity_index"].includes(type);
@@ -240,7 +258,7 @@ export default function HeatMap({
     if (forceBaseMapForProjection) return { src: baseMaps[type], title: mapName[type] || "Heat Map" };
 
     return { src: baseMaps[type] || baseMaps.vulnerability_index, title: mapName[type] || "Heat Vulnerability Map" };
-  }, [mapType, selectedLayer, selectedYear]);
+  }, [mapType, selectedLayer, selectedYear, heatDeathYear]);
 
   const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(String(selectedYear));
   const legendLabels = isProjectionYear

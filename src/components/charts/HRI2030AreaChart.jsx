@@ -66,11 +66,11 @@ export default function HRI2030AreaChart() {
 
   const handleDistrictClick = (d) => console.log("District selected:", d);
 
-  const H = 130; // px height
+  const H = 110; // px height
   const W = 40;  // px width
 
   return (
-    <div className="max-w-xs mx-auto my-6 relative">
+    <div className="max-w-xs mx-auto my-0 relative">
       <h2 className="text-center text-sm font-semibold mb-14">
         Category Wise Area Coverage <br /> in HRI Baseline 2030 (in %)
       </h2>
