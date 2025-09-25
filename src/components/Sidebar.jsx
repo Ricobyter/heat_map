@@ -318,9 +318,9 @@ const Sidebar = ({
         <div className="mt-8 pt-4 border-t border-gray-200">
           <button
             onClick={() => setIsHeatwaveDataModalOpen(true)}
-            className="w-full bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
+            className="w-full bg-[#D10000] cursor-pointer hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
           >
-            Heatwave Data
+            Health Facilities
           </button>
         </div>
        
