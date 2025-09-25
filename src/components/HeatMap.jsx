@@ -368,7 +368,7 @@ export default function HeatMap({
 
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-800 mb-1">
-                      <a href="http://www.bsdma.org/GetPrepared.aspx?id=1" className="text-[#46b1e1]">Heatwave Advisories devised by BSDMA</a>
+                      <a href="http://www.bsdma.org/Know-Your-Risk.aspx?id=6" className="text-[#46b1e1]">Heatwave Advisories devised by BSDMA</a>
                     </h3>
                     <p className="text-sm text-gray-700">
                       Email: info@bsdma.org • Helpline: 0612-2547232

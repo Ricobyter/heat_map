@@ -21,7 +21,7 @@ export default function AboutHap() {
           The <span className="font-semibold">Model Heat Action Plan (HAP)</span> for Patna District is a dynamic, data-driven, locally customised, and hyper-granular Heat Action Plan to reduce vulnerability, protect lives and livelihoods, and enhance resilience against extreme heat events in the Patna district. At its core, the focus is on integrating scientific modelling with community-level preparedness to address the growing risks of climate-induced heat stress.
           </p>
           <p className="text-justify">
-            The <span className="font-semibold">Heat Vulnerability Assessment</span> conducted is multiparametric and comprises of 3 different modules namely Heat Exposure, Sensitivity and Adaptive Capacity to reach at a composite Vulnerability Index defined for each of the 23 blocks in Patna. This includes both Heat wave index and Heat Risk Index. The future Heat risk scenarios have also been included in the DSS for the time frame till 2050.
+            The <span className="font-semibold">Heat Vulnerability Assessment</span> conducted is multiparametric and comprises of 3 different modules namely Heat Exposure, Sensitivity and Adaptive Capacity to reach at a composite Vulnerability Index defined for each of the 23 blocks in Patna. This includes both Heat wave index and Heat Risk Index. The future Heat risk scenarios have also been included in the Decision Support System (DSS) for the time frame till 2050.
           </p>
 
           <p className="text-justify">
