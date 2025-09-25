@@ -200,14 +200,30 @@ const Sidebar1 = () => {
           </div>
         </div>
 
-                <div className="mt-8 pt-4 border-t border-gray-200">
+                <div className="mt-8">
+        <h3 className="block text-sm font-bold text-gray-600 mb-3">Heat Wave Related Patient Data</h3>
+        <div className="grid grid-cols-2 gap-2">
           <button
+            className="py-2 px-5 rounded-md font-medium bg-green-600 text-white "
             onClick={() => handleAssessmentClick("")}
-            className="w-full bg-[#D10000] cursor-pointer hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
           >
-            Health Facilities
+            2023
+          </button>
+          <button
+            className="py-2 px-5 rounded-md font-medium  "
+            onClick={() => handleAssessmentClick("")}
+          >
+            2024
+          </button>
+          <button
+            className="py-2 px-5 rounded-md font-medium  "
+            onClick={() => handleAssessmentClick("")}
+          >
+            2025
           </button>
         </div>
+
+       </div>
       </div>
     </div>
   );
