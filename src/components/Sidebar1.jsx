@@ -80,8 +80,6 @@ const Sidebar1 = () => {
     redirectToAnalytics();
   };
 
-
-
   const handleAssessmentClick = (assessmentKey) => {
     if (assessmentKey === "vulnerability_index") {
       setMapType(assessmentKey);
@@ -201,51 +199,8 @@ const Sidebar1 = () => {
             ))}
           </div>
         </div>
-
-                <div className="mt-8">
-        <h3 className="block text-sm font-bold text-gray-600 mb-3">Heat Wave Related Patient Data</h3>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            className={`py-2 px-5 rounded-md font-medium transition-colors ${
-              heatDeathYear === "2023" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => handleScenarioClick("2023")}
-          >
-            2023
-          </button>
-          <button
-            className={`py-2 px-5 rounded-md font-medium transition-colors ${
-              heatDeathYear === "2024" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => handleScenarioClick("2024")}
-          >
-            2024
-          </button>
-          <button
-            className={`py-2 px-5 rounded-md font-medium transition-colors ${
-              heatDeathYear === "2025" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
-            }`}
-            onClick={() => handleScenarioClick("2023")}
-          >
-            2025
-          </button>
-        </div>
-
-        {/* Heatwave Data Button */}
-        <div className="mt-8 pt-4 border-t border-gray-200">
-          <button
-            onClick={() => handleScenarioClick("2023")}
-            className="w-full bg-[#D10000] cursor-pointer hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
-          >
-            Health Facilities
-          </button>
-        </div>
-       
-  
       </div>
-      </div>
-      </div>
-    
+    </div>
   );
 };
 
