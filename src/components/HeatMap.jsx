@@ -216,7 +216,7 @@ export default function HeatMap({
 
   if(heatDeathYear === "2023") {
     console.log("Loading 2023 map");
-    return { src: heatDeathYear2023, title: "Heat Wave Patient Data 2023" };
+    return { src: heatDeathYear2023, title: "Heat Wave Related Patient Data 2023" };
   }
   if(heatDeathYear === "2024") {
     console.log("Loading 2024 map");
@@ -224,7 +224,7 @@ export default function HeatMap({
   }
   if(heatDeathYear === "2025") {
     console.log("Loading 2025 map");
-    return { src: heatDeathYear2025, title: "Heat Wave Patient Data 2025" };
+    return { src: heatDeathYear2025, title: "Heat Wave Related Patient Data 2025" };
   }
 
     const isProjectionYear = ["2030", "2035", "2040", "2050"].includes(String(selectedYear));

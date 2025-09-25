@@ -50,8 +50,8 @@ export default function HeatwaveData() {
               <th className="px-3 py-2 text-right">Beds Installed</th>
               <th className="px-3 py-2 text-left">ACs/Coolers</th>
               <th className="px-3 py-2 text-right">Doctors</th>
-              <th className="px-3 py-2 text-right">Paramedicals</th>
-              <th className="px-3 py-2 text-left">Remarks</th>
+              <th className="px-3 py-2 text-right">Paramedical Staff</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -63,7 +63,7 @@ export default function HeatwaveData() {
                 <td className="px-3 py-2">{row.cooling}</td>
                 <td className="px-3 py-2 text-right">{row.doctors}</td>
                 <td className="px-3 py-2 text-right">{row.paramedics}</td>
-                <td className="px-3 py-2">{row.remarks}</td>
+                
               </tr>
             ))}
           </tbody>
