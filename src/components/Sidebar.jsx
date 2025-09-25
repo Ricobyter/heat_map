@@ -275,7 +275,7 @@ const Sidebar = ({
         <h3 className="block text-sm font-bold text-gray-600 mb-3">Heat Wave Related Patient Data</h3>
         <div className="grid grid-cols-2 gap-2">
           <button
-            className={`py-2 px-5 rounded-md font-medium transition-colors ${
+            className={`py-2 cursor-pointer px-5 rounded-md font-medium transition-colors ${
               heatDeathYear === "2023" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
             }`}
             onClick={() => {setHeatYear("2023");
@@ -287,7 +287,7 @@ const Sidebar = ({
             2023
           </button>
           <button
-            className={`py-2 px-5 rounded-md font-medium transition-colors ${
+            className={`py-2 cursor-pointer px-5 rounded-md font-medium transition-colors ${
               heatDeathYear === "2024" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
             }`}
             onClick={() => {setHeatYear("2024");
@@ -300,7 +300,7 @@ const Sidebar = ({
             2024
           </button>
           <button
-            className={`py-2 px-5 rounded-md font-medium transition-colors ${
+            className={`py-2 cursor-pointer px-5 rounded-md font-medium transition-colors ${
               heatDeathYear === "2025" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
             }`}
             onClick={() => {setHeatYear("2025");
@@ -318,7 +318,7 @@ const Sidebar = ({
         <div className="mt-8 pt-4 border-t border-gray-200">
           <button
             onClick={() => setIsHeatwaveDataModalOpen(true)}
-            className="w-full bg-[#D10000] cursor-pointer hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
+            className="w-full  bg-[#D10000] cursor-pointer hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
           >
             Health Facilities
           </button>
