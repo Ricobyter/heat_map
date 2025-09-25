@@ -32,7 +32,7 @@ export default function Hero() {
             to="/analytics"
             className="inline-flex items-center rounded-md bg-[#004275] px-7 py-4 text-sm font-semibold text-white shadow hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
-            EXPLORE THE HEAT ACTION PLAN
+            EXPLORE THE MODEL HEAT ACTION PLAN
           </Link>
         </div>
       </div>
