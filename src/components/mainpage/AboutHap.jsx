@@ -22,8 +22,8 @@ export default function AboutHap() {
           </p>
           <p className="text-justify">
             The <span className="font-semibold">Heat Vulnerability Assessment</span> conducted is multiparametric and comprises of 3 different modules namely Heat Exposure, Sensitivity and Adaptive Capacity to reach at a composite Vulnerability Index defined for each of the 23 blocks in Patna. This includes both Heat wave index and Heat Risk Index. The future Heat risk scenarios have also been included in the DSS for the time frame till 2050.
-            The <span className="font-semibold">Heat Vulnerability Assessment</span> conducted is multiparametric and comprises of 3 different modules namely Heat Exposure, Sensitivity and Adaptive Capacity to reach at a composite Vulnerability Index defined for each of the 23 blocks in Patna. This includes both Heat wave index and Heat Risk Index. The future Heat risk scenarios have also been included in the Decision Support System(DSS) for the time frame till 2050.
           </p>
+
           <p className="text-justify">
             The Model Heat Action Plan DSS for Patna turns this vision into a digital, interactive platform that helps users <span className="font-semibold">understand heat risks</span>, <span className="font-semibold">explore future scenarios</span>, and <span className="font-semibold">strengthen resilience through data‑driven insights</span>.
           </p>
