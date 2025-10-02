@@ -72,7 +72,7 @@ export default function HRI2040AreaChart() {
   return (
     <div className="max-w-xs mx-auto my-6 relative">
       <h2 className="text-center text-sm font-semibold mb-14">
-        Category Wise Area Coverage <br /> in HRI Baseline 2040 (in %)
+        Heat Risk by Area
       </h2>
 
       <div className="flex justify-center items-end gap-2" style={{ height: H }}>

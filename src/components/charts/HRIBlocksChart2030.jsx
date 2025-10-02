@@ -18,7 +18,7 @@ export default function HRIBlocksChart2030() {
   return (
     <div className="max-w-[280px] mx-auto my-3">
       <h2 className="text-center text-sm font-semibold mb-6 text-gray-700">
-        Category Wise Block<br />HRI Baseline 2030 (in %)
+       Category wise Block’s HRI
       </h2>
 
       <div className="space-y-4">

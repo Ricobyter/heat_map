@@ -21,7 +21,6 @@ const Header1 = () => {
         setIsPreparedDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -37,52 +36,38 @@ const Header1 = () => {
     setIsMenuOpen(false);
   };
 
-  // Handle language change
+  // No import, so no handlePDFDownload function needed anymore
+
+  // Language change handler remains unchanged
   const handleLanguageChange = (lang) => {
     if (lang === selectedLang) return;
 
     setSelectedLang(lang);
-    
+
     if (lang === 'en') {
-      // Reset to English by reloading page
-      // Clear Google Translate cookies
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      
-      // Clear hash
       if (window.location.hash.includes('googtrans')) {
         window.history.replaceState("", document.title, window.location.pathname + window.location.search);
       }
-      
-      // Reload to get clean English version
       window.location.reload();
-      
     } else if (lang === 'hi') {
-      // Set the cookie directly for Hindi translation
       document.cookie = 'googtrans=/en/hi; path=/; domain=' + window.location.hostname;
-      
-      // Set the hash
       window.location.hash = '#googtrans(en|hi)';
-      
-      // Reload to apply translation
       window.location.reload();
     }
   };
 
-  // Initialize Google Translate
   useEffect(() => {
-    // Add Google Translate script
     const addScript = () => {
-      // Remove existing script if any
       const existingScript = document.querySelector('script[src*="translate.google.com"]');
       if (existingScript) {
         existingScript.remove();
       }
-
       const script = document.createElement('script');
       script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
       script.async = true;
-      
+
       window.googleTranslateElementInit = () => {
         new window.google.translate.TranslateElement({
           pageLanguage: 'en',
@@ -97,11 +82,10 @@ const Header1 = () => {
 
     addScript();
 
-    // Check current translation state
     setTimeout(() => {
       const hash = window.location.hash;
       const cookie = document.cookie;
-      
+
       if (hash.includes('googtrans') && hash.includes('hi') ||
           cookie.includes('googtrans=/en/hi') ||
           document.body.classList.contains('translated-ltr')) {
@@ -112,7 +96,6 @@ const Header1 = () => {
     }, 1000);
   }, []);
 
-  // Location functionality
   const getLocationName = async (latitude, longitude) => {
     try {
       const response = await fetch(
@@ -198,10 +181,10 @@ const Header1 = () => {
               <NavLink to="/analytics" className={linkClasses} onClick={handleNavClick}>
                 Analytics
               </NavLink>
-<Link to="/#about" className='text-gray-700 font-medium hover:text-red-600 pb-1' onClick={handleNavClick}>
-  About us
-</Link>
-              
+              <Link to="/#about" className='text-gray-700 font-medium hover:text-red-600 pb-1' onClick={handleNavClick}>
+                About us
+              </Link>
+
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsPreparedDropdownOpen(!isPreparedDropdownOpen)}
@@ -209,10 +192,10 @@ const Header1 = () => {
                   aria-label="Get Prepared Options"
                 >
                   <span>Get Prepared</span>
-                  <FaChevronDown  
+                  <FaChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
                       isPreparedDropdownOpen ? 'rotate-180' : ''
-                    }`} 
+                    }`}
                   />
                 </button>
 
@@ -231,6 +214,19 @@ const Header1 = () => {
                         <div className="text-sm text-gray-500">Official preparedness guide</div>
                       </div>
                     </a>
+                    {/* Use direct public folder URL here */}
+                    <a
+                      href="/get_prepared.pdf"
+                      download="get_prepared.pdf"
+                      className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors"
+                      onClick={() => setIsPreparedDropdownOpen(false)}
+                    >
+                      <FiExternalLink className="w-4 h-4" />
+                      <div>
+                        <div className="font-medium">Get Prepared Doc</div>
+                        <div className="text-sm text-gray-500">Download preparedness guide</div>
+                      </div>
+                    </a>
                   </div>
                 )}
               </div>
@@ -241,7 +237,7 @@ const Header1 = () => {
               {/* Language Dropdown */}
               <div className="flex items-center space-x-2" translate="no">
                 <FiGlobe className="w-4 h-4 text-gray-600" />
-                <select 
+                <select
                   value={selectedLang}
                   onChange={(e) => handleLanguageChange(e.target.value)}
                   className="text-sm border border-gray-300 rounded px-2 py-1 bg-white text-gray-700 focus:outline-none focus:border-gray-400"
@@ -259,8 +255,8 @@ const Header1 = () => {
               </div>
 
               {/* Mobile menu button */}
-              <button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)} 
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden p-2 text-gray-600"
                 translate="no"
               >
@@ -286,7 +282,7 @@ const Header1 = () => {
                 {/* Mobile Language Dropdown */}
                 <div className="flex items-center space-x-2 px-2" translate="no">
                   <FiGlobe className="w-4 h-4 text-gray-600" />
-                  <select 
+                  <select
                     value={selectedLang}
                     onChange={(e) => handleLanguageChange(e.target.value)}
                     className="text-sm border border-gray-300 rounded px-2 py-1 bg-white text-gray-700 focus:outline-none"
@@ -313,23 +309,23 @@ const Header1 = () => {
         .goog-te-banner-frame {
           display: none !important;
         }
-        
+
         body {
           top: 0px !important;
         }
-        
+
         .skiptranslate > iframe {
           display: none !important;
         }
-        
+
         body > .skiptranslate {
           display: none !important;
         }
-        
+
         #google_translate_element {
           display: none !important;
         }
-        
+
         /* This allows the combo to work but keeps it hidden */
         .goog-te-combo {
           position: absolute !important;
@@ -337,7 +333,7 @@ const Header1 = () => {
           opacity: 0 !important;
           visibility: hidden !important;
         }
-        
+
         /* Hide the Google Translate styling but don't disable functionality */
         font[style*="background-color: rgba(0, 0, 0, 0.1)"] {
           background-color: transparent !important;

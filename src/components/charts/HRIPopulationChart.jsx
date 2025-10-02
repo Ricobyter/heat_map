@@ -1,31 +1,31 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
-// --- Areas (km²) for each block
-const areaMap = {
-  "Dhanarua": 279217,
-  "Naubatpur": 279261,
-  "Masaurhi": 207698,
-  "Maner": 370582,
-  "Pandarak": 207698,
-  "Barh": 304787,
-  "Athmalgola": 122195,
-  "Belchhi": 88881,
-  "Khusrupur": 150723,
-  "Fatwah": 277727,
-  "Ghoswari": 100612,
-  "Bihta": 364080,
-  "Sampatchak": 143559,
-  "Punpun": 185575,
-  "Paliganj": 344869,
-  "Bikram": 232889,
-  "Dulhin Bazar": 167870,
-  "Bakhtiyarpur": 316478,
-  "Mokama": 286997,
-  "Patna Sadar": 2767811,
-  "Daniyawan": 100865,
-  "Danapur": 594955,
-  "Phulwari Sharif": 391849
+// --- Population data for each block
+const populationData = {
+  "Dhanarua": 257073,
+  "Naubatpur": 255374,
+  "Masaurhi": 306870,
+  "Maner": 338423,
+  "Pandarak": 191225,
+  "Barh": 276355,
+  "Athmalgola": 112505,
+  "Belchhi": 81837,
+  "Khusrupur": 137680,
+  "Fatwah": 252175,
+  "Ghoswari": 92636,
+  "Bihta": 331329,
+  "Sampatchak": 132170,
+  "Punpun": 170854,
+  "Paliganj": 316779,
+  "Bikram": 212863,
+  "Dulhin Bazar": 154557,
+  "Bakhtiyarpur": 288061,
+  "Mokama": 259696,
+  "Patna Sadar": 2431371,
+  "Daniyawan": 92867,
+  "Danapur": 529556,
+  "Phulwari Sharif": 353269
 };
 
 // --- Data
@@ -40,7 +40,7 @@ const TRACKS = { "Very High": '#f9e0df', High: '#fde7c6', Moderate: '#f5f1cf' };
 
 const toPercent = (n, d) => ((n / d) * 100).toFixed(1);
 
-const CustomTooltip = ({ active, hoveredCategory, chart, title = 'Adaptive Capacity' }) => {
+const CustomTooltip = ({ active, hoveredCategory, chart, title = 'HRI Risk Level' }) => {
   if (!active || !hoveredCategory) return null;
   const info = chart?.[hoveredCategory];
   if (!info) return null;
@@ -52,7 +52,7 @@ const CustomTooltip = ({ active, hoveredCategory, chart, title = 'Adaptive Capac
         {info.percentText} of total population
       </div>
       <div className="mb-1 text-[13px] text-slate-600">
-        {info.areaText} 
+        {info.populationText} lakhs
       </div>
       <div className="text-[11px] leading-snug">{info.items.join(', ')}</div>
     </div>
@@ -63,31 +63,32 @@ export default function HRIPopulationChart() {
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
   const chart = useMemo(() => {
-    const sumCategoryArea = (blocks) =>
-      blocks.reduce((sum, b) => sum + (areaMap[b] || 0), 0);
+    const sumCategoryPopulation = (blocks) =>
+      blocks.reduce((sum, b) => sum + (populationData[b] || 0), 0);
 
-    const totalArea =
-      sumCategoryArea(districtData.Moderate) +
-      sumCategoryArea(districtData.High) +
-      sumCategoryArea(districtData["Very High"]);
+    const totalPopulation =
+      sumCategoryPopulation(districtData.Moderate) +
+      sumCategoryPopulation(districtData.High) +
+      sumCategoryPopulation(districtData["Very High"]);
 
     const build = (key) => {
-      const area = sumCategoryArea(districtData[key]);
-      const percent = toPercent(area, totalArea);
+      const population = sumCategoryPopulation(districtData[key]);
+      const populationInLakhs = population / 100000;
+      const percent = toPercent(population, totalPopulation);
       return {
         key,
-        value: area,
+        value: population,
         color: COLORS[key],
         track: TRACKS[key],
         percentText: `${percent}%`,
-        areaText: area.toFixed(2),
+        populationText: populationInLakhs.toFixed(2),
         items: districtData[key],
-        total: totalArea,
+        total: totalPopulation,
       };
     };
 
     return {
-      total: totalArea,
+      total: totalPopulation,
       "Very High": build("Very High"),
       High: build('High'),
       Moderate: build('Moderate')
@@ -157,7 +158,7 @@ export default function HRIPopulationChart() {
           label={false}
           labelLine={false}
           paddingAngle={padAngle}
-          isAnimationActive
+          isAnimationActive={false}
           stroke="none"
           cornerRadius={10}
           onMouseEnter={handleEnter(cat)}
@@ -173,8 +174,8 @@ export default function HRIPopulationChart() {
 
   return (
     <div className="w-full max-w-sm bg-white">
-                  <h2 className="text-center text-sm font-semibold mb-2">
-        Population by HRI Risk Level
+      <h2 className="text-center text-sm font-semibold mb-2">
+        Population by HRI Risk Level 
       </h2>
       <div className="relative flex items-center justify-center">
         <ResponsiveContainer width={size} height={size}>
