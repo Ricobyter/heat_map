@@ -214,17 +214,17 @@ const Header1 = () => {
                         <div className="text-sm text-gray-500">Official preparedness guide</div>
                       </div>
                     </a>
-                    {/* Use direct public folder URL here */}
                     <a
                       href="/get_prepared.pdf"
-                      download="get_prepared.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors"
                       onClick={() => setIsPreparedDropdownOpen(false)}
                     >
                       <FiExternalLink className="w-4 h-4" />
                       <div>
                         <div className="font-medium">Get Prepared Doc</div>
-                        <div className="text-sm text-gray-500">Download preparedness guide</div>
+                        <div className="text-sm text-gray-500">View preparedness guide</div>
                       </div>
                     </a>
                   </div>
