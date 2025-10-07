@@ -382,7 +382,7 @@ export default function HeatMap({
 
                   {/* Legend */}
                   {
-                    !isHeatDataYear && (
+                    !isHeatDataYear && !showHeatwavePrevention && (
                       <div className="flex flex-row text-xs space-x-2 px-2">
                         <div className="flex flex-col items-center space-y-1">
                           <span className="font-medium">{legendLabels.high}</span>
