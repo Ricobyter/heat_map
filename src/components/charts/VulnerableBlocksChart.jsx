@@ -143,7 +143,7 @@ export default function VulnerableBlocksChart() {
                   }}
                 >
                   <div className="text-xs font-semibold text-gray-700 mb-2">
-                    {label} Blocks ({districts.length})
+                    {label} Vulnerability Blocks ({districts.length})
                   </div>
                   <div className="grid grid-cols-3 gap-0.5">
                     {districts.map((d, i) => (

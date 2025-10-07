@@ -90,7 +90,7 @@ export default function HRIBlocksChart2050() {
                   }}
                 >
                   <div className="text-xs font-semibold text-gray-700 mb-2">
-                    {label} Blocks ({districts.length})
+                    {label} HRI 2050 Blocks ({districts.length})
                   </div>
                   <div className="grid grid-cols-3 gap-1">
                     {districts.map((d, i) => (

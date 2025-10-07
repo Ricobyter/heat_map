@@ -148,7 +148,7 @@ export default function AdaptiveCapacityBlocksChart() {
                   }}
                 >
                   <div className="text-xs font-semibold text-gray-700 mb-2">
-                    {label} Blocks ({districts.length}):
+                    {label} Adaptive Capacity Blocks ({districts.length}):
                   </div>
                   <div className="grid grid-cols-3 gap-1">
                     {districts.map((district, index) => (
