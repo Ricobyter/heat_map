@@ -442,7 +442,7 @@ export default function HeatMap({
                 <div className="border-b border-gray-300 mb-6" />
 
                 {/* Advisory snippet */}
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-4 cursor-pointer">
                   <div className="bg-[#FFFCE8] border-2 border-[#FFEF10] rounded-lg p-3 flex items-center gap-3">
                     <div className="flex items-center justify-center w-8 h-8 bg-[#FFFCE8] rounded">
                       <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
@@ -464,7 +464,7 @@ export default function HeatMap({
                       <a href="http://www.bsdma.org/Know-Your-Risk.aspx?id=6" className="text-[#46b1e1]">Heatwave Advisories devised by BSDMA</a>
                     </h3>
                     <p className="text-sm text-gray-700">
-                      Email: [info@bsdma.org](mailto:info@bsdma.org) • Helpline: 0612-2547232
+                      Email: info@bsdma.org • Helpline: 0612-2547232
                     </p>
                   </div>
                 </div>
@@ -478,9 +478,9 @@ export default function HeatMap({
                 type="button"
                 onClick={() => openReco("about")}
                 aria-label="About these recommendations"
-                className="absolute cursor-pointer top-2 right-2 inline-flex items-center justify-center rounded-full p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400/40"
+                className=" absolute cursor-pointer top-2 right-2 inline-flex items-center justify-center rounded-full p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400/40"
               >
-                <AiOutlineInfoCircle className="w-5 h-5" />
+                <AiOutlineInfoCircle className="w-5 h-5 text-red-600" />
               </button>
 
               <h3 className="text-lg font-semibold text-gray-800 text-center mb-4">Recommendations</h3>
