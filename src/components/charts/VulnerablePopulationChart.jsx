@@ -122,7 +122,7 @@ export default function VulnerablePopulationChart() {
     <div className="max-w-xs mx-auto my-0 relative">
       <h2 className="text-center text-sm font-semibold mb-4">
         Category wise Vulnerable <br />
-        Population (in %)
+        Population 
       </h2>
       <div className="flex justify-center items-end h-45 gap-2">
         {data.map(({ label, value, gradientId, gradientFrom, gradientTo, color }) => {

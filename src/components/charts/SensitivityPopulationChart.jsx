@@ -120,7 +120,7 @@ export default function ExposurePopulationChart() {
   return (
     <div className="max-w-xs mx-auto my-0 relative">
       <h2 className="text-center text-xs font-semibold mb-4">
-        Category Wise Population Falling <br /> in Sensitivity Index (in %)
+        Category Wise Population Falling <br /> in Sensitivity Index 
       </h2>
       <div className="flex justify-center items-end h-45 gap-2">
         {exposureData.map(

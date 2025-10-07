@@ -175,7 +175,7 @@ export default function HRIPopulationChart() {
   return (
     <div className="w-full max-w-sm bg-white">
       <h2 className="text-center text-sm font-semibold mb-2">
-        Population by HRI Risk Level 
+        Category wise Population at risk
       </h2>
       <div className="relative flex items-center justify-center">
         <ResponsiveContainer width={size} height={size}>

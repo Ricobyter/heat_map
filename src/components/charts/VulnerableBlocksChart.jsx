@@ -70,7 +70,7 @@ export default function VulnerableBlocksChart() {
   return (
     <div className="max-w-[280px] mx-auto my-8">
       <h2 className="text-center text-sm font-semibold mb-4">
-        Category Wise Block<br />Vulnerability (in %)
+        Category Wise Block<br />Vulnerability 
       </h2>
       <div className="space-y-4">
         {data.map(({ label, value, color, gradientFrom, gradientTo }) => {

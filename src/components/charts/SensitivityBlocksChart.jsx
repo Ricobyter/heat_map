@@ -72,7 +72,7 @@ export default function SensitivityBlocksChart() {
   return (
     <div className="max-w-[280px] mx-auto my-8 h-full">
       <h2 className="text-center text-sm font-semibold mb-6 text-gray-700">
-        Category Wise Block <br />Sensitivity (in %)
+        Category Wise Block <br />Sensitivity 
       </h2>
       <div className="space-y-4">
         {data.map(({ label, value, color, gradientFrom, gradientTo }) => {
@@ -144,7 +144,7 @@ export default function SensitivityBlocksChart() {
                   }}
                 >
                   <div className="text-xs font-semibold text-gray-700 mb-2">
-                    {label} Blocks ({districts.length})
+                    {label} Sensitivity Blocks ({districts.length})
                   </div>
                   <div className="grid grid-cols-3 gap-1">
                     {districts.map((d, i) => (

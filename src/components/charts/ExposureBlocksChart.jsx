@@ -39,7 +39,7 @@ export default function ExposureBlocksChart() {
   return (
     <div className="max-w-[280px] mx-auto my-8">
       <h2 className="text-center text-sm font-semibold mb-6 text-gray-700">
-        Category wise Block<br />Exposure (in %)
+        Category wise Block<br />Exposure 
       </h2>
       <div className="space-y-4">
         {data.map(({ label, value, color, gradientFrom, gradientTo }) => {
