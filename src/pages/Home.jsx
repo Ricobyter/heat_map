@@ -11,6 +11,7 @@ const Home = () => {
   const [selectedLayer, setSelectedLayer] = useState("None");
   const [selectedYear, setSelectedYear] = useState("");
   const [heatDeathYear, setHeatDeathYear] = useState("");
+  const [showHeatwavePrevention, setShowHeatwavePrevention] = useState(false);
 
   
   return (
@@ -22,9 +23,9 @@ const Home = () => {
 
       <div className="flex px-4 mt-4 gap-4">
         <Sidebar mapType={mapType} setMap={setMap} selectedLayer={selectedLayer}
-      setSelectedLayer={setSelectedLayer} selectedYear={selectedYear} setSelectedYear={setSelectedYear} heatDeathYear={heatDeathYear} setHeatDeathYear={setHeatDeathYear} />
+      setSelectedLayer={setSelectedLayer} selectedYear={selectedYear} setSelectedYear={setSelectedYear} heatDeathYear={heatDeathYear} setHeatDeathYear={setHeatDeathYear} showHeatwavePrevention={showHeatwavePrevention} setShowHeatwavePrevention={setShowHeatwavePrevention} />
       
-        <Dashboard mapType={mapType} selectedLayer={selectedLayer} selectedYear={selectedYear} heatDeathYear={heatDeathYear} />
+        <Dashboard mapType={mapType} selectedLayer={selectedLayer} selectedYear={selectedYear} heatDeathYear={heatDeathYear} showHeatwavePrevention={showHeatwavePrevention} />
       </div>
 
     

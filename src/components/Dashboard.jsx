@@ -326,6 +326,7 @@ export default function Dashboard({
   selectedLayer,
   selectedYear,
   heatDeathYear,
+  showHeatwavePrevention = false,
 }) {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
@@ -497,6 +498,7 @@ export default function Dashboard({
               selectedLayer={selectedLayer}
               selectedYear={selectedYear}
               heatDeathYear={heatDeathYear}
+              showHeatwavePrevention={showHeatwavePrevention}
             />
           </div>
         </div>
