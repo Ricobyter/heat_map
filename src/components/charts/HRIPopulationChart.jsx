@@ -46,7 +46,7 @@ const CustomTooltip = ({ active, hoveredCategory, chart, title = 'HRI Risk Level
   if (!info) return null;
 
   return (
-    <div className="bg-white border rounded shadow p-2 text-xs max-w-[260px]">
+    <div className="bg-white border rounded shadow p-2 text-xs max-w-[400px]">
       <div className="font-bold mb-1">{hoveredCategory} {title}</div>
       <div className="mb-1 text-[13px] font-semibold text-slate-600">
         {info.percentText} of total population
@@ -54,7 +54,16 @@ const CustomTooltip = ({ active, hoveredCategory, chart, title = 'HRI Risk Level
       <div className="mb-1 text-[13px] text-slate-600">
         {info.populationText} lakhs
       </div>
-      <div className="text-[11px] leading-snug">{info.items.join(', ')}</div>
+              <div className="text-[9px] leading-snug grid grid-cols-3 gap-1">
+        {info.items.map((block, i) => (
+          <div
+            key={i}
+            className="text-gray-600 px-1 py-0.5 bg-gray-50 rounded"
+          >
+            {block}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

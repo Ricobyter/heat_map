@@ -63,7 +63,16 @@ const CustomTooltip = ({ active, hoveredCategory, chart, title = 'Exposure' }) =
       <div className="mb-1 text-[13px] text-slate-600">
         {info.areaText} km²
       </div>
-      <div className="text-[11px] leading-snug">{info.items.join(', ')}</div>
+              <div className="text-[9px] leading-snug grid grid-cols-3 gap-1">
+        {info.items.map((block, i) => (
+          <div
+            key={i}
+            className="text-gray-600 px-1 py-0.5 bg-gray-50 rounded"
+          >
+            {block}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

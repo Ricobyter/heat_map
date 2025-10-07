@@ -74,7 +74,7 @@ const CustomTooltip = ({ active, payload, label, hoveredCategory, chart }) => {
   if (!info) return null;
 
   return (
-    <div className="bg-white border rounded shadow p-2 text-xs max-w-[260px]">
+    <div className="bg-white border rounded shadow p-1 text-xs max-w-[400px]">
       <div className="font-bold mb-1">{cat} Sensitivity</div>
       <div className="mb-1 text-[13px] font-semibold text-slate-600">
         {info.percentText} of total area
@@ -82,7 +82,16 @@ const CustomTooltip = ({ active, payload, label, hoveredCategory, chart }) => {
       <div className="mb-1 text-[13px] text-slate-600">
         {info.areaText} km²
       </div>
-      <div className="text-[11px] leading-snug">{info.items.join(", ")}</div>
+        <div className="text-[9px] leading-snug grid grid-cols-3 gap-1">
+        {info.items.map((block, i) => (
+          <div
+            key={i}
+            className="text-gray-600 px-1 py-0.5 bg-gray-50 rounded"
+          >
+            {block}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
