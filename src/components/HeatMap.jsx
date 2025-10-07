@@ -28,7 +28,7 @@ function MapTitleWithTooltip({ title }) {
     return (
       <span>
         <Tooltip label="Heat Readiness Index">
-          <span className="underline decoration-dashed underline-offset-2 decoration-blue-600">{match[1]}</span>
+          <span className="font-semibold">{match[1]}</span>
         </Tooltip>
         {match[2]}
       </span>
@@ -444,6 +444,7 @@ export default function HeatMap({
                 {/* Advisory snippet */}
                 <div className="flex items-start gap-4 cursor-pointer">
                   <div className="bg-[#FFFCE8] border-2 border-[#FFEF10] rounded-lg p-3 flex items-center gap-3">
+                   
                     <div className="flex items-center justify-center w-8 h-8 bg-[#FFFCE8] rounded">
                       <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                         <path
