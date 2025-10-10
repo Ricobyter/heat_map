@@ -221,6 +221,37 @@
         }
 
         function geo_json_334db9f7a72c0d257bf740203f113136_onEachFeature(feature, layer) {
+            
+            // Add tooltip functionality
+            let handleObject = (feature, field) => {
+                if (feature === null) {
+                    return '';
+                } else if (typeof(feature)=='object') {
+                    return JSON.stringify(feature);
+                } else if (field === "Total Projected Pop. 2025") {
+                    return (feature / 100000).toFixed(2) + ' lakhs';
+                } else {
+                    return feature;
+                }
+            }
+            
+            let fields = ["Block Name", "Adaptive Capacity Index", "Pop. Density 2025", "Total Projected Pop. 2025"];
+            let aliases = ["Block", "Adaptive Capacity Index", "Density (/sq.km)", "Population 2025"];
+            let table = '<table>' +
+                String(
+                fields.map(
+                (v,i)=>
+                `<tr>
+                    <th>${aliases[i].toLocaleString()}</th>
+                    
+                    <td>${v === "Total Projected Pop. 2025" ? handleObject(layer.feature.properties[v], v) : handleObject(layer.feature.properties[v], v).toLocaleString()}</td>
+                </tr>`).join(''))
+            +'</table>';
+            
+            layer.bindTooltip(table, {
+                "sticky": true,
+                "className": "foliumtooltip"
+            });
 
             layer.on({
                 mouseout: function(e) {

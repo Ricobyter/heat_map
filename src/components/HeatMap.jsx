@@ -142,7 +142,7 @@ export default function HeatMap({
     exposure_index: "/patna_blocks_with_water&sewer_infradetailed.html",
     vulnerability_index: "/vulnerability_index_water_sewer_infrastructure.html",
     sensitivity_index: "/sensitivity_index_water_sewer_infrastructure.html",
-    adaptive_capacity_index: "/adaptive_capacity_water_sewer_infrastructure.html",
+    adaptive_capacity_index: "/adaptive_capacity_index_water_sewer_infrastructure_updated.html",
   };
   const healthFacilitiesMap = {
     exposure_index: "/exposure_index_health_facilities.html",
@@ -157,7 +157,7 @@ export default function HeatMap({
     exposure_index: "/exposure_index_settlements_buildings.html",
     vulnerability_index: "/vulnerability_index_settlements_buildings.html",
     sensitivity_index: "/sensitivity_index_settlements_buildings.html",
-    adaptive_capacity_index: "/adaptive_capacity_settlements_buildings.html",
+    adaptive_capacity_index: "/adaptive_capacity_index_settlements_buildings.html",
   };
   const facilitiesMaps = {
     exposure_index: "/exposure_index_facilities.html",
