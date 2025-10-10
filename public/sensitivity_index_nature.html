@@ -285,11 +285,22 @@
         String(
         fields.map(
         (v,i)=>
-        `<tr>
-            <th>${aliases[i].toLocaleString()}</th>
-            
-            <td>${handleObject(layer.feature.properties[v]).toLocaleString()}</td>
-        </tr>`).join(''))
+        {
+            let value = handleObject(layer.feature.properties[v]);
+            // Convert population to lakhs (divide by 100,000)
+            if (v === "Total Projected Pop. 2025" && !isNaN(parseFloat(value))) {
+                value = (parseFloat(value) / 100000).toFixed(2) + " lakhs";
+            }
+            // Format density to 1 decimal place
+            else if (v === "Pop. Density 2025" && !isNaN(parseFloat(value))) {
+                value = parseFloat(value).toFixed(1);
+            }
+            return `<tr>
+                <th>${aliases[i].toLocaleString()}</th>
+                
+                <td>${value}</td>
+            </tr>`;
+        }).join(''))
     +'</table>';
     div.innerHTML=table;
     

@@ -181,6 +181,8 @@
             // Convert population to lakhs (1 lakh = 100,000)
             let populationInLakhs = (feature / 100000).toFixed(2);
             return populationInLakhs + ' lakhs';
+        } else if (fieldName === "Pop. Density 2025") {
+            return feature.toFixed(1);
         } else {
             return feature;
         }

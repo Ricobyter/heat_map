@@ -176,11 +176,15 @@
     function(layer){
     let div = L.DomUtil.create('div');
     
-    let handleObject = feature => {
+    let handleObject = (feature, fieldName) => {
         if (feature === null) {
             return '';
         } else if (typeof(feature)=='object') {
             return JSON.stringify(feature);
+        } else if (fieldName === "Total Projected Pop. 2025") {
+            return (parseFloat(feature) / 100000).toFixed(2) + " lakhs";
+        } else if (fieldName === "Pop. Density 2025") {
+            return parseFloat(feature).toFixed(1);
         } else {
             return feature;
         }
@@ -194,7 +198,7 @@
         `<tr>
             <th>${aliases[i].toLocaleString()}</th>
             
-            <td>${handleObject(layer.feature.properties[v]).toLocaleString()}</td>
+            <td>${handleObject(layer.feature.properties[v], v).toLocaleString()}</td>
         </tr>`).join(''))
     +'</table>';
     div.innerHTML=table;
