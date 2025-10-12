@@ -229,12 +229,14 @@
                 } else if (typeof(feature)=='object') {
                     return JSON.stringify(feature);
                 } else if (field === "Total Projected Pop. 2025") {
+                    console.log("Converting population:", feature, "to lakhs"); // Debug log
                     return (feature / 100000).toFixed(2) + ' lakhs';
                 } else {
-                    return feature;
+                    return typeof(feature) === 'number' ? feature.toLocaleString() : feature;
                 }
             }
             
+            console.log("Feature properties:", layer.feature.properties); // Debug log
             let fields = ["Block Name", "Adaptive Capacity Index", "Pop. Density 2025", "Total Projected Pop. 2025"];
             let aliases = ["Block", "Adaptive Capacity Index", "Density (/sq.km)", "Population 2025"];
             let table = '<table>' +
@@ -244,7 +246,7 @@
                 `<tr>
                     <th>${aliases[i].toLocaleString()}</th>
                     
-                    <td>${v === "Total Projected Pop. 2025" ? handleObject(layer.feature.properties[v], v) : handleObject(layer.feature.properties[v], v).toLocaleString()}</td>
+                    <td>${handleObject(layer.feature.properties[v], v)}</td>
                 </tr>`).join(''))
             +'</table>';
             
