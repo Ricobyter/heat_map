@@ -50,7 +50,8 @@ const Sidebar = ({
 
 
 
-  const years = [["2030", "2035", "2040", "2050"]];
+  // Layout years in rows for the scenario buttons — include 2025
+  const years = [["2025", "2030"], ["2035", "2040"], ["2050"]];
 
   const subdistricts = [
     "Athmalgola","Bakhtiyarpur","Barh","Belchhi","Bihta","Bikram","Daniyawan","Danapur",

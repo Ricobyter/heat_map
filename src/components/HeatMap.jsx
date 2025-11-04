@@ -211,6 +211,23 @@ export default function HeatMap({
   const heatDeathYear2024 = "/death_blocks_2024_hospitals.html"
   const heatDeathYear2025 = "/death_blocks_2025_hospitals.html"
 
+  // Maps for 2025 scenario (inferred filenames based on project pattern)
+  const maps2025 = {
+    "Roads": "/vulnerability_2025_road-satelllite.html",
+    "Water and Sewer Infrastructure": "/vulnerability_2025_water-sewer-infrastructure_map.html",
+    "Health Facilities": "/2025_health_facilities.html",
+    "Point Of Interest": "/vulnerability_2025_point_of_interest.html",
+    "Settlements and Buildings": "/vulnerability_2025_settlements_buildings.html",
+    "Facilities": "/vulnerabilities_2025_facilities_hri.html",
+    "Residential Densities": "/2025_residential_densities_choropleth_hri.html",
+    "Utilities and Infrastructure": "/vulnerability_2025_utilities_infra_hri.html",
+    "Planning": "/2025_planning_simple_hri.html",
+    "BMA Agriculture": "/2025_agriculture_hri.html",
+    "Nature": "/2025_nature_hri.html",
+    "Waste Management": "/2025_waste_management_hri.html",
+    "None": "/vulnerability_2025_base.html",
+  };
+
   const maps2030 = {
     "Roads": "/vulnerability_2030_road-satelllite.html",
     "Water and Sewer Infrastructure": "/vulnerability_2030_water-sewer-infrastructure_map.html",
@@ -288,6 +305,11 @@ export default function HeatMap({
     // Show heatwave prevention map if requested
     if (showHeatwavePrevention) {
       return { src: "/heatwave_prevention.html", title: "Heatwave Prevention Action Plan" };
+    }
+
+    if (selectedYear === "2025") {
+      const src = maps2025[selectedLayer] || maps2025["None"];
+      return { src, title: "HRI for 2025 Scenario" };
     }
 
     if (selectedYear === "2030") {
