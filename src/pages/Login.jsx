@@ -20,7 +20,7 @@ const Login = () => {
   // ✅ Use useEffect for navigation instead of during render
   useEffect(() => {
     if (isAuthenticated()) {
-      navigate("/simulator");
+      navigate("/analytics");
     }
   }, [isAuthenticated, navigate]);
 
@@ -71,7 +71,7 @@ const Login = () => {
           if (data.data.user.role === "admin") {
             navigate("/admin");
           } else {
-            navigate("/simulator");
+            navigate("/analytics");
           }
         }, 100);
       } else {
@@ -198,3 +198,4 @@ const Login = () => {
 };
 
 export default Login;
+
