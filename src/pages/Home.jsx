@@ -46,7 +46,7 @@ const Home = () => {
               Logout
             </button>
             {isAuthenticated() && user.role === 'admin' && (
-              <Link to="/admin" className="text-sm text-teal-600 font-semibold">Admin</Link>
+              <Link to="/admin" className="text-sm text-teal-600 font-semibold mr-2">Admin</Link>
             )}
           </div>
         ) : (
@@ -74,3 +74,4 @@ const Home = () => {
 };
 
 export default Home;
+
