@@ -177,7 +177,7 @@ const Signup = () => {
     return (
       <div
         className="min-h-[125vh] flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8"
-        style={{ background: "linear-gradient(135deg,#fff4f4 0%,#ffdede 100%)" }}
+        
       >
         <div className="auth-container max-w-md w-full">
           <div className="auth-card bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
@@ -440,5 +440,6 @@ const Signup = () => {
     </div>
   );
 };
+
 
 export default Signup;
