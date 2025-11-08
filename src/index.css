@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap');
+
+
+@import "tailwindcss";
+
+html, body {
+  /* ensure no extra horizontal scroll caused by 100vw-like widths */
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@theme{
+    --font-roboto: 'Roboto', sans-serif;
+    --font-montserrat: 'Montserrat', sans-serif;
+    --font-noto-sans: 'Noto Sans', sans-serif;
+    --font-staatliches: 'Staatliches', sans-serif;
+}
+
+/* Homepage: hide the visible vertical scrollbar while preserving scrolling.
+   We add the `no-vertical-scroll` class to the <body> in `index.html` so this
+   only affects the homepage. This hides the scrollbar visually but keeps
+   vertical scrolling behaviour for keyboard/trackpad/touch users.
+*/
+html.no-vertical-scroll,
+body.no-vertical-scroll {
+  /* keep normal scrolling but hide scrollbar visuals */
+  overflow-y: auto; /* allow scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+/* WebKit-based (Chrome, Safari, Edge) */
+html.no-vertical-scroll::-webkit-scrollbar,
+body.no-vertical-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
