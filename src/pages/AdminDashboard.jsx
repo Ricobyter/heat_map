@@ -500,7 +500,7 @@ const AdminDashboard = () => {
                   Total Users
                 </p>
                 <p className="text-3xl font-bold text-gray-800">
-                  {stats.totalUsers}
+                  {stats.totalUsers - 1}
                 </p>
               </div>
             </div>
@@ -735,3 +735,4 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
